@@ -7,77 +7,259 @@
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Fraunces:wght@700;900&amp;display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'DM Sans', sans-serif; }
-    .heading-font { font-family: 'Fraunces', serif; }
-    .nav-item { transition: all 0.2s; }
-    .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.15); }
+    :root {
+      --forest: #2D5A27;
+      --sage: #A4B494;
+      --cream: #F8F7F3;
+      --sand: #E9E3D8;
+      --charcoal: #2B2B2B;
+      --moss: #6D8B54;
+      --shadow: 0 20px 45px rgba(45, 90, 39, 0.10);
+    }
+
+    body {
+      font-family: 'Inter', 'DM Sans', sans-serif;
+      background: linear-gradient(135deg, #f8f7f3 0%, #f3eee4 100%);
+      color: var(--charcoal);
+    }
+
+    .heading-font {
+      font-family: 'Fraunces', 'SF Pro Display', serif;
+      letter-spacing: -0.02em;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(135deg, rgba(255,255,255,0.45), rgba(233,227,216,0.35));
+    }
+
+    .sidebar {
+      display: none;
+      width: 260px;
+      flex-shrink: 0;
+      background: linear-gradient(180deg, var(--forest) 0%, #22441f 100%);
+      color: white;
+      border-right: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 18px 0 60px rgba(45, 90, 39, 0.12);
+    }
+
+    .mobile-nav {
+      display: flex;
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      justify-content: space-between;
+      gap: 0.35rem;
+      padding: 0.7rem 0.8rem calc(0.7rem + env(safe-area-inset-bottom));
+      background: rgba(248,247,243,0.94);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(45, 90, 39, 0.08);
+      z-index: 40;
+    }
+
+    .nav-item {
+      transition: all 0.2s ease;
+      border-radius: 16px;
+      color: rgba(255,255,255,0.9);
+      font-weight: 600;
+      min-height: 44px;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background: rgba(255,255,255,0.14);
+      transform: translateY(-1px);
+    }
+
+    .mobile-nav .nav-item {
+      color: var(--charcoal);
+      padding: 0.6rem 0.8rem;
+      justify-content: center;
+      flex: 1;
+      background: transparent;
+      border-radius: 999px;
+    }
+
+    .mobile-nav .nav-item:hover, .mobile-nav .nav-item.active {
+      background: rgba(45, 90, 39, 0.10);
+      color: var(--forest);
+    }
+
     .section-page { display: none; }
     .section-page.active { display: block; }
-    .star { cursor: pointer; transition: transform 0.15s; }
-    .star:hover { transform: scale(1.3); }
-    .checkbox-item { transition: background 0.2s, border-color 0.2s; }
-    .checkbox-item.checked { background: #16a34a; border-color: #16a34a; color: white; }
-    .roulette-item { transition: all 0.3s; border: 3px solid transparent; }
-    .roulette-item.highlighted { border-color: #f59e0b; background: #fef3c7; transform: scale(1.08); }
+
+    .section-page > div,
+    .section-page > form,
+    .section-page .content-card {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(45, 90, 39, 0.08);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-page > div {
+      padding: 1.2rem;
+    }
+
+    .section-page > div.p-6,
+    .section-page > div.p-6.md\:p-10 {
+      padding: 1.25rem;
+    }
+
+    .section-heading {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 0.5rem;
+      color: var(--forest);
+      margin-bottom: 1.25rem;
+    }
+
+    .section-heading::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--forest), var(--sage));
+      border-radius: 999px;
+    }
+
+    input, select, textarea, button, .canva-button {
+      transition: all 0.2s ease;
+    }
+
+    input, select, textarea {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid rgba(45, 90, 39, 0.14);
+      border-radius: 14px;
+      padding: 0.8rem 0.95rem;
+      color: var(--charcoal);
+      box-shadow: inset 0 1px 2px rgba(45, 90, 39, 0.03);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: rgba(45, 90, 39, 0.35);
+      box-shadow: 0 0 0 4px rgba(45, 90, 39, 0.10);
+    }
+
+    button, .canva-button {
+      border-radius: 999px;
+      font-weight: 600;
+      box-shadow: 0 8px 20px rgba(45, 90, 39, 0.08);
+    }
+
+    button:hover, .canva-button:hover, .nav-shortcut:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(45, 90, 39, 0.14);
+    }
+
+    .nav-shortcut {
+      border-radius: 20px;
+      background: rgba(255,255,255,0.86);
+      border: 1px solid rgba(45, 90, 39, 0.08);
+      box-shadow: 0 10px 24px rgba(45, 90, 39, 0.08);
+      transition: all 0.2s ease;
+    }
+
+    .star { cursor: pointer; transition: transform 0.15s ease; }
+    .star:hover { transform: scale(1.2); }
+
+    .checkbox-item {
+      transition: all 0.2s ease;
+      border-radius: 16px;
+      border: 1px solid rgba(45, 90, 39, 0.10);
+      background: rgba(255,255,255,0.88);
+      box-shadow: 0 8px 18px rgba(45, 90, 39, 0.04);
+    }
+
+    .checkbox-item.checked {
+      background: linear-gradient(135deg, var(--moss) 0%, var(--forest) 100%);
+      border-color: transparent;
+      color: white;
+    }
+
+    .roulette-item {
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.88);
+      box-shadow: 0 8px 18px rgba(45, 90, 39, 0.04);
+    }
+
+    .roulette-item.highlighted {
+      border-color: var(--forest);
+      background: linear-gradient(135deg, #f4f0e2 0%, #e5ebda 100%);
+      transform: scale(1.03);
+    }
+
     .vh-full { min-height: calc(100 * min(var(--vh, 1vh), 1vh)); }
-    .section-heading { position: relative; display: inline-block; padding-bottom: 0.5rem; }
-    .section-heading::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #1a2e1a, #0d9488); border-radius: 2px; }
+
+    @media (min-width: 768px) {
+      .app-shell { flex-direction: row; }
+      .sidebar { display: flex; flex-direction: column; padding: 1rem 0.9rem; }
+      .mobile-nav { display: none; }
+      main { flex: 1; }
+      .section-page > div { padding: 1.5rem; }
+    }
   </style>
   <script src="/_sdk/04cc6185e046f597.resizing_sdk.js" type="text/javascript" integrity="sha512-CiE/G92aQF0nxneFg1kdOvXih8sQ1Z2a2QI3+r/WvzJwQqH6+IyB3iL07OkJmpm3ABAaf07+FnqWny98f5sR6w=="></script>
  <script src="/_sdk/0e8d3a91e1c6f495.data_sdk.js" integrity="sha512-c00oDoGjsMgluCLLEyVl3suwEkgjOGGplVFbsilUoBg4aMKNmsL3mwsc9r0dPn95qiSZyjBousQXgROkAW7p/w=="></script></head>
- <body data-template-id="__page-root" class="w-full vh-full flex" style="background: rgb(245, 240, 232);"><!-- Sidebar -->
-  <nav data-template-id="sidebar" class="canva-sidebar w-16 md:w-56 flex-shrink-0 flex flex-col py-4 overflow-y-auto" style="background:#1a2e1a;">
-   <div class="px-2 md:px-4 mb-6">
-    <h1 data-template-id="app-title" class="canva-text heading-font hidden md:block text-lg" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 32px;">Camp Companion</h1>
+ <body data-template-id="__page-root" class="w-full vh-full"><div class="app-shell"><!-- Sidebar -->
+  <nav data-template-id="sidebar" class="sidebar canva-sidebar flex-shrink-0 flex flex-col py-4 overflow-y-auto">
+   <div class="px-3 mb-8">
+    <div class="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center mb-3"><i data-lucide="tent-tree" class="w-5 h-5"></i></div>
+    <h1 data-template-id="app-title" class="canva-text heading-font text-lg text-white">Camp Companion</h1>
+    <p class="text-sm text-white/70 mt-1">Plan. Pack. Explore.</p>
    </div>
-   <div class="flex flex-col gap-1 px-2"><button class="nav-item active rounded-lg px-2 md:px-3 py-2 text-left flex items-center gap-2 text-white/90" data-section="cover"><span>🏕</span><span class="hidden md:inline text-sm">Home</span></button> <button class="nav-item rounded-lg px-2 md:px-3 py-2 text-left flex items-center gap-2 text-white/90" data-section="trip"><span>📅</span><span class="hidden md:inline text-sm">Trip Details</span></button> <button class="nav-item rounded-lg px-2 md:px-3 py-2 text-left flex items-center gap-2 text-white/90" data-section="grocery"><span>🛒</span><span class="hidden md:inline text-sm">Meal Planner</span></button> <button class="nav-item rounded-lg px-2 md:px-3 py-2 text-left flex items-center gap-2 text-white/90" data-section="kitchen"><span>🎒</span><span class="hidden md:inline text-sm">Packing List</span></button> <button class="nav-item rounded-lg px-2 md:px-3 py-2 text-left flex items-center gap-2 text-white/90" data-section="roulette"><span>🍽️</span><span class="hidden md:inline text-sm">Roulette</span></button> <button class="nav-item rounded-lg px-2 md:px-3 py-2 text-left flex items-center gap-2 text-white/90" data-section="activities"><span>🎨</span><span class="hidden md:inline text-sm">Activities</span></button> <button class="nav-item rounded-lg px-2 md:px-3 py-2 text-left flex items-center gap-2 text-white/90" data-section="photos"><span>📸</span><span class="hidden md:inline text-sm">Photo Journal</span></button> <button class="nav-item rounded-lg px-2 md:px-3 py-2 text-left flex items-center gap-2 text-white/90" data-section="notes"><span>📝</span><span class="hidden md:inline text-sm">Camp Notes</span></button>
+   <div class="flex flex-col gap-1 px-2"><button class="nav-item active px-3 py-2.5 text-left flex items-center gap-2 rounded-2xl" data-section="cover"><i data-lucide="home" class="w-4 h-4"></i><span class="hidden md:inline text-sm">Home</span></button> <button class="nav-item px-3 py-2.5 text-left flex items-center gap-2 rounded-2xl" data-section="trip"><i data-lucide="calendar-days" class="w-4 h-4"></i><span class="hidden md:inline text-sm">Trip Details</span></button> <button class="nav-item px-3 py-2.5 text-left flex items-center gap-2 rounded-2xl" data-section="grocery"><i data-lucide="shopping-basket" class="w-4 h-4"></i><span class="hidden md:inline text-sm">Meal Planner</span></button> <button class="nav-item px-3 py-2.5 text-left flex items-center gap-2 rounded-2xl" data-section="kitchen"><i data-lucide="backpack" class="w-4 h-4"></i><span class="hidden md:inline text-sm">Packing List</span></button> <button class="nav-item px-3 py-2.5 text-left flex items-center gap-2 rounded-2xl" data-section="activities"><i data-lucide="sparkles" class="w-4 h-4"></i><span class="hidden md:inline text-sm">Activities</span></button> <button class="nav-item px-3 py-2.5 text-left flex items-center gap-2 rounded-2xl" data-section="photos"><i data-lucide="camera" class="w-4 h-4"></i><span class="hidden md:inline text-sm">Photo Journal</span></button> <button class="nav-item px-3 py-2.5 text-left flex items-center gap-2 rounded-2xl" data-section="notes"><i data-lucide="notebook-pen" class="w-4 h-4"></i><span class="hidden md:inline text-sm">Camp Notes</span></button>
    </div>
   </nav>
   <main class="flex-1 overflow-y-auto"><!-- Cover -->
    <section class="section-page active" id="sec-cover">
-    <div class="relative w-full h-64 md:h-80 overflow-hidden"><img data-template-id="hero-image" class="canva-image w-full h-full object-cover" loading="lazy" src="https://images.pexels.com/photos/1687845/pexels-photo-1687845.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1280" alt="Vibrant tents on a grassy mountain ridge with a stunning sunrise view, ideal for adventure.">
-     <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6 md:p-10">
-      <div>
-       <h2 data-template-id="cover-title" class="canva-text heading-font text-white" style="color: rgb(255, 255, 255); font-weight: 900; font-style: normal; font-size: 32px;">Camp Companion</h2>
-       <p data-template-id="cover-subtitle" class="canva-text text-white/80 mt-2" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Plan. Pack. Explore</p>
+    <div class="relative overflow-hidden rounded-[28px] m-4 md:m-6 shadow-[0_24px_50px_rgba(45,90,39,0.12)]"><img data-template-id="hero-image" class="canva-image w-full h-72 md:h-96 object-cover" loading="lazy" src="https://images.pexels.com/photos/1687845/pexels-photo-1687845.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1280" alt="Vibrant tents on a grassy mountain ridge with a stunning sunrise view, ideal for adventure.">
+     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-6 md:p-10">
+      <div class="max-w-2xl">
+       <p class="text-sm uppercase tracking-[0.3em] text-white/80 mb-2">Welcome back</p>
+       <h2 data-template-id="cover-title" class="canva-text heading-font text-white text-3xl md:text-4xl">Camp Companion</h2>
+       <p data-template-id="cover-subtitle" class="canva-text text-white/80 mt-2 text-base">Plan. Pack. Explore.</p>
       </div>
      </div>
     </div>
-    <div class="p-6 md:p-10 grid grid-cols-2 md:grid-cols-3 gap-4"><button class="nav-shortcut rounded-xl p-4 text-center hover:scale-105 transition-transform bg-teal-50 border border-teal-200" data-section="trip">
-      <div class="text-3xl mb-2">
-       📅
+    <div class="mx-4 md:mx-6 mb-4 md:mb-6 grid gap-4 lg:grid-cols-[1.3fr_0.7fr]">
+     <div class="content-card p-5 md:p-6">
+      <div class="flex items-center justify-between mb-4">
+       <div>
+        <p class="text-sm font-semibold uppercase tracking-[0.24em] text-[#6D8B54]">Upcoming trip</p>
+        <h3 class="text-xl font-semibold mt-1">Rocky Mountain Escape</h3>
+       </div>
+       <div class="rounded-full bg-[#E9E3D8] px-3 py-1 text-sm text-[#2D5A27]">3 days away</div>
       </div>
-      <div data-template-id="shortcut-trip" class="canva-text font-medium text-sm" style="color: rgb(13, 148, 136); font-weight: 400; font-style: normal; font-size: 16px;">Trip Details</div></button> <button class="nav-shortcut rounded-xl p-4 text-center hover:scale-105 transition-transform bg-amber-50 border border-amber-200" data-section="grocery">
-      <div class="text-3xl mb-2">
-       🛒
+      <div class="grid sm:grid-cols-3 gap-3 text-sm text-[#4b4b4b]">
+       <div class="rounded-2xl bg-[#F8F7F3] p-3"><p class="text-xs uppercase tracking-[0.2em] text-[#6D8B54]">Weather</p><p class="mt-1 font-semibold">Cool mornings</p></div>
+       <div class="rounded-2xl bg-[#F8F7F3] p-3"><p class="text-xs uppercase tracking-[0.2em] text-[#6D8B54]">Group</p><p class="mt-1 font-semibold">6 campers</p></div>
+       <div class="rounded-2xl bg-[#F8F7F3] p-3"><p class="text-xs uppercase tracking-[0.2em] text-[#6D8B54]">Status</p><p class="mt-1 font-semibold">Almost ready</p></div>
       </div>
-      <div data-template-id="shortcut-grocery" class="canva-text font-medium text-sm" style="color: rgb(146, 64, 14); font-weight: 400; font-style: normal; font-size: 16px;">Meal Planner</div></button> <button class="nav-shortcut rounded-xl p-4 text-center hover:scale-105 transition-transform bg-sky-50 border border-sky-200" data-section="kitchen">
-      <div class="text-3xl mb-2">
-       🎒
+     </div>
+     <div class="content-card p-5 md:p-6">
+      <p class="text-sm font-semibold uppercase tracking-[0.24em] text-[#6D8B54]">Quick actions</p>
+      <div class="mt-4 grid grid-cols-2 gap-3">
+       <button class="nav-shortcut p-4 text-left" data-section="trip"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="calendar-days" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Trip Details</div></button>
+       <button class="nav-shortcut p-4 text-left" data-section="grocery"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="shopping-basket" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Meal Planner</div></button>
+       <button class="nav-shortcut p-4 text-left" data-section="kitchen"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="backpack" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Packing List</div></button>
+       <button class="nav-shortcut p-4 text-left" data-section="activities"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="sparkles" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Activities</div></button>
       </div>
-      <div data-template-id="shortcut-kitchen" class="canva-text font-medium text-sm" style="color: rgb(3, 105, 161); font-weight: 400; font-style: normal; font-size: 16px;">Packing List</div></button> <button class="nav-shortcut rounded-xl p-4 text-center hover:scale-105 transition-transform bg-purple-50 border border-purple-200" data-section="roulette">
-      <div class="text-3xl mb-2">
-       🍽️
-      </div>
-      <div data-template-id="shortcut-roulette" class="canva-text font-medium text-sm" style="color: rgb(217, 119, 6); font-weight: 400; font-style: normal; font-size: 16px;">Roulette</div></button> <button class="nav-shortcut rounded-xl p-4 text-center hover:scale-105 transition-transform bg-orange-50 border border-orange-200" data-section="activities">
-      <div class="text-3xl mb-2">
-       🎨
-      </div>
-      <div data-template-id="shortcut-activities" class="canva-text font-medium text-sm" style="color: rgb(190, 24, 93); font-weight: 400; font-style: normal; font-size: 16px;">Activities</div></button> <button class="nav-shortcut rounded-xl p-4 text-center hover:scale-105 transition-transform bg-pink-50 border border-pink-200" data-section="photos">
-      <div class="text-3xl mb-2">
-       📸
-      </div>
-      <div data-template-id="shortcut-photos" class="canva-text font-medium text-sm" style="color: rgb(217, 70, 239); font-weight: 400; font-style: normal; font-size: 16px;">Photo Journal</div></button> <button class="nav-shortcut rounded-xl p-4 text-center hover:scale-105 transition-transform bg-stone-50 border border-stone-200" data-section="notes">
-      <div class="text-3xl mb-2">
-       📝
-      </div>
-      <div data-template-id="shortcut-notes" class="canva-text font-medium text-sm" style="color: rgb(68, 64, 60); font-weight: 400; font-style: normal; font-size: 16px;">Notes</div></button>
+     </div>
     </div>
    </section><!-- Trip -->
    <section class="section-page" id="sec-trip">
-    <div class="p-6 md:p-10 max-w-2xl">
-     <h2 data-template-id="trip-title" class="canva-text heading-font mb-6 section-heading" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 24px;">Trip Details</h2>
-     <form id="trip-form" class="bg-white rounded-xl border p-5 mb-6 space-y-4">
+    <div class="p-4 md:p-8 max-w-3xl mx-auto">
+     <h2 data-template-id="trip-title" class="canva-text heading-font mb-6 section-heading">Trip Details</h2>
+     <form id="trip-form" class="content-card p-5 md:p-6 mb-6 space-y-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
        <div>
         <label data-template-id="trip-location-label" for="trip-location-input" class="canva-text block text-sm font-medium mb-1" style="color: rgb(55, 65, 81); font-weight: 500; font-style: normal; font-size: 16px;">Location</label><input id="trip-location-input" type="text" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="e.g. Rocky Mountain National Park">
@@ -106,11 +288,11 @@
     </div>
    </section><!-- Recipes & Grocery Combined -->
    <section class="section-page" id="sec-grocery">
-    <div class="p-6 md:p-10 max-w-4xl">
-     <h2 data-template-id="grocery-title" class="canva-text heading-font mb-6 section-heading" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 24px;">Meal Planner</h2><!-- Recipes -->
-     <div class="mb-8">
+    <div class="p-4 md:p-8 max-w-5xl mx-auto">
+     <h2 data-template-id="grocery-title" class="canva-text heading-font mb-6 section-heading">Meal Planner</h2><!-- Recipes -->
+     <div class="content-card p-5 md:p-6 mb-6">
       <h3 data-template-id="recipes-subtitle" class="canva-text font-bold text-lg mb-4" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 19px;">Camp Recipes</h3>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-3" id="recipe-buttons"><button class="recipe-btn rounded-xl p-4 text-center bg-red-50 border border-red-200 hover:scale-105 transition-transform" data-recipe="burgers">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3" id="recipe-buttons"><button class="recipe-btn rounded-[20px] p-4 text-center bg-[#F8F7F3] border border-[#E9E3D8] hover:scale-[1.01] transition-transform" data-recipe="burgers">
         <div class="text-3xl mb-1">
          🍔
         </div>
@@ -183,21 +365,21 @@
        <div id="recipe-detail-content" class="text-sm text-gray-700 space-y-2"></div><button id="add-recipe-to-grocery-btn" type="button" class="mt-4 px-5 py-2 rounded-lg font-medium text-sm bg-emerald-600 hover:bg-emerald-700 text-white">✓ Add Ingredients to Grocery List</button>
       </div>
      </div><!-- Grocery List -->
-     <div class="border-t pt-6">
-      <h3 data-template-id="grocery-list-subtitle" class="canva-text font-bold text-lg mb-4" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 19px;">Grocery List</h3>
-      <div class="flex gap-2 mb-6 items-end">
-       <form id="grocery-form" class="flex gap-2 flex-1"><select id="grocery-cat" class="border rounded-lg px-3 py-2 text-sm"><option>Produce</option><option>Meat</option><option>Pantry</option><option>Refrigerated</option><option>Frozen</option><option>Snacks</option><option>Drinks</option></select> <input id="grocery-item-input" type="text" class="flex-1 border rounded-lg px-3 py-2 text-sm" placeholder="Add item..."> <button data-template-id="add-grocery-btn" type="submit" class="canva-button px-4 py-2 rounded-lg text-sm font-medium" style="background: rgb(26, 46, 26); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Add</button>
-       </form><button id="clear-all-grocery" type="button" class="px-4 py-2 rounded-lg text-sm font-medium bg-red-100 hover:bg-red-200 text-red-700">Clear All</button>
+     <div class="border-t border-[#E9E3D8] pt-6">
+      <h3 data-template-id="grocery-list-subtitle" class="canva-text font-bold text-lg mb-4 text-[#2D5A27]">Grocery List</h3>
+      <div class="flex flex-col sm:flex-row gap-2 mb-6 items-stretch sm:items-end">
+       <form id="grocery-form" class="flex flex-col sm:flex-row gap-2 flex-1"><select id="grocery-cat" class="border rounded-2xl px-3 py-2 text-sm min-w-[140px]"><option>Produce</option><option>Meat</option><option>Pantry</option><option>Refrigerated</option><option>Frozen</option><option>Snacks</option><option>Drinks</option></select> <input id="grocery-item-input" type="text" class="flex-1 border rounded-2xl px-3 py-2 text-sm" placeholder="Add item..."> <button data-template-id="add-grocery-btn" type="submit" class="canva-button px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Add</button>
+       </form><button id="clear-all-grocery" type="button" class="px-4 py-2 rounded-full text-sm font-medium bg-[#F8F7F3] text-[#2D5A27] border border-[#E9E3D8]">Clear All</button>
       </div>
       <div id="grocery-list" class="space-y-6"></div>
      </div>
     </div>
    </section><!-- Packing List -->
    <section class="section-page" id="sec-kitchen">
-    <div class="p-6 md:p-10 max-w-4xl">
-     <h2 data-template-id="kitchen-title" class="canva-text heading-font mb-4 section-heading" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 24px;">Packing List</h2>
+    <div class="p-4 md:p-8 max-w-5xl mx-auto">
+     <h2 data-template-id="kitchen-title" class="canva-text heading-font mb-4 section-heading">Packing List</h2>
      <p data-template-id="kitchen-desc" class="canva-text text-gray-600 mb-6" style="color: rgb(107, 114, 128); font-weight: 400; font-style: normal; font-size: 16px;">Tap items to check them off. Green means packed!</p>
-     <div class="mb-8 p-4 bg-teal-50 rounded-lg border border-teal-200">
+     <div class="mb-8 p-4 bg-[#F8F7F3] rounded-2xl border border-[#E9E3D8]">
       <h3 class="text-sm font-semibold text-gray-700 mb-3">Weather-Based Suggestions</h3>
       <div class="flex flex-col md:flex-row gap-3">
        <div class="flex-1">
@@ -205,26 +387,26 @@
        </div><button id="apply-weather-btn" type="button" class="px-4 py-2 rounded-lg text-sm font-medium bg-teal-600 hover:bg-teal-700 text-white h-fit">Apply Suggestions</button>
       </div>
      </div>
-     <form id="custom-item-form" class="mb-6 flex gap-2">
-      <input id="custom-item-input" type="text" class="flex-1 border rounded-lg px-3 py-2 text-sm" placeholder="Add custom item..."> <input id="custom-item-quantity" type="text" class="w-20 border rounded-lg px-3 py-2 text-sm" placeholder="Qty"> <select id="custom-item-category" class="border rounded-lg px-3 py-2 text-sm"> <option value="">Category</option> <option value="Clothing">Clothing</option> <option value="Gear">Gear</option> <option value="Kitchen">Kitchen</option> <option value="Toiletries">Toiletries</option> <option value="Safety">Safety</option> </select> <button data-template-id="add-custom-item-btn" type="submit" class="canva-button px-4 py-2 rounded-lg text-sm font-medium" style="background: rgb(26, 46, 26); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Add Item</button>
+     <form id="custom-item-form" class="mb-6 flex flex-col sm:flex-row gap-2">
+      <input id="custom-item-input" type="text" class="flex-1 border rounded-2xl px-3 py-2 text-sm" placeholder="Add custom item..."> <input id="custom-item-quantity" type="text" class="w-full sm:w-20 border rounded-2xl px-3 py-2 text-sm" placeholder="Qty"> <select id="custom-item-category" class="border rounded-2xl px-3 py-2 text-sm"> <option value="">Category</option> <option value="Clothing">Clothing</option> <option value="Gear">Gear</option> <option value="Kitchen">Kitchen</option> <option value="Toiletries">Toiletries</option> <option value="Safety">Safety</option> </select> <button data-template-id="add-custom-item-btn" type="submit" class="canva-button px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Add Item</button>
      </form>
      <div id="kitchen-list" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
     </div>
    </section><!-- Activities -->
    <section class="section-page" id="sec-activities">
-    <div class="p-6 md:p-10 max-w-3xl">
-     <h2 data-template-id="activities-title" class="canva-text heading-font mb-4 section-heading" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 24px;">Activities</h2>
+    <div class="p-4 md:p-8 max-w-5xl mx-auto">
+     <h2 data-template-id="activities-title" class="canva-text heading-font mb-4 section-heading">Activities</h2>
      <p data-template-id="activities-desc" class="canva-text text-gray-600 mb-6" style="color: rgb(107, 114, 128); font-weight: 400; font-style: normal; font-size: 16px;">Plan activities and entertainment for the trip.</p>
-     <div class="mb-8">
-      <h3 class="text-sm font-semibold text-gray-700 mb-3">Activity Library</h3>
+     <div class="content-card p-5 md:p-6 mb-6">
+      <h3 class="text-sm font-semibold uppercase tracking-[0.24em] text-[#6D8B54] mb-3">Activity Library</h3>
       <div id="activity-library" class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6"></div>
      </div>
-     <div class="mb-6 pb-6 border-t pt-6">
-      <h3 class="text-sm font-semibold text-gray-700 mb-3">Add Custom Activity</h3>
-      <form id="activity-form" class="flex gap-2"><input id="activity-input" type="text" class="flex-1 border rounded-lg px-3 py-2 text-sm" placeholder="e.g. Bonfire, Scavenger hunt..."> <button data-template-id="add-activity-btn" type="submit" class="canva-button px-4 py-2 rounded-lg text-sm font-medium" style="background: rgb(26, 46, 26); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Add</button>
+     <div class="mb-6 pb-6 border-t border-[#E9E3D8] pt-6">
+      <h3 class="text-sm font-semibold uppercase tracking-[0.24em] text-[#6D8B54] mb-3">Add Custom Activity</h3>
+      <form id="activity-form" class="flex flex-col sm:flex-row gap-2"><input id="activity-input" type="text" class="flex-1 border rounded-2xl px-3 py-2 text-sm" placeholder="e.g. Bonfire, Scavenger hunt..."> <button data-template-id="add-activity-btn" type="submit" class="canva-button px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Add</button>
       </form>
      </div>
-     <div class="mb-8 pb-6 border-t pt-6">
+     <div class="mb-8 pb-6 border-t border-[#E9E3D8] pt-6">
       <h3 class="text-lg font-bold mb-4 heading-font">Can't Decide?</h3>
       <p class="text-gray-600 text-sm mb-6">Close your eyes... tap the button... eat what it picks!</p>
       <div id="roulette-grid" class="grid grid-cols-3 gap-3 mb-8">
@@ -275,16 +457,16 @@
       </div><button id="roulette-spin" type="button" class="w-full px-8 py-3 rounded-full font-bold text-lg bg-amber-400 hover:bg-amber-500 text-white"><i data-lucide="shuffle" style="display:inline-block;width:24px;height:24px;margin-right:6px;vertical-align:middle;"></i>Shuffle</button>
      </div>
      <div>
-      <h3 class="text-sm font-semibold text-gray-700 mb-3">Planned Activities</h3>
+      <h3 class="text-sm font-semibold uppercase tracking-[0.24em] text-[#6D8B54] mb-3">Planned Activities</h3>
       <div id="activity-list" class="space-y-3"></div>
      </div>
     </div>
    </section><!-- Photo Journal -->
    <section class="section-page" id="sec-photos">
-    <div class="p-6 md:p-10 max-w-4xl">
-     <h2 data-template-id="photos-title" class="canva-text heading-font mb-4 section-heading" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 24px;">Photo Journal</h2>
+    <div class="p-4 md:p-8 max-w-5xl mx-auto">
+     <h2 data-template-id="photos-title" class="canva-text heading-font mb-4 section-heading">Photo Journal</h2>
      <p data-template-id="photos-desc" class="canva-text text-gray-600 mb-6" style="color: rgb(107, 114, 128); font-weight: 400; font-style: normal; font-size: 16px;">Capture and organize your favorite camp memories.</p>
-     <form id="photo-form" class="mb-8 p-4 bg-white rounded-lg border">
+     <form id="photo-form" class="mb-8 p-4 bg-white/85 rounded-[24px] border border-[#E9E3D8] shadow-[0_10px_25px_rgba(45,90,39,0.06)]">
       <div class="flex flex-col md:flex-row gap-3 mb-4">
        <div class="flex-1">
         <label for="photo-caption" class="text-xs font-semibold text-gray-700 block mb-1">Caption</label> <input id="photo-caption" type="text" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="e.g. Morning hike at sunset">
@@ -296,14 +478,14 @@
       <div class="mb-4">
        <label for="photo-image-url" class="text-xs font-semibold text-gray-700 block mb-1">Image URL</label> <input id="photo-image-url" type="text" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="https://...">
        <p class="text-xs text-gray-500 mt-2"><b>How to get a link:</b> Google Photos (share button → copy link), iCloud (right-click → copy link), or any cloud storage service. Paste the full URL here.</p>
-      </div><button data-template-id="add-photo-btn" type="submit" class="canva-button px-4 py-2 rounded-lg text-sm font-medium" style="background: rgb(26, 46, 26); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Add Photo</button>
+      </div><button data-template-id="add-photo-btn" type="submit" class="canva-button px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Add Photo</button>
      </form>
      <div id="photo-gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </div>
    </section><!-- Notes -->
    <section class="section-page" id="sec-notes">
-    <div class="p-6 md:p-10 max-w-2xl">
-     <h2 data-template-id="camp-notes-title" class="canva-text heading-font mb-4 section-heading" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 24px;">Camp Notes</h2><textarea id="notes-area" class="w-full h-64 border rounded-xl p-4 text-sm resize-none" placeholder="Write your camp notes here..."></textarea>
+    <div class="p-4 md:p-8 max-w-3xl mx-auto">
+     <h2 data-template-id="camp-notes-title" class="canva-text heading-font mb-4 section-heading">Camp Notes</h2><textarea id="notes-area" class="w-full h-64 rounded-2xl p-4 text-sm resize-none border border-[#E9E3D8] bg-white/90" placeholder="Write your camp notes here..."></textarea>
     </div>
    </section>
   </main>
