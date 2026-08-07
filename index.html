@@ -700,7 +700,12 @@
       <div class="mb-4">
        <label for="photo-image-url" class="text-xs font-semibold text-gray-700 block mb-1">Image URL</label> <input id="photo-image-url" type="text" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="https://...">
        <p class="text-xs text-gray-500 mt-2"><b>How to get a link:</b> Google Photos (share button → copy link), iCloud (right-click → copy link), or any cloud storage service. Paste the full URL here.</p>
-      </div><button data-template-id="add-photo-btn" type="submit" class="canva-button px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Add Photo</button>
+        </div>
+        <div class="mb-5">
+         <label for="photo-image-file" class="text-xs font-semibold text-gray-700 block mb-1">Upload Photo</label>
+         <input id="photo-image-file" type="file" accept="image/*" class="w-full border rounded-lg px-3 py-2 text-sm bg-white">
+         <p class="text-xs text-gray-500 mt-2">Choose an image from your device instead of pasting a link. Smaller images will save more reliably in browser storage.</p>
+        </div><button data-template-id="add-photo-btn" type="submit" class="canva-button px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Add Photo</button>
      </form>
      <div id="photo-gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </div>
@@ -744,6 +749,15 @@
 
     function createLocalId() {
       return 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
+    }
+
+    function readFileAsDataUrl(file) {
+      return new Promise(function(resolve, reject) {
+        var reader = new FileReader();
+        reader.onload = function() { resolve(reader.result); };
+        reader.onerror = function() { reject(reader.error || new Error('Unable to read file.')); };
+        reader.readAsDataURL(file);
+      });
     }
 
     function applyRecipeCardIcons() {
@@ -1936,20 +1950,31 @@
       var caption = document.getElementById('photo-caption').value.trim();
       var date = document.getElementById('photo-date').value.trim();
       var imageUrl = document.getElementById('photo-image-url').value.trim();
-      if (!caption || !imageUrl) return;
+      var imageFileInput = document.getElementById('photo-image-file');
+      var imageFile = imageFileInput && imageFileInput.files ? imageFileInput.files[0] : null;
+      if (!caption || (!imageUrl && !imageFile)) return;
       var btn = this.querySelector('[data-template-id="add-photo-btn"]');
       btn.disabled = true;
-      var result = await window.dataSdk.create({
-        section: 'photo', meal_name: caption, day: date, meal_type: '', cooking_method: '',
-        difficulty: '', rating: 0, would_make_again: false, notes: imageUrl,
-        checked: false, category: '', item_name: '',
-        quantity: '', activity_name: '', location: '', dates: ''
-      });
-      btn.disabled = false;
-      if (result.isOk) {
-        document.getElementById('photo-caption').value = '';
-        document.getElementById('photo-date').value = '';
-        document.getElementById('photo-image-url').value = '';
+      try {
+        var imageSource = imageUrl;
+        if (!imageSource && imageFile) {
+          imageSource = await readFileAsDataUrl(imageFile);
+        }
+        var result = await createDataItem({
+          section: 'photo', meal_name: caption, day: date, meal_type: '', cooking_method: '',
+          difficulty: '', rating: 0, would_make_again: false, notes: imageSource,
+          checked: false, category: '', item_name: '',
+          quantity: '', activity_name: '', location: '', dates: ''
+        });
+        if (result.isOk) {
+          document.getElementById('photo-caption').value = '';
+          document.getElementById('photo-date').value = '';
+          document.getElementById('photo-image-url').value = '';
+          if (imageFileInput) imageFileInput.value = '';
+          renderPhotos();
+        }
+      } finally {
+        btn.disabled = false;
       }
     });
 
@@ -1966,7 +1991,10 @@
       container.querySelectorAll('[data-delete-photo]').forEach(function(btn) {
         btn.addEventListener('click', async function() {
           var item = allData.find(function(d) { return d.__backendId === btn.dataset.deletePhoto; });
-          if (item) await window.dataSdk.delete(item);
+          if (item) {
+            await deleteDataItem(item);
+            renderPhotos();
+          }
         });
       });
     }
