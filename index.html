@@ -263,15 +263,11 @@
       <div class="flex items-center justify-between mb-4">
        <div>
         <p class="text-sm font-semibold uppercase tracking-[0.24em] text-[#6D8B54]">Upcoming trip</p>
-        <h3 class="text-xl font-semibold mt-1">Rocky Mountain Escape</h3>
+        <h3 class="text-xl font-semibold mt-1">Your next getaway</h3>
        </div>
-       <div class="rounded-full bg-[#E9E3D8] px-3 py-1 text-sm text-[#2D5A27]">3 days away</div>
+       <button type="button" class="rounded-full bg-[#E9E3D8] px-3 py-1 text-sm text-[#2D5A27]" data-section="trip">Edit</button>
       </div>
-      <div class="grid sm:grid-cols-3 gap-3 text-sm text-[#4b4b4b]">
-       <div class="rounded-[20px] bg-[#F8F7F3] p-3"><p class="text-xs uppercase tracking-[0.2em] text-[#6D8B54]">Weather</p><p class="mt-1 font-semibold">Cool mornings</p></div>
-       <div class="rounded-[20px] bg-[#F8F7F3] p-3"><p class="text-xs uppercase tracking-[0.2em] text-[#6D8B54]">Group</p><p class="mt-1 font-semibold">6 campers</p></div>
-       <div class="rounded-[20px] bg-[#F8F7F3] p-3"><p class="text-xs uppercase tracking-[0.2em] text-[#6D8B54]">Status</p><p class="mt-1 font-semibold">Almost ready</p></div>
-      </div>
+      <div id="home-trip-content" class="space-y-3"></div>
      </div>
     </div>
    </section><!-- Trip -->
@@ -541,10 +537,27 @@
       }
     });
 
+    function renderHomeTripCard() {
+      var container = document.getElementById('home-trip-content');
+      if (!container) return;
+      var trips = allData.filter(function(d) { return d.section === 'trip'; });
+      var latestTrip = trips[trips.length - 1] || null;
+      if (!latestTrip) {
+        container.innerHTML = '<div class="rounded-[20px] bg-[#F8F7F3] p-4 text-sm text-[#4b4b4b]">No trip saved yet. Add one in Trip Details and it will appear here.</div>';
+        return;
+      }
+      var dates = (latestTrip.dates || '').split('|');
+      var startDate = dates[0] || '';
+      var endDate = dates[1] || '';
+      var dateLabel = startDate && endDate ? startDate + ' to ' + endDate : (startDate || 'Tap to set dates');
+      var notes = latestTrip.notes || '';
+      container.innerHTML = '<div class="rounded-[20px] bg-[#F8F7F3] p-4 space-y-2"><div class="font-semibold text-lg text-[#2B2B2B]">' + (latestTrip.location || 'Trip details') + '</div><div class="text-sm text-[#4b4b4b]">' + dateLabel + '</div>' + (notes ? '<div class="text-sm text-[#4b4b4b] leading-relaxed">' + notes + '</div>' : '') + '<div class="pt-1 text-sm font-medium text-[#2D5A27]">Tap to edit this trip</div></div>';
+    }
+
     function renderTrips() {
       var trips = allData.filter(function(d) { return d.section === 'trip'; });
       var container = document.getElementById('trip-list');
-      if (!trips.length) { container.innerHTML = '<p class="text-gray-400 text-center py-4">No trips planned yet</p>'; return; }
+      if (!trips.length) { container.innerHTML = '<p class="text-gray-400 text-center py-4">No trips planned yet</p>'; renderHomeTripCard(); return; }
       container.innerHTML = trips.map(function(t) {
         var dates = (t.dates || '').split('|');
         var rating = t.rating || 0;
@@ -582,6 +595,8 @@
           if (item) await window.dataSdk.delete(item);
         });
       });
+
+      renderHomeTripCard();
     }
 
     // Grocery
