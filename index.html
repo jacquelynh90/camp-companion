@@ -776,19 +776,30 @@
   <script>
     const navBtns = document.querySelectorAll('[data-section]');
     const sections = document.querySelectorAll('.section-page');
+    const activeSectionStorageKey = 'camp-companion-active-section-v1';
 
     function showSection(id) {
+      const resolvedId = id && document.getElementById('sec-' + id) ? id : 'cover';
       sections.forEach(s => s.classList.remove('active'));
-      const target = document.getElementById('sec-' + id);
+      const target = document.getElementById('sec-' + resolvedId);
       if (target) target.classList.add('active');
       document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.nav-item[data-section="'+id+'"]').forEach(b => b.classList.add('active'));
+      document.querySelectorAll('.nav-item[data-section="'+resolvedId+'"]').forEach(b => b.classList.add('active'));
+      try {
+        localStorage.setItem(activeSectionStorageKey, resolvedId);
+      } catch (e) {}
     }
 
     navBtns.forEach(btn => btn.addEventListener('click', function() { showSection(this.dataset.section); }));
     
     // Remove roulette from nav if present
     document.querySelectorAll('[data-section="roulette"]').forEach(el => el.remove());
+
+    try {
+      showSection(localStorage.getItem(activeSectionStorageKey) || 'cover');
+    } catch (e) {
+      showSection('cover');
+    }
 
     const localDataStorageKey = 'camp-companion-local-data-v1';
 
