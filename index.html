@@ -337,20 +337,61 @@
       <h3 class="text-sm font-semibold text-gray-700 mb-3">Weather-Based Suggestions</h3>
       <div class="flex flex-col md:flex-row gap-3">
        <div class="flex-1">
-        <label for="packing-weather-select" class="text-xs text-gray-600 block mb-1">Select conditions:</label> <select id="packing-weather-select" class="w-full border rounded-lg px-3 py-2 text-sm"> <option value="">-- Choose weather --</option> <option value="hot">Hot &amp; Sunny</option> <option value="cold">Cold &amp; Snowy</option> <option value="rainy">Rainy &amp; Damp</option> <option value="windy">Windy &amp; Dry</option> </select>
-       </div><button id="apply-weather-btn" type="button" class="px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white h-fit">Apply Suggestions</button>
+        <label for="packing-weather-select" class="text-xs text-gray-600 block mb-1">Select conditions:</label>
+        <select id="packing-weather-select" class="w-full border rounded-lg px-3 py-2 text-sm">
+         <option value="">-- Choose weather --</option>
+         <option value="hot">Hot &amp; Sunny</option>
+         <option value="cold">Cold &amp; Snowy</option>
+         <option value="rainy">Rainy &amp; Damp</option>
+         <option value="windy">Windy &amp; Dry</option>
+        </select>
+       </div>
+       <div class="flex flex-col sm:flex-row gap-2">
+        <button id="apply-weather-btn" type="button" class="px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white h-fit">Apply Suggestions</button>
+        <button id="clear-weather-btn" type="button" class="px-4 py-2 rounded-full text-sm font-medium bg-[#F8F7F3] text-[#2D5A27] border border-[#E9E3D8] h-fit">Clear Weather</button>
+       </div>
       </div>
      </div>
-     <form id="custom-item-form" class="mb-6 flex flex-col sm:flex-row gap-2">
-      <input id="custom-item-input" type="text" class="flex-1 border rounded-2xl px-3 py-2 text-sm" placeholder="Add custom item..."> <input id="custom-item-quantity" type="text" class="w-full sm:w-20 border rounded-2xl px-3 py-2 text-sm" placeholder="Qty"> <select id="custom-item-category" class="border rounded-2xl px-3 py-2 text-sm"> <option value="">Category</option> <option value="Clothing">Clothing</option> <option value="Gear">Gear</option> <option value="Kitchen">Kitchen</option> <option value="Toiletries">Toiletries</option> <option value="Safety">Safety</option> </select> <button data-template-id="add-custom-item-btn" type="submit" class="canva-button px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Add Item</button>
-     </form>
-     <div id="kitchen-list" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+     <div class="mb-6 flex flex-col sm:flex-row gap-2">
+      <form id="custom-item-form" class="flex flex-col sm:flex-row gap-2 flex-1">
+       <input id="custom-item-input" type="text" class="flex-1 border rounded-2xl px-3 py-2 text-sm" placeholder="Add custom item...">
+       <input id="custom-item-quantity" type="text" class="w-full sm:w-20 border rounded-2xl px-3 py-2 text-sm" placeholder="Qty">
+       <select id="custom-item-category" class="border rounded-2xl px-3 py-2 text-sm">
+        <option value="">Category</option>
+        <option value="Shelter & Sleep">Shelter &amp; Sleep</option>
+        <option value="Kitchen & Cooking">Kitchen &amp; Cooking</option>
+        <option value="Clothing">Clothing</option>
+        <option value="Toiletries">Toiletries</option>
+        <option value="Safety & Personal">Safety &amp; Personal</option>
+        <option value="Camp Comfort">Camp Comfort</option>
+       </select>
+       <button data-template-id="add-custom-item-btn" type="submit" class="canva-button px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Add Item</button>
+      </form>
+      <button id="reset-packing-list-btn" type="button" class="px-4 py-2 rounded-full text-sm font-medium bg-[#F8F7F3] text-[#2D5A27] border border-[#E9E3D8]">Reset Packing List</button>
+     </div>
+     <div id="packing-list" class="space-y-6"></div>
     </div>
    </section><!-- Activities -->
    <section class="section-page" id="sec-activities">
     <div class="p-4 md:p-8 max-w-5xl mx-auto">
      <h2 data-template-id="activities-title" class="canva-text heading-font mb-4 section-heading">Activities</h2>
      <p data-template-id="activities-desc" class="canva-text text-gray-600 mb-6" style="color: rgb(107, 114, 128); font-weight: 400; font-style: normal; font-size: 16px;">Plan activities and entertainment for the trip.</p>
+     <div class="content-card p-5 md:p-6 mb-6">
+      <h3 class="text-sm font-semibold uppercase tracking-[0.24em] text-[#6D8B54] mb-3">Find Activities Near This Trip</h3>
+      <p class="text-sm text-gray-600 mb-4">Use the saved trip location to discover nearby parks, attractions, food, and outdoor stops.</p>
+      <div class="flex flex-col sm:flex-row gap-2 mb-4">
+       <button id="find-nearby-activities-btn" type="button" class="px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Find Activities Near This Trip</button>
+      </div>
+      <div class="flex flex-wrap gap-2 mb-4">
+       <button type="button" class="activity-nearby-filter-btn rounded-full border border-[#E9E3D8] px-3 py-1 text-xs font-medium text-[#2B2B2B] bg-white" data-activity-nearby-filter="all">All</button>
+       <button type="button" class="activity-nearby-filter-btn rounded-full border border-[#E9E3D8] px-3 py-1 text-xs font-medium text-[#2B2B2B] bg-white" data-activity-nearby-filter="outdoors">Outdoors</button>
+       <button type="button" class="activity-nearby-filter-btn rounded-full border border-[#E9E3D8] px-3 py-1 text-xs font-medium text-[#2B2B2B] bg-white" data-activity-nearby-filter="family">Family</button>
+       <button type="button" class="activity-nearby-filter-btn rounded-full border border-[#E9E3D8] px-3 py-1 text-xs font-medium text-[#2B2B2B] bg-white" data-activity-nearby-filter="water">Water Activities</button>
+       <button type="button" class="activity-nearby-filter-btn rounded-full border border-[#E9E3D8] px-3 py-1 text-xs font-medium text-[#2B2B2B] bg-white" data-activity-nearby-filter="food">Food</button>
+       <button type="button" class="activity-nearby-filter-btn rounded-full border border-[#E9E3D8] px-3 py-1 text-xs font-medium text-[#2B2B2B] bg-white" data-activity-nearby-filter="attractions">Attractions</button>
+      </div>
+      <div id="nearby-activities-results" class="space-y-3"></div>
+     </div>
      <div class="content-card p-5 md:p-6 mb-6">
       <h3 class="text-sm font-semibold uppercase tracking-[0.24em] text-[#6D8B54] mb-3">Activity Library</h3>
       <div id="activity-library" class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6"></div>
@@ -507,45 +548,63 @@
     function refreshViews() {
       renderTrips();
       renderGrocery();
-      renderKitchen();
+      renderPackingList();
       renderActivities();
       renderPhotos();
     }
 
-    // Weather suggestions for packing
-    const weatherSuggestions = {
-      hot: ['Sunscreen', 'Hat', 'Sunglasses', 'Light clothing', 'Extra water', 'Cooling towel'],
-      cold: ['Winter coat', 'Gloves', 'Warm hat', 'Thick socks', 'Thermal underwear', 'Hand warmers'],
-      rainy: ['Rain jacket', 'Waterproof bag', 'Waterproof boots', 'Extra socks', 'Umbrella', 'Towels'],
-      windy: ['Wind jacket', 'Hat with strap', 'Lip balm', 'Moisturizer', 'Sunglasses', 'Extra layers']
+    const weatherSuggestionCatalog = {
+      hot: [
+        { name: 'Extra drinking water', category: 'Kitchen & Cooking' },
+        { name: 'Cooling towel', category: 'Camp Comfort' },
+        { name: 'Sunglasses', category: 'Clothing' },
+        { name: 'Sun hat', category: 'Clothing' },
+        { name: 'Aloe vera', category: 'Toiletries' },
+        { name: 'Lightweight breathable clothing', category: 'Clothing' }
+      ],
+      cold: [
+        { name: 'Insulated coat', category: 'Clothing' },
+        { name: 'Thermal base layers', category: 'Clothing' },
+        { name: 'Warm hat', category: 'Clothing' },
+        { name: 'Gloves', category: 'Clothing' },
+        { name: 'Thick socks', category: 'Clothing' },
+        { name: 'Hand warmers', category: 'Safety & Personal' },
+        { name: 'Extra blankets', category: 'Shelter & Sleep' },
+        { name: 'Snow boots', category: 'Clothing' }
+      ],
+      rainy: [
+        { name: 'Waterproof boots', category: 'Clothing' },
+        { name: 'Poncho', category: 'Clothing' },
+        { name: 'Waterproof bags', category: 'Kitchen & Cooking' },
+        { name: 'Extra socks', category: 'Clothing' },
+        { name: 'Additional towels', category: 'Toiletries' },
+        { name: 'Tent seam sealer', category: 'Shelter & Sleep' },
+        { name: 'Canopy or rain shelter', category: 'Shelter & Sleep' }
+      ],
+      windy: [
+        { name: 'Windbreaker', category: 'Clothing' },
+        { name: 'Extra tent stakes', category: 'Shelter & Sleep' },
+        { name: 'Guy lines', category: 'Shelter & Sleep' },
+        { name: 'Lip balm', category: 'Toiletries' },
+        { name: 'Moisturizer', category: 'Toiletries' },
+        { name: 'Protective eyewear', category: 'Safety & Personal' }
+      ]
     };
 
-    const weatherItemsMarker = '__weather_suggestion__';
-    document.getElementById('apply-weather-btn').addEventListener('click', async function() {
+    document.getElementById('packing-weather-select').addEventListener('change', function() {
+      if (!this.value) {
+        applyWeatherSuggestions('');
+      }
+    });
+
+    document.getElementById('apply-weather-btn').addEventListener('click', function() {
       const weather = document.getElementById('packing-weather-select').value;
-      if (!weather || !weatherSuggestions[weather]) return;
-      this.disabled = true;
-      
-      // Remove previously added weather suggestion items
-      const existingWeatherItems = allData.filter(function(d) { return d.section === 'kitchen' && d.notes === weatherItemsMarker; });
-      for (const item of existingWeatherItems) {
-        await deleteDataItem(item);
-        await new Promise(function(r) { setTimeout(r, 150); });
-      }
-      
-      // Add new weather suggestion items
-      for (const item of weatherSuggestions[weather]) {
-        await createDataItem({
-          section: 'kitchen', meal_name: '', day: '', meal_type: '', cooking_method: '',
-          difficulty: '', rating: 0, would_make_again: false, notes: weatherItemsMarker,
-          checked: false, category: weather === 'hot' || weather === 'windy' ? 'Clothing' : 'Toiletries', item_name: item,
-          quantity: '', activity_name: '', location: '', dates: ''
-        });
-        await new Promise(function(r) { setTimeout(r, 150); });
-      }
-      this.disabled = false;
+      applyWeatherSuggestions(weather);
+    });
+
+    document.getElementById('clear-weather-btn').addEventListener('click', function() {
       document.getElementById('packing-weather-select').value = '';
-      renderKitchen();
+      applyWeatherSuggestions('');
     });
 
     // Data SDK
@@ -679,7 +738,17 @@
         formatted_address: formattedAddress,
         latitude: lat,
         longitude: lng,
-        place_id: placeId
+        place_id: placeId,
+        trip_rating: 0,
+        would_visit_again: '',
+        would_recommend: '',
+        campground_cleanliness: 0,
+        noise_level: '',
+        cell_service: '',
+        kid_friendly: '',
+        pet_friendly: '',
+        favorite_part: '',
+        improve_next_time: ''
       });
       btn.disabled = false;
       if (result.isOk) {
@@ -723,35 +792,68 @@
       if (!trips.length) { container.innerHTML = '<p class="text-gray-400 text-center py-4">No trips planned yet</p>'; renderHomeTripCard(); return; }
       container.innerHTML = trips.map(function(t) {
         var dates = (t.dates || '').split('|');
-        var rating = t.rating || 0;
-        var stars = Array.from({length: 5}, function(_, i) { return '<span class="star text-xl ' + (i < rating ? 'text-[#2D5A27]' : 'text-[#A4B494]') + '" data-rate-trip="' + t.__backendId + '" data-rating="' + (i + 1) + '">★</span>'; }).join('');
-        var wouldMakeAgain = t.would_make_again;
-        return '<div class="rounded-[24px] bg-[#F8F7F3] p-4 shadow-[0_12px_28px_rgba(43,43,43,0.04)]"><div class="flex items-start justify-between mb-3"><div><div class="font-medium text-lg">' + (t.location || 'Unknown') + '</div><div class="text-sm text-gray-600">' + (dates[0] || '') + ' to ' + (dates[1] || '') + '</div></div><button type="button" class="text-[#2D5A27] text-sm font-medium" data-delete-trip="' + t.__backendId + '">Delete</button></div><div class="space-y-2"><div class="flex items-center gap-2"><span class="text-xs text-gray-600 font-medium">Rating:</span><div class="flex gap-1">' + stars + '</div></div><div class="flex items-center gap-3"><button type="button" class="toggle-again ' + (wouldMakeAgain ? 'bg-[#E9E3D8] text-[#2D5A27]' : 'bg-[#F8F7F3] text-[#2B2B2B]') + ' flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium transition-colors" data-toggle-again="' + t.__backendId + '"><span class="text-sm">✓</span>Would make again</button></div>' + (t.notes ? '<div class="text-sm text-gray-700 rounded-[16px] bg-[#F8F7F3] p-2">' + t.notes + '</div>' : '') + '</div></div>';
+        var ratingValue = parseInt(t.trip_rating, 10) || 0;
+        var cleanlinessValue = parseInt(t.campground_cleanliness, 10) || 0;
+        var visitValue = t.would_visit_again || '';
+        var recommendValue = t.would_recommend || '';
+        var noiseValue = t.noise_level || '';
+        var cellValue = t.cell_service || '';
+        var kidValue = t.kid_friendly || '';
+        var petValue = t.pet_friendly || '';
+        var favoritePart = t.favorite_part || '';
+        var improveValue = t.improve_next_time || '';
+        var ratingStars = Array.from({length: 5}, function(_, i) {
+          var filled = i < ratingValue;
+          return '<button type="button" class="text-lg ' + (filled ? 'text-[#2D5A27]' : 'text-[#A4B494]') + '" data-update-trip-rating="' + t.__backendId + '" data-rating-value="' + (i + 1) + '">★</button>';
+        }).join('');
+        var cleanlinessStars = Array.from({length: 5}, function(_, i) {
+          var filled = i < cleanlinessValue;
+          return '<button type="button" class="text-sm ' + (filled ? 'text-[#2D5A27]' : 'text-[#A4B494]') + '" data-update-cleanliness="' + t.__backendId + '" data-cleanliness-value="' + (i + 1) + '">★</button>';
+        }).join('');
+        return '<div class="rounded-[24px] bg-[#F8F7F3] p-4 shadow-[0_12px_28px_rgba(43,43,43,0.04)]"><div class="flex items-start justify-between mb-3 gap-2"><div><div class="font-medium text-lg">' + (t.location || 'Unknown') + '</div><div class="text-sm text-gray-600">' + (dates[0] || '') + ' to ' + (dates[1] || '') + '</div></div><button type="button" class="text-[#2D5A27] text-sm font-medium shrink-0" data-delete-trip="' + t.__backendId + '">Delete</button></div><div class="space-y-3">' + (t.notes ? '<div class="text-sm text-gray-700 rounded-[16px] bg-white/70 p-2">' + t.notes + '</div>' : '') + '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs"><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Overall trip rating</div><div class="flex gap-1" data-rating-group="' + t.__backendId + '">' + ratingStars + '</div></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Would visit again</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="would_visit_again"><option value="" ' + (visitValue === '' ? 'selected' : '') + '>—</option><option value="Yes" ' + (visitValue === 'Yes' ? 'selected' : '') + '>Yes</option><option value="Maybe" ' + (visitValue === 'Maybe' ? 'selected' : '') + '>Maybe</option><option value="No" ' + (visitValue === 'No' ? 'selected' : '') + '>No</option></select></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Would recommend</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="would_recommend"><option value="" ' + (recommendValue === '' ? 'selected' : '') + '>—</option><option value="Yes" ' + (recommendValue === 'Yes' ? 'selected' : '') + '>Yes</option><option value="Maybe" ' + (recommendValue === 'Maybe' ? 'selected' : '') + '>Maybe</option><option value="No" ' + (recommendValue === 'No' ? 'selected' : '') + '>No</option></select></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Campground cleanliness</div><div class="flex gap-1" data-cleanliness-group="' + t.__backendId + '">' + cleanlinessStars + '</div></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Noise level</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="noise_level"><option value="" ' + (noiseValue === '' ? 'selected' : '') + '>—</option><option value="Quiet" ' + (noiseValue === 'Quiet' ? 'selected' : '') + '>Quiet</option><option value="Moderate" ' + (noiseValue === 'Moderate' ? 'selected' : '') + '>Moderate</option><option value="Loud" ' + (noiseValue === 'Loud' ? 'selected' : '') + '>Loud</option></select></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Cell service</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="cell_service"><option value="" ' + (cellValue === '' ? 'selected' : '') + '>—</option><option value="None" ' + (cellValue === 'None' ? 'selected' : '') + '>None</option><option value="Weak" ' + (cellValue === 'Weak' ? 'selected' : '') + '>Weak</option><option value="Good" ' + (cellValue === 'Good' ? 'selected' : '') + '>Good</option><option value="Excellent" ' + (cellValue === 'Excellent' ? 'selected' : '') + '>Excellent</option></select></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Kid friendly</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="kid_friendly"><option value="" ' + (kidValue === '' ? 'selected' : '') + '>—</option><option value="Yes" ' + (kidValue === 'Yes' ? 'selected' : '') + '>Yes</option><option value="No" ' + (kidValue === 'No' ? 'selected' : '') + '>No</option><option value="Not Applicable" ' + (kidValue === 'Not Applicable' ? 'selected' : '') + '>Not Applicable</option></select></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Pet friendly</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="pet_friendly"><option value="" ' + (petValue === '' ? 'selected' : '') + '>—</option><option value="Yes" ' + (petValue === 'Yes' ? 'selected' : '') + '>Yes</option><option value="No" ' + (petValue === 'No' ? 'selected' : '') + '>No</option><option value="Not Applicable" ' + (petValue === 'Not Applicable' ? 'selected' : '') + '>Not Applicable</option></select></div></div><div class="space-y-2"><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Favorite part</div><input type="text" class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" value="' + (favoritePart || '').replace(/'/g, '&#39;') + '" data-update-review="' + t.__backendId + '" data-review-field="favorite_part"></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">What to improve next time</div><input type="text" class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" value="' + (improveValue || '').replace(/'/g, '&#39;') + '" data-update-review="' + t.__backendId + '" data-review-field="improve_next_time"></div></div></div></div>';
       }).join('');
-      
-      container.querySelectorAll('[data-rate-trip]').forEach(function(star) {
+
+      container.querySelectorAll('[data-update-trip-rating]').forEach(function(star) {
         star.addEventListener('click', async function(e) {
           e.stopPropagation();
-          var tripId = this.dataset.rateTrip;
-          var newRating = parseInt(this.dataset.rating, 10);
+          var tripId = this.dataset.updateTripRating;
+          var newRating = parseInt(this.dataset.ratingValue, 10);
           var item = allData.find(function(d) { return d.__backendId === tripId; });
           if (item) {
-            await updateDataItem(Object.assign({}, item, { rating: newRating }));
+            await updateDataItem(Object.assign({}, item, { trip_rating: newRating }));
             renderTrips();
           }
         });
       });
 
-      container.querySelectorAll('[data-toggle-again]').forEach(function(btn) {
-        btn.addEventListener('click', async function(e) {
+      container.querySelectorAll('[data-update-cleanliness]').forEach(function(star) {
+        star.addEventListener('click', async function(e) {
           e.stopPropagation();
-          var tripId = this.dataset.toggleAgain;
+          var tripId = this.dataset.updateCleanliness;
+          var newRating = parseInt(this.dataset.cleanlinessValue, 10);
           var item = allData.find(function(d) { return d.__backendId === tripId; });
           if (item) {
-            await updateDataItem(Object.assign({}, item, { would_make_again: !item.would_make_again }));
+            await updateDataItem(Object.assign({}, item, { campground_cleanliness: newRating }));
             renderTrips();
           }
         });
+      });
+
+      container.querySelectorAll('[data-update-review]').forEach(function(control) {
+        var updateTripReview = async function() {
+          var tripId = control.dataset.updateReview;
+          var fieldName = control.dataset.reviewField;
+          var item = allData.find(function(d) { return d.__backendId === tripId; });
+          if (!item) return;
+          var value = control.value;
+          var updatePayload = {};
+          updatePayload[fieldName] = value;
+          await updateDataItem(Object.assign({}, item, updatePayload));
+        };
+        control.addEventListener('change', updateTripReview);
+        if (control.tagName === 'INPUT') {
+          control.addEventListener('input', updateTripReview);
+        }
       });
 
       container.querySelectorAll('[data-delete-trip]').forEach(function(btn) {
@@ -965,91 +1067,287 @@
     });
 
     // Kitchen/Packing checklist
-    var kitchenItems = [
-      { name: 'Plates', category: 'Kitchen' },
-      { name: 'Cups', category: 'Kitchen' },
-      { name: 'Utensils', category: 'Kitchen' },
-      { name: 'Ice', category: 'Kitchen' },
-      { name: 'Cooler', category: 'Kitchen' },
-      { name: 'Cutting Board', category: 'Kitchen' },
-      { name: 'Tin Foil', category: 'Kitchen' },
-      { name: 'Paper Towels', category: 'Kitchen' },
-      { name: 'Trash Bags', category: 'Kitchen' },
-      { name: 'Fire Starter', category: 'Camping' },
-      { name: 'Matches', category: 'Camping' },
-      { name: 'Cast Iron', category: 'Camping' },
-      { name: 'Firewood', category: 'Camping' },
+    const packingListStorageKey = 'camp-companion-packing-list-v2';
+    const packingListCategoryOrder = ['Shelter & Sleep', 'Kitchen & Cooking', 'Clothing', 'Toiletries', 'Safety & Personal', 'Camp Comfort'];
+    const defaultPackingItems = [
+      { name: 'Tent', category: 'Shelter & Sleep' },
+      { name: 'Tent stakes', category: 'Shelter & Sleep' },
+      { name: 'Ground tarp or footprint', category: 'Shelter & Sleep' },
+      { name: 'Sleeping bag', category: 'Shelter & Sleep' },
+      { name: 'Sleeping pad or air mattress', category: 'Shelter & Sleep' },
+      { name: 'Pillow', category: 'Shelter & Sleep' },
+      { name: 'Extra blanket', category: 'Shelter & Sleep' },
+      { name: 'Mallet', category: 'Shelter & Sleep' },
+      { name: 'Lantern', category: 'Shelter & Sleep' },
+      { name: 'Camp stove', category: 'Kitchen & Cooking' },
+      { name: 'Stove fuel or propane', category: 'Kitchen & Cooking' },
+      { name: 'Lighter', category: 'Kitchen & Cooking' },
+      { name: 'Matches', category: 'Kitchen & Cooking' },
+      { name: 'Fire starter', category: 'Kitchen & Cooking' },
+      { name: 'Cookware', category: 'Kitchen & Cooking' },
+      { name: 'Cast-iron skillet', category: 'Kitchen & Cooking' },
+      { name: 'Cooking utensils', category: 'Kitchen & Cooking' },
+      { name: 'Plates', category: 'Kitchen & Cooking' },
+      { name: 'Bowls', category: 'Kitchen & Cooking' },
+      { name: 'Cups', category: 'Kitchen & Cooking' },
+      { name: 'Eating utensils', category: 'Kitchen & Cooking' },
+      { name: 'Cutting board', category: 'Kitchen & Cooking' },
+      { name: 'Knife', category: 'Kitchen & Cooking' },
+      { name: 'Can opener', category: 'Kitchen & Cooking' },
+      { name: 'Bottle opener', category: 'Kitchen & Cooking' },
+      { name: 'Aluminum foil', category: 'Kitchen & Cooking' },
+      { name: 'Food-storage containers', category: 'Kitchen & Cooking' },
+      { name: 'Resealable bags', category: 'Kitchen & Cooking' },
+      { name: 'Cooler', category: 'Kitchen & Cooking' },
+      { name: 'Ice', category: 'Kitchen & Cooking' },
+      { name: 'Water container', category: 'Kitchen & Cooking' },
+      { name: 'Coffee maker or kettle', category: 'Kitchen & Cooking' },
+      { name: 'Dish soap', category: 'Kitchen & Cooking' },
+      { name: 'Sponge', category: 'Kitchen & Cooking' },
+      { name: 'Dish towel', category: 'Kitchen & Cooking' },
+      { name: 'Paper towels', category: 'Kitchen & Cooking' },
+      { name: 'Trash bags', category: 'Kitchen & Cooking' },
       { name: 'Shirts', category: 'Clothing' },
-      { name: 'Pants', category: 'Clothing' },
-      { name: 'Jackets', category: 'Clothing' },
-      { name: 'Socks', category: 'Clothing' },
+      { name: 'Pants or shorts', category: 'Clothing' },
       { name: 'Underwear', category: 'Clothing' },
-      { name: 'Sleeping Bag', category: 'Camping' },
-      { name: 'Tent', category: 'Camping' },
-      { name: 'Boots', category: 'Clothing' },
+      { name: 'Socks', category: 'Clothing' },
+      { name: 'Pajamas', category: 'Clothing' },
+      { name: 'Jacket or sweatshirt', category: 'Clothing' },
+      { name: 'Rain jacket', category: 'Clothing' },
+      { name: 'Hiking shoes or boots', category: 'Clothing' },
+      { name: 'Camp shoes', category: 'Clothing' },
       { name: 'Hat', category: 'Clothing' },
-      { name: 'Pillow', category: 'Camping' },
+      { name: 'Swimsuit', category: 'Clothing' },
+      { name: 'Extra clothing', category: 'Clothing' },
       { name: 'Toothbrush', category: 'Toiletries' },
       { name: 'Toothpaste', category: 'Toiletries' },
-      { name: 'Sunscreen', category: 'Toiletries' },
-      { name: 'Bug Spray', category: 'Toiletries' },
-      { name: 'First Aid Kit', category: 'Toiletries' },
-      { name: 'Medications', category: 'Toiletries' },
       { name: 'Deodorant', category: 'Toiletries' },
       { name: 'Soap', category: 'Toiletries' },
-      { name: 'Towel', category: 'Toiletries' }
+      { name: 'Shampoo', category: 'Toiletries' },
+      { name: 'Hairbrush or comb', category: 'Toiletries' },
+      { name: 'Toilet paper', category: 'Toiletries' },
+      { name: 'Hand sanitizer', category: 'Toiletries' },
+      { name: 'Wet wipes', category: 'Toiletries' },
+      { name: 'Towel', category: 'Toiletries' },
+      { name: 'Feminine hygiene products', category: 'Toiletries' },
+      { name: 'Prescription medications', category: 'Toiletries' },
+      { name: 'First-aid kit', category: 'Safety & Personal' },
+      { name: 'Sunscreen', category: 'Safety & Personal' },
+      { name: 'Bug spray', category: 'Safety & Personal' },
+      { name: 'Flashlights', category: 'Safety & Personal' },
+      { name: 'Headlamps', category: 'Safety & Personal' },
+      { name: 'Extra batteries', category: 'Safety & Personal' },
+      { name: 'Portable phone charger', category: 'Safety & Personal' },
+      { name: 'Emergency contact information', category: 'Safety & Personal' },
+      { name: 'Whistle', category: 'Safety & Personal' },
+      { name: 'Multi-tool', category: 'Safety & Personal' },
+      { name: 'Map', category: 'Safety & Personal' },
+      { name: 'Compass', category: 'Safety & Personal' },
+      { name: 'Identification', category: 'Safety & Personal' },
+      { name: 'Reservation confirmation', category: 'Safety & Personal' },
+      { name: 'Camping chairs', category: 'Camp Comfort' },
+      { name: 'Folding table', category: 'Camp Comfort' },
+      { name: 'Hammock', category: 'Camp Comfort' },
+      { name: 'Outdoor rug', category: 'Camp Comfort' },
+      { name: 'Firewood, if permitted', category: 'Camp Comfort' },
+      { name: 'Games', category: 'Camp Comfort' },
+      { name: 'Books', category: 'Camp Comfort' },
+      { name: 'Binoculars', category: 'Camp Comfort' }
     ];
 
-    function renderKitchen() {
-      var kitchenData = allData.filter(function(d) { return d.section === 'kitchen'; });
-      var container = document.getElementById('kitchen-list');
-      var allNames = new Set(kitchenItems.map(function(item) { return item.name; }));
-      kitchenData.forEach(function(d) { if (d.item_name) allNames.add(d.item_name); });
-      var defaultItems = new Set(['Fire Starter', 'Pillow']);
-      var renderedItems = Array.from(allNames).map(function(name) {
-        var record = kitchenData.find(function(d) { return d.item_name === name; });
-        var checked = record ? record.checked : false;
-        var isDefault = defaultItems.has(name);
-        var quantity = record ? (record.quantity ? ' (' + record.quantity + ')' : '') : '';
-        var category = record ? (record.category ? record.category : '') : '';
-        if (!category) {
-          var defaultMeta = kitchenItems.find(function(item) { return item.name === name; });
-          if (defaultMeta) category = defaultMeta.category;
-        }
-        var deleteButton = (record && !isDefault) ? '<button type="button" class="text-[#2D5A27] text-sm ml-auto" data-delete-kitchen="' + record.__backendId + '"><i data-lucide="trash-2" class="w-4 h-4"></i></button>' : '';
-        return '<div class="checkbox-item ' + (checked ? 'checked' : '') + ' flex items-center gap-2 p-3 rounded-[18px] cursor-pointer" data-kitchen-name="' + name + '"><span class="w-5 h-5 rounded-full border-2 flex items-center justify-center text-xs ' + (checked ? 'bg-white text-[#2D5A27] border-white' : 'border-[#E9E3D8]') + '">' + (checked ? '✓' : '') + '</span><div class="text-sm flex-1"><div>' + name + quantity + '</div>' + (category ? '<div class="text-xs text-gray-500">' + category + '</div>' : '') + '</div>' + deleteButton + '</div>';
+    let packingItems = [];
+
+    function createPackingItemId(prefix) {
+      return prefix + '-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
+    }
+
+    function escapePackingText(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function getDefaultPackingItems() {
+      return defaultPackingItems.map(function(item) {
+        return {
+          id: createPackingItemId('standard'),
+          name: item.name,
+          category: item.category,
+          checked: false,
+          isStandard: true,
+          isWeatherSuggestion: false
+        };
       });
-      container.innerHTML = renderedItems.join('');
-      container.querySelectorAll('[data-kitchen-name]').forEach(function(el) {
-        el.addEventListener('click', async function(e) {
-          if (e.target.closest('[data-delete-kitchen]')) return;
-          var name = this.dataset.kitchenName;
-          var record = allData.find(function(d) { return d.section === 'kitchen' && d.item_name === name; });
-          if (record) {
-            await updateDataItem(Object.assign({}, record, { checked: !record.checked }));
-            renderKitchen();
-          } else {
-            await createDataItem({
-              section: 'kitchen', meal_name: '', day: '', meal_type: '', cooking_method: '',
-              difficulty: '', rating: 0, would_make_again: false, notes: '',
-              checked: true, category: '', item_name: name,
-              quantity: '', activity_name: '', location: '', dates: ''
-            });
-            renderKitchen();
-          }
+    }
+
+    function normalizePackingItems(items) {
+      const defaults = getDefaultPackingItems();
+      const standardItems = defaults.map(function(defaultItem) {
+        const existing = Array.isArray(items) ? items.find(function(item) {
+          return item && item.isStandard && String(item.name).toLowerCase() === defaultItem.name.toLowerCase();
+        }) : null;
+        return Object.assign({}, defaultItem, existing || {}, {
+          id: existing && existing.id ? existing.id : createPackingItemId('standard'),
+          name: defaultItem.name,
+          category: defaultItem.category,
+          checked: existing ? !!existing.checked : false,
+          isStandard: true,
+          isWeatherSuggestion: false
         });
       });
-      container.querySelectorAll('[data-delete-kitchen]').forEach(function(btn) {
-        btn.addEventListener('click', async function(e) {
+      const customOrWeatherItems = Array.isArray(items) ? items.filter(function(item) {
+        return item && !item.isStandard;
+      }).map(function(item) {
+        return Object.assign({}, item, {
+          id: item.id || createPackingItemId(item.isWeatherSuggestion ? 'weather' : 'custom'),
+          name: item.name,
+          category: item.category || 'Camp Comfort',
+          checked: !!item.checked,
+          isStandard: false,
+          isWeatherSuggestion: !!item.isWeatherSuggestion
+        });
+      }) : [];
+      return standardItems.concat(customOrWeatherItems);
+    }
+
+    function loadPackingItems() {
+      try {
+        const stored = localStorage.getItem(packingListStorageKey);
+        if (!stored) return getDefaultPackingItems();
+        const parsed = JSON.parse(stored);
+        if (!Array.isArray(parsed)) return getDefaultPackingItems();
+        return normalizePackingItems(parsed);
+      } catch (e) {
+        return getDefaultPackingItems();
+      }
+    }
+
+    function savePackingItems() {
+      localStorage.setItem(packingListStorageKey, JSON.stringify(packingItems));
+    }
+
+    function applyWeatherSuggestions(weatherKey) {
+      if (!weatherKey) {
+        packingItems = packingItems.filter(function(item) {
+          return !item.isWeatherSuggestion;
+        });
+        savePackingItems();
+        renderPackingList();
+        return;
+      }
+
+      const suggestions = weatherSuggestionCatalog[weatherKey] || [];
+      packingItems = packingItems.filter(function(item) {
+        return !item.isWeatherSuggestion;
+      });
+
+      const seenNames = new Set();
+      packingItems.forEach(function(item) {
+        seenNames.add(String(item.name).toLowerCase());
+      });
+
+      suggestions.forEach(function(suggestion) {
+        const candidateName = String(suggestion.name).toLowerCase();
+        if (seenNames.has(candidateName)) return;
+        packingItems.push({
+          id: createPackingItemId('weather'),
+          name: suggestion.name,
+          category: suggestion.category,
+          checked: false,
+          isStandard: false,
+          isWeatherSuggestion: true
+        });
+        seenNames.add(candidateName);
+      });
+
+      savePackingItems();
+      renderPackingList();
+    }
+
+    function renderPackingList() {
+      const container = document.getElementById('packing-list');
+      if (!container) return;
+
+      const groups = packingListCategoryOrder.map(function(category) {
+        const items = packingItems.filter(function(item) {
+          return item.category === category;
+        });
+        if (!items.length) return '';
+        const rows = items.map(function(item) {
+          const checkedClass = item.checked ? 'bg-[#2D5A27] text-white border-[#2D5A27]' : 'bg-white text-[#2B2B2B] border-[#E9E3D8]';
+          const textClass = item.checked ? 'line-through opacity-70' : '';
+          const deleteButton = !item.isStandard ? '<button type="button" class="text-[#2D5A27] text-sm ml-auto" data-delete-packing="' + item.id + '"><i data-lucide="trash-2" class="w-4 h-4"></i></button>' : '';
+          const weatherLabel = item.isWeatherSuggestion ? '<span class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54]">Weather suggestion</span>' : '';
+          return '<div class="flex items-start gap-3 rounded-[18px] border border-[#E9E3D8] bg-white/80 p-3"><button type="button" class="mt-0.5 h-5 w-5 shrink-0 rounded-full border-2 flex items-center justify-center text-xs ' + checkedClass + '" data-toggle-packing="' + item.id + '">' + (item.checked ? '✓' : '') + '</button><div class="flex-1 min-w-0"><div class="text-sm font-medium ' + textClass + '">' + escapePackingText(item.name) + '</div>' + (weatherLabel ? '<div class="mt-1">' + weatherLabel + '</div>' : '') + '</div>' + deleteButton + '</div>';
+        }).join('');
+        return '<div class="rounded-[24px] bg-[#F8F7F3] p-4 shadow-[0_12px_28px_rgba(43,43,43,0.04)]"><div class="text-sm font-semibold text-[#2D5A27] mb-3">' + escapePackingText(category) + '</div><div class="space-y-2">' + rows + '</div></div>';
+      }).filter(Boolean);
+
+      container.innerHTML = groups.length ? groups.join('') : '<p class="text-gray-400 text-center py-4">No items yet. Add a custom item or apply weather suggestions.</p>';
+
+      container.querySelectorAll('[data-toggle-packing]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const item = packingItems.find(function(entry) {
+            return entry.id === this.dataset.togglePacking;
+          }.bind(this));
+          if (!item) return;
+          item.checked = !item.checked;
+          savePackingItems();
+          renderPackingList();
+        });
+      });
+
+      container.querySelectorAll('[data-delete-packing]').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
           e.stopPropagation();
-          var item = allData.find(function(d) { return d.__backendId === btn.dataset.deleteKitchen; });
-          if (item) {
-            await deleteDataItem(item);
-            renderKitchen();
-          }
+          const itemId = this.dataset.deletePacking;
+          packingItems = packingItems.filter(function(item) {
+            return item.id !== itemId;
+          });
+          savePackingItems();
+          renderPackingList();
         });
       });
     }
+
+    document.getElementById('custom-item-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const nameInput = document.getElementById('custom-item-input');
+      const quantityInput = document.getElementById('custom-item-quantity');
+      const categorySelect = document.getElementById('custom-item-category');
+      const itemName = nameInput.value.trim();
+      const category = categorySelect.value.trim();
+      if (!itemName || !category) return;
+
+      packingItems.push({
+        id: createPackingItemId('custom'),
+        name: itemName + (quantityInput.value.trim() ? ' (' + quantityInput.value.trim() + ')' : ''),
+        category: category,
+        checked: false,
+        isStandard: false,
+        isWeatherSuggestion: false
+      });
+
+      savePackingItems();
+      renderPackingList();
+      nameInput.value = '';
+      quantityInput.value = '';
+      categorySelect.value = '';
+    });
+
+    document.getElementById('reset-packing-list-btn').addEventListener('click', function() {
+      packingItems = getDefaultPackingItems();
+      savePackingItems();
+      document.getElementById('packing-weather-select').value = '';
+      renderPackingList();
+    });
+
+    packingItems = loadPackingItems();
+    savePackingItems();
+    renderPackingList();
 
     // Activities
     var activityLibrary = [
@@ -1061,6 +1359,150 @@
       { name: 'Biking', items: ['Bikes','Helmets','Repair kit','Water','Sunscreen'] },
       { name: 'Photography', items: ['Camera','Extra batteries','Memory cards','Tripod','Cleaning supplies'] }
     ];
+
+    var currentNearbyActivityFilter = 'all';
+
+    function getClosestTripLocation() {
+      var trips = allData.filter(function(d) { return d.section === 'trip' && d.latitude && d.longitude; });
+      if (!trips.length) return null;
+      var selectedTrip = trips[trips.length - 1] || trips[0];
+      return {
+        lat: parseFloat(selectedTrip.latitude),
+        lng: parseFloat(selectedTrip.longitude),
+        locationName: selectedTrip.location || 'your trip location'
+      };
+    }
+
+    function getNearbyActivityTypes(filter) {
+      switch (filter) {
+        case 'outdoors':
+          return ['park', 'campground', 'tourist_attraction'];
+        case 'family':
+          return ['park', 'tourist_attraction', 'zoo', 'museum'];
+        case 'water':
+          return ['park', 'tourist_attraction', 'marina', 'beach'];
+        case 'food':
+          return ['restaurant', 'cafe', 'meal_takeaway'];
+        case 'attractions':
+          return ['tourist_attraction', 'museum', 'zoo', 'park'];
+        default:
+          return ['park', 'tourist_attraction', 'museum', 'zoo', 'campground', 'restaurant'];
+      }
+    }
+
+    function renderNearbyActivitiesResults(results) {
+      var container = document.getElementById('nearby-activities-results');
+      if (!container) return;
+      if (!results.length) {
+        container.innerHTML = '<div class="rounded-[20px] border border-[#E9E3D8] bg-white/70 p-4 text-sm text-gray-600">No nearby places matched this filter. Try a different category or search again.</div>';
+        return;
+      }
+      container.innerHTML = results.map(function(result) {
+        var rating = result.rating ? result.rating + '/5' : 'No rating yet';
+        var distance = result.distanceMiles ? result.distanceMiles.toFixed(1) + ' mi away' : 'Distance unavailable';
+        return '<div class="rounded-[22px] border border-[#E9E3D8] bg-white/80 p-4 shadow-[0_10px_20px_rgba(45,90,39,0.04)]"><div class="flex flex-col gap-2"><div class="flex items-start justify-between gap-2"><div><div class="text-sm font-semibold">' + result.name + '</div><div class="text-xs text-gray-600">' + rating + '</div></div><div class="text-xs text-[#6D8B54] font-medium">' + distance + '</div></div><div class="text-xs text-gray-600">' + (result.address || 'Address unavailable') + '</div><button type="button" class="w-fit rounded-full bg-[#2D5A27] px-3 py-1.5 text-xs font-medium text-white" data-add-nearby-activity="' + result.placeId + '">Add to Trip</button></div></div>';
+      }).join('');
+      container.querySelectorAll('[data-add-nearby-activity]').forEach(function(btn) {
+        btn.addEventListener('click', async function() {
+          var placeId = this.dataset.addNearbyActivity;
+          var selectedResult = results.find(function(item) { return item.placeId === placeId; });
+          if (!selectedResult) return;
+          this.disabled = true;
+          this.textContent = 'Adding...';
+          var result = await createDataItem({
+            section: 'activity', meal_name: '', day: '', meal_type: '', cooking_method: '',
+            difficulty: '', rating: 0, would_make_again: false, notes: '',
+            checked: false, category: '', item_name: selectedResult.name,
+            quantity: '', activity_name: '', location: '', dates: ''
+          });
+          if (result.isOk) {
+            this.textContent = 'Added';
+            renderActivities();
+          } else {
+            this.disabled = false;
+            this.textContent = 'Add to Trip';
+          }
+        });
+      });
+    }
+
+    async function findNearbyActivities() {
+      var container = document.getElementById('nearby-activities-results');
+      if (!container) return;
+      var selectedTrip = getClosestTripLocation();
+      if (!selectedTrip) {
+        container.innerHTML = '<div class="rounded-[20px] border border-[#E9E3D8] bg-white/70 p-4 text-sm text-gray-600">No trip location has been selected yet. Add a trip with a Google Places location to see nearby ideas.</div>';
+        return;
+      }
+      if (!window.google || !window.google.maps || !window.google.maps.places || !window.google.maps.places.PlacesService) {
+        container.innerHTML = '<div class="rounded-[20px] border border-[#E9E3D8] bg-white/70 p-4 text-sm text-gray-600">Google Places is not available right now. The app can still use your saved trip location once Maps is available.</div>';
+        return;
+      }
+      container.innerHTML = '<div class="rounded-[20px] border border-[#E9E3D8] bg-white/70 p-4 text-sm text-gray-600">Searching nearby places...</div>';
+      var mapDiv = document.createElement('div');
+      mapDiv.style.position = 'absolute';
+      mapDiv.style.left = '-9999px';
+      mapDiv.style.top = '-9999px';
+      document.body.appendChild(mapDiv);
+      var map = new window.google.maps.Map(mapDiv, { center: { lat: selectedTrip.lat, lng: selectedTrip.lng }, zoom: 12 });
+      var service = new window.google.maps.places.PlacesService(map);
+      var searchTypes = getNearbyActivityTypes(currentNearbyActivityFilter);
+      var uniqueResults = [];
+      var seenIds = new Set();
+      var searchPromises = searchTypes.map(function(type) {
+        return new Promise(function(resolve) {
+          service.nearbySearch({
+            location: { lat: selectedTrip.lat, lng: selectedTrip.lng },
+            radius: 25000,
+            type: type
+          }, function(results, status) {
+            if (status !== window.google.maps.places.PlacesServiceStatus.OK || !results) {
+              resolve([]);
+              return;
+            }
+            results.forEach(function(result) {
+              if (!result || !result.geometry || !result.geometry.location) return;
+              var placeKey = result.place_id || result.name;
+              if (seenIds.has(placeKey)) return;
+              seenIds.add(placeKey);
+              var distanceMeters = window.google.maps.geometry.spherical.computeDistanceBetween(
+                new window.google.maps.LatLng(selectedTrip.lat, selectedTrip.lng),
+                result.geometry.location
+              );
+              uniqueResults.push({
+                name: result.name,
+                rating: result.rating,
+                address: result.vicinity || result.formatted_address || 'Address unavailable',
+                distanceMiles: distanceMeters / 1609.34,
+                placeId: result.place_id || result.name
+              });
+            });
+            resolve();
+          });
+        });
+      });
+      await Promise.all(searchPromises);
+      uniqueResults.sort(function(a, b) { return a.distanceMiles - b.distanceMiles; });
+      document.body.removeChild(mapDiv);
+      renderNearbyActivitiesResults(uniqueResults.slice(0, 12));
+    }
+
+    document.getElementById('find-nearby-activities-btn').addEventListener('click', function() {
+      findNearbyActivities();
+    });
+
+    document.querySelectorAll('.activity-nearby-filter-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        currentNearbyActivityFilter = this.dataset.activityNearbyFilter;
+        document.querySelectorAll('.activity-nearby-filter-btn').forEach(function(filterBtn) {
+          filterBtn.classList.remove('bg-[#2D5A27]', 'text-white');
+          filterBtn.classList.add('bg-white', 'text-[#2B2B2B]');
+        });
+        this.classList.remove('bg-white', 'text-[#2B2B2B]');
+        this.classList.add('bg-[#2D5A27]', 'text-white');
+        findNearbyActivities();
+      });
+    });
 
     (function renderActivityLibrary() {
       var container = document.getElementById('activity-library');
