@@ -2072,13 +2072,14 @@
       container.querySelectorAll('.activity-lib-btn').forEach(function(btn) {
         btn.addEventListener('click', async function() {
           this.disabled = true;
-          await window.dataSdk.create({
+          var result = await createDataItem({
             section: 'activity', meal_name: '', day: '', meal_type: '', cooking_method: '',
             difficulty: '', rating: 0, would_make_again: false, notes: '',
             checked: false, category: '', item_name: this.dataset.activityName,
             quantity: '', activity_name: '', location: '', dates: ''
           });
           this.disabled = false;
+          if (result.isOk) renderActivities();
         });
       });
     })();
@@ -2089,14 +2090,17 @@
       if (!input.value.trim()) return;
       var btn = this.querySelector('[data-template-id="add-activity-btn"]');
       btn.disabled = true;
-      await window.dataSdk.create({
+      var result = await createDataItem({
         section: 'activity', meal_name: '', day: '', meal_type: '', cooking_method: '',
         difficulty: '', rating: 0, would_make_again: false, notes: '',
         checked: false, category: '', item_name: input.value.trim(),
         quantity: '', activity_name: '', location: '', dates: ''
       });
       btn.disabled = false;
-      input.value = '';
+      if (result.isOk) {
+        input.value = '';
+        renderActivities();
+      }
     });
 
     function renderActivities() {
@@ -2111,7 +2115,10 @@
       container.querySelectorAll('[data-delete-activity]').forEach(function(btn) {
         btn.addEventListener('click', async function() {
           var item = allData.find(function(d) { return d.__backendId === btn.dataset.deleteActivity; });
-          if (item) await window.dataSdk.delete(item);
+          if (item) {
+            await deleteDataItem(item);
+            renderActivities();
+          }
         });
       });
     }
