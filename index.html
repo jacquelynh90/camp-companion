@@ -459,61 +459,145 @@
     }
 
     // Grocery
-    document.getElementById('grocery-form').addEventListener('submit', async function(e) {
+    var groceryStorageKey = 'camp-companion-grocery-items-v1';
+    var groceryItems = [];
+
+    function loadGroceryItems() {
+      try {
+        var stored = localStorage.getItem(groceryStorageKey);
+        if (!stored) return;
+        var parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          groceryItems = parsed.map(function(item, index) {
+            return {
+              id: item.id || ('grocery-' + Date.now() + '-' + index),
+              section: 'grocery',
+              meal_name: item.meal_name || '',
+              day: item.day || '',
+              meal_type: item.meal_type || '',
+              cooking_method: item.cooking_method || '',
+              difficulty: item.difficulty || '',
+              rating: item.rating || 0,
+              would_make_again: !!item.would_make_again,
+              notes: item.notes || '',
+              checked: !!item.checked,
+              category: item.category || 'Pantry',
+              item_name: item.item_name || '',
+              quantity: item.quantity || '',
+              activity_name: item.activity_name || '',
+              location: item.location || '',
+              dates: item.dates || ''
+            };
+          });
+        } else {
+          groceryItems = [];
+        }
+      } catch (e) {
+        groceryItems = [];
+      }
+      renderGrocery();
+    }
+
+    function saveGroceryItems() {
+      localStorage.setItem(groceryStorageKey, JSON.stringify(groceryItems));
+    }
+
+    function addGroceryItem(itemName, category) {
+      var trimmedName = (itemName || '').trim();
+      if (!trimmedName) return null;
+      var newItem = {
+        id: 'grocery-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
+        section: 'grocery',
+        meal_name: '',
+        day: '',
+        meal_type: '',
+        cooking_method: '',
+        difficulty: '',
+        rating: 0,
+        would_make_again: false,
+        notes: '',
+        checked: false,
+        category: category || 'Pantry',
+        item_name: trimmedName,
+        quantity: '',
+        activity_name: '',
+        location: '',
+        dates: ''
+      };
+      groceryItems.push(newItem);
+      saveGroceryItems();
+      renderGrocery();
+      return newItem;
+    }
+
+    function toggleGroceryItem(itemId) {
+      var item = groceryItems.find(function(entry) { return entry.id === itemId; });
+      if (!item) return;
+      item.checked = !item.checked;
+      saveGroceryItems();
+      renderGrocery();
+    }
+
+    function deleteGroceryItem(itemId) {
+      groceryItems = groceryItems.filter(function(entry) { return entry.id !== itemId; });
+      saveGroceryItems();
+      renderGrocery();
+    }
+
+    function clearGroceryItems() {
+      groceryItems = [];
+      saveGroceryItems();
+      renderGrocery();
+    }
+
+    loadGroceryItems();
+
+    document.getElementById('grocery-form').addEventListener('submit', function(e) {
       e.preventDefault();
       var input = document.getElementById('grocery-item-input');
       if (!input.value.trim()) return;
-      var btn = this.querySelector('[data-template-id="add-grocery-btn"]');
-      btn.disabled = true;
-      await window.dataSdk.create({
-        section: 'grocery', meal_name: '', day: '', meal_type: '', cooking_method: '',
-        difficulty: '', rating: 0, would_make_again: false, notes: '',
-        checked: false, category: document.getElementById('grocery-cat').value,
-        item_name: input.value.trim(), quantity: '', activity_name: '', location: '', dates: ''
-      });
-      btn.disabled = false;
+      addGroceryItem(input.value, document.getElementById('grocery-cat').value);
       input.value = '';
     });
 
     function renderGrocery() {
-      var items = allData.filter(function(d) { return d.section === 'grocery'; });
       var container = document.getElementById('grocery-list');
-      if (!items.length) {
+      if (!groceryItems.length) {
         container.innerHTML = '<p class="text-gray-400 text-center py-4">Add items from a recipe or manually to get started</p>';
         return;
       }
-      var cats = ['Produce', 'Meat', 'Pantry', 'Refrigerated', 'Frozen', 'Snacks', 'Drinks'];
-      container.innerHTML = cats.map(function(cat) {
-        var catItems = items.filter(function(i) { return i.category === cat; });
+      var orderedCats = ['Produce', 'Meat', 'Pantry', 'Refrigerated', 'Frozen', 'Snacks', 'Drinks'];
+      var catNames = orderedCats.slice();
+      groceryItems.forEach(function(item) {
+        if (item.category && catNames.indexOf(item.category) === -1) {
+          catNames.push(item.category);
+        }
+      });
+
+      container.innerHTML = catNames.map(function(cat) {
+        var catItems = groceryItems.filter(function(i) { return i.category === cat; });
         if (!catItems.length) return '';
         return '<div><h4 class="font-bold text-sm text-gray-700 mb-2">' + cat + '</h4><div class="space-y-2">' + catItems.map(function(i) {
-          return '<div class="checkbox-item ' + (i.checked ? 'checked' : '') + ' flex items-center gap-3 p-2 rounded-lg border cursor-pointer" data-toggle-grocery="' + i.__backendId + '"><span class="w-5 h-5 rounded border-2 flex items-center justify-center text-xs ' + (i.checked ? 'bg-white text-emerald-700 border-white' : 'border-gray-300') + '">' + (i.checked ? '✓' : '') + '</span><span class="text-sm flex-1 ' + (i.checked ? 'line-through opacity-70' : '') + '">' + i.item_name + '</span><button type="button" class="text-red-400 hover:text-red-600 text-sm font-medium px-2" data-delete-grocery="' + i.__backendId + '">✕</button></div>';
+          return '<div class="checkbox-item ' + (i.checked ? 'checked' : '') + ' flex items-center gap-3 p-2 rounded-lg border cursor-pointer" data-toggle-grocery="' + i.id + '"><span class="w-5 h-5 rounded border-2 flex items-center justify-center text-xs ' + (i.checked ? 'bg-white text-emerald-700 border-white' : 'border-gray-300') + '">' + (i.checked ? '✓' : '') + '</span><span class="text-sm flex-1 ' + (i.checked ? 'line-through opacity-70' : '') + '">' + i.item_name + '</span><button type="button" class="text-red-400 hover:text-red-600 text-sm font-medium px-2" data-delete-grocery="' + i.id + '">✕</button></div>';
         }).join('') + '</div></div>';
       }).join('');
 
       container.querySelectorAll('[data-toggle-grocery]').forEach(function(el) {
-        el.addEventListener('click', async function(e) {
+        el.addEventListener('click', function(e) {
           if (e.target.closest('[data-delete-grocery]')) return;
-          var item = allData.find(function(d) { return d.__backendId === el.dataset.toggleGrocery; });
-          if (item) await window.dataSdk.update(Object.assign({}, item, { checked: !item.checked }));
+          toggleGroceryItem(el.dataset.toggleGrocery);
         });
       });
       container.querySelectorAll('[data-delete-grocery]').forEach(function(btn) {
-        btn.addEventListener('click', async function(e) {
+        btn.addEventListener('click', function(e) {
           e.stopPropagation();
-          var item = allData.find(function(d) { return d.__backendId === btn.dataset.deleteGrocery; });
-          if (item) await window.dataSdk.delete(item);
+          deleteGroceryItem(btn.dataset.deleteGrocery);
         });
       });
     }
 
-    document.getElementById('clear-all-grocery').addEventListener('click', async function() {
-      var groceryItems = allData.filter(function(d) { return d.section === 'grocery'; });
-      this.disabled = true;
-      for (var i = 0; i < groceryItems.length; i++) {
-        await window.dataSdk.delete(groceryItems[i]);
-      }
-      this.disabled = false;
+    document.getElementById('clear-all-grocery').addEventListener('click', function() {
+      clearGroceryItems();
     });
 
     // Recipes
@@ -552,28 +636,17 @@
       currentRecipeKey = '';
     });
 
-    document.getElementById('add-recipe-to-grocery-btn').addEventListener('click', async function() {
+    document.getElementById('add-recipe-to-grocery-btn').addEventListener('click', function() {
       var recipe = recipes[currentRecipeKey];
       if (!recipe || !recipe.ingredients) return;
       this.disabled = true;
       this.textContent = 'Adding...';
       var added = 0;
-      for (var i = 0; i < recipe.ingredients.length; i++) {
-        var ing = recipe.ingredients[i];
-        var result = await window.dataSdk.create({
-          section: 'grocery', meal_name: '', day: '', meal_type: '', cooking_method: '',
-          difficulty: '', rating: 0, would_make_again: false, notes: '',
-          checked: false, category: ing.category, item_name: ing.item,
-          quantity: '', activity_name: '', location: '', dates: ''
-        });
-        if (result.isOk) {
+      recipe.ingredients.forEach(function(ing) {
+        if (addGroceryItem(ing.item, ing.category)) {
           added++;
         }
-        // Delay between requests to respect SDK rate limiting
-        if (i < recipe.ingredients.length - 1) {
-          await new Promise(function(resolve) { setTimeout(resolve, 600); });
-        }
-      }
+      });
       this.textContent = 'Added ' + added + ' ingredients';
       var self = this;
       setTimeout(function() { self.disabled = false; self.textContent = '✓ Add Ingredients to Grocery List'; }, 2000);
