@@ -1281,7 +1281,33 @@
       var container = document.getElementById('home-trip-content');
       if (!container) return;
       var trips = allData.filter(function(d) { return d.section === 'trip'; });
-      var latestTrip = trips[trips.length - 1] || null;
+      var today = new Date();
+      today.setHours(0, 0, 0, 0);
+      var tripDates = trips.map(function(trip) {
+        var parts = (trip.dates || '').split('|');
+        var start = parts[0] || '';
+        var parsedStart = start ? new Date(start + 'T00:00:00') : null;
+        var isValid = parsedStart && !isNaN(parsedStart.getTime());
+        var diffDays = isValid ? Math.ceil((parsedStart - today) / 86400000) : null;
+        return { trip: trip, isValid: !!isValid, parsedStart: parsedStart, diffDays: diffDays };
+      });
+
+      var upcomingTrips = tripDates
+        .filter(function(entry) { return entry.isValid && entry.diffDays >= 0; })
+        .sort(function(a, b) {
+          if (a.diffDays !== b.diffDays) return a.diffDays - b.diffDays;
+          return a.parsedStart.getTime() - b.parsedStart.getTime();
+        });
+
+      var latestTrip = null;
+      if (upcomingTrips.length) {
+        latestTrip = upcomingTrips[0].trip;
+      } else {
+        var datedTrips = tripDates
+          .filter(function(entry) { return entry.isValid; })
+          .sort(function(a, b) { return b.parsedStart.getTime() - a.parsedStart.getTime(); });
+        latestTrip = datedTrips.length ? datedTrips[0].trip : (trips[trips.length - 1] || null);
+      }
       if (!latestTrip) {
         container.innerHTML = '<div class="rounded-[20px] bg-[#F8F7F3] p-4 text-sm text-[#4b4b4b]">No trip saved yet. Add one in Trip Details and it will appear here.</div>';
         return;
