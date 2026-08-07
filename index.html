@@ -228,10 +228,10 @@
     .vh-full { min-height: calc(100 * min(var(--vh, 1vh), 1vh)); }
 
     .trip-form-card {
-      background: linear-gradient(180deg, #fcfbf7 0%, #f6f1e8 100%);
+      background: #ffffff;
       border: 1px solid rgba(43, 43, 43, 0.08);
-      box-shadow: 0 18px 50px rgba(21, 33, 20, 0.06);
-      border-radius: 24px;
+      box-shadow: 0 24px 48px rgba(43, 43, 43, 0.08);
+      border-radius: 28px;
     }
 
     .trip-field {
@@ -241,15 +241,15 @@
     }
 
     .trip-form-card > .trip-field + .trip-field {
-      margin-top: 0.9rem;
+      margin-top: 0.8rem;
     }
 
     .trip-field label {
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #374151;
+      color: #4b5c54;
       margin: 0;
     }
 
@@ -264,8 +264,8 @@
       transform: translateY(-50%);
       color: #6D8B54;
       pointer-events: none;
-      width: 0.95rem;
-      height: 0.95rem;
+      width: 1rem;
+      height: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -280,20 +280,20 @@
     .trip-input-wrap textarea {
       width: 100%;
       border: 1px solid rgba(43, 43, 43, 0.12);
-      border-radius: 12px;
+      border-radius: 18px;
       background: #fff;
       color: #1f2937;
-      font-size: 0.93rem;
-      padding: 0.8rem 0.85rem 0.8rem 2.5rem;
+      font-size: 0.94rem;
+      padding: 0.8rem 0.9rem 0.8rem 2.65rem;
       min-height: 46px;
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.01);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
       transition: border-color 160ms ease, box-shadow 160ms ease;
     }
 
     .trip-input-wrap textarea {
-      min-height: 108px;
-      padding-left: 2.5rem;
-      padding-top: 0.8rem;
+      min-height: 118px;
+      padding-left: 2.65rem;
+      padding-top: 0.88rem;
       resize: vertical;
     }
 
@@ -311,15 +311,15 @@
     }
 
     .trip-input-wrap input[type="date"] {
-      padding-right: 0.8rem;
+      padding-right: 0.85rem;
     }
 
     .trip-input-wrap input[type="date"]::-webkit-calendar-picker-indicator {
       cursor: pointer;
-      opacity: 0.7;
-      width: 0.9rem;
-      height: 0.9rem;
-      margin-left: 0.2rem;
+      opacity: 0.75;
+      width: 1rem;
+      height: 1rem;
+      margin-left: 0.1rem;
     }
 
     .trip-group-stepper {
@@ -329,14 +329,14 @@
       gap: 0.5rem;
       min-height: 46px;
       border: 1px solid rgba(43, 43, 43, 0.12);
-      border-radius: 12px;
+      border-radius: 18px;
       background: #fff;
-      padding: 0.3rem 0.4rem;
+      padding: 0.35rem 0.45rem;
     }
 
     .trip-stepper-btn {
-      width: 30px;
-      height: 30px;
+      width: 34px;
+      height: 34px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -355,23 +355,23 @@
     }
 
     .trip-stepper-value {
-      min-width: 1.5rem;
+      min-width: 1.65rem;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 0.94rem;
       font-weight: 700;
       color: #1f2937;
       line-height: 1;
     }
 
     .trip-helper-text {
-      font-size: 0.68rem;
-      color: #7b857b;
+      font-size: 0.75rem;
+      color: #6b7280;
       margin-top: -0.1rem;
     }
 
     .trip-form-actions {
       border-top: 1px solid rgba(43, 43, 43, 0.08);
-      padding-top: 1rem;
+      padding-top: 0.9rem;
       display: flex;
       justify-content: flex-end;
       gap: 0.75rem;
@@ -380,14 +380,14 @@
     .trip-form-actions .btn-secondary,
     .trip-form-actions .btn-primary {
       border-radius: 999px;
-      padding: 0.8rem 1.1rem;
-      font-size: 0.95rem;
+      padding: 0.7rem 1.05rem;
+      font-size: 0.94rem;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      min-height: 46px;
+      min-height: 42px;
       transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
     }
 
@@ -441,7 +441,7 @@
  <body data-template-id="__page-root" class="w-full vh-full"><div class="app-shell"><!-- Sidebar -->
   <nav data-template-id="sidebar" class="sidebar canva-sidebar flex-shrink-0 flex flex-col py-4 overflow-y-auto">
    <div class="px-3 mb-8">
-    <div class="w-11 h-11 rounded-full bg-[#E9E3D8] flex items-center justify-center mb-3 shadow-[0_8px_16px_rgba(45,90,39,0.12)]"><i data-lucide="tent-tree" class="w-5 h-5 text-[#2D5A27]"></i></div>
+    <div class="w-11 h-11 rounded-full bg-[#E9E3D8] flex items-center justify-center mb-3 shadow-[0_8px_16px_rgba(45,90,39,0.12)]"><i data-lucide="tent" class="w-5 h-5 text-[#2D5A27]"></i></div>
     <h1 data-template-id="app-title" class="canva-text heading-font text-lg text-white">Camp Companion</h1>
     <p class="text-sm text-white/70 mt-1">Plan. Pack. Explore.</p>
    </div>
@@ -475,7 +475,7 @@
    <section class="section-page" id="sec-trip">
     <div class="p-4 md:p-8 max-w-3xl mx-auto">
      <h2 data-template-id="trip-title" class="canva-text heading-font mb-6 section-heading">Trip Details</h2>
-     <form id="trip-form" class="trip-form-card p-5 md:p-6 mb-6 space-y-5">
+     <form id="trip-form" class="trip-form-card p-5 md:p-6 mb-6 space-y-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
        <div class="trip-field md:col-span-2">
         <label data-template-id="trip-location-label" for="trip-location-input">Location</label>
@@ -551,7 +551,7 @@
      <h2 data-template-id="grocery-title" class="canva-text heading-font mb-6 section-heading">Meal Planner</h2><!-- Recipes -->
      <div class="content-card p-5 md:p-6 mb-6">
       <h3 data-template-id="recipes-subtitle" class="canva-text font-bold text-lg mb-4" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 19px;">Camp Recipes</h3>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-3" id="recipe-buttons"><button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="burgers"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="hamburger" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Campfire Burgers</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="walking"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="taco" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Walking Tacos</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="pancakes"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="cake-slice" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Pancakes</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="tacos"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="taco" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Campground Tacos</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="foil"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="package-open" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Campfire Foil Packets</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="chili"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="cooking-pot" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Dutch Oven Chili</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="kabobs"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="skewer" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Kabobs</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="burritos"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="burrito" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Breakfast Burritos</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="hotdogs"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="hotdog" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Hot Dogs &amp; Beans</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="quesadillas"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="pizza" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Campfire Quesadillas</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="nachos"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="chips" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Campfire Nachos</div></button>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3" id="recipe-buttons"><button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="burgers"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="Beef" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Campfire Burgers</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="walking"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="taco" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Walking Tacos</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="pancakes"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="CakeSlice" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Pancakes</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="tacos"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="taco" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Campground Tacos</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="foil"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="PackageOpen" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Campfire Foil Packets</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="chili"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="cooking-pot" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Dutch Oven Chili</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="kabobs"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="skewer" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Kabobs</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="burritos"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="WrapText" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Breakfast Burritos</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="hotdogs"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="hotdog" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Hot Dogs &amp; Beans</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="quesadillas"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="pizza" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Campfire Quesadillas</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="nachos"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="Salad" class="w-5 h-5 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110" style="stroke-width:1.75"></i></div><div class="text-sm font-semibold">Campfire Nachos</div></button>
       </div>
       <div id="recipe-detail" class="mt-4 hidden rounded-[24px] bg-[#F8F7F3] p-6 shadow-[0_12px_28px_rgba(43,43,43,0.04)]"><button id="recipe-back" type="button" class="mb-4 flex items-center gap-2 text-sm font-medium text-[#2D5A27] hover:underline"><i data-lucide="arrow-left" class="w-4 h-4"></i>Back to recipes</button>
        <h3 id="recipe-detail-title" class="text-xl font-semibold heading-font mb-4"></h3>
@@ -640,24 +640,7 @@
       <form id="activity-form" class="flex flex-col sm:flex-row gap-2"><input id="activity-input" type="text" class="flex-1 border rounded-2xl px-3 py-2 text-sm" placeholder="e.g. Bonfire, Scavenger hunt..."> <button data-template-id="add-activity-btn" type="submit" class="canva-button px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Add</button>
       </form>
      </div>
-     <div class="mb-8 pb-6 border-t border-[#E9E3D8] pt-6">
-      <h3 class="text-lg font-bold mb-4 heading-font">Can't Decide?</h3>
-      <p class="text-gray-600 text-sm mb-6">Close your eyes... tap the button... eat what it picks!</p>
-      <div id="roulette-grid" class="grid grid-cols-3 gap-3 mb-8">
-       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="cooking-pot" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Dutch Oven Chili</p></div>
-       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="hamburger" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Campfire Burgers</p></div>
-       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="taco" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Campground Tacos</p></div>
-       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="taco" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Campground Tacos</p></div>
-       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="cake-slice" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Pancakes</p></div>
-       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="skewer" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Grilled Kabobs</p></div>
-       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="package-open" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Campfire Foil Packets</p></div>
-       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="burrito" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Breakfast Burritos</p></div>
-       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="hotdog" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Hot Dogs &amp; Beans</p></div>
-       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="pizza" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Campfire Quesadillas</p></div>
-       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="chips" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Campfire Nachos</p></div>
-      </div><button id="roulette-spin" type="button" class="w-full px-8 py-3 rounded-full font-bold text-lg bg-[#2D5A27] text-white"><i data-lucide="shuffle" style="display:inline-block;width:20px;height:20px;margin-right:6px;vertical-align:middle;"></i>Shuffle</button>
-     </div>
-     <div>
+
       <h3 class="text-sm font-semibold uppercase tracking-[0.24em] text-[#6D8B54] mb-3">Planned Activities</h3>
       <div id="activity-list" class="space-y-3"></div>
      </div>
@@ -686,7 +669,15 @@
    </section><!-- Notes -->
    <section class="section-page" id="sec-notes">
     <div class="p-4 md:p-8 max-w-3xl mx-auto">
-     <h2 data-template-id="camp-notes-title" class="canva-text heading-font mb-4 section-heading">Camp Notes</h2><textarea id="notes-area" class="w-full h-64 rounded-2xl p-4 text-sm resize-none border border-[#E9E3D8] bg-white/90" placeholder="Write your camp notes here..."></textarea>
+     <div class="flex items-center gap-3 mb-4">
+      <div class="w-11 h-11 rounded-2xl bg-[#E9E3D8] flex items-center justify-center"><i data-lucide="notebook-pen" class="w-5 h-5 text-[#2D5A27]"></i></div>
+      <h2 data-template-id="camp-notes-title" class="canva-text heading-font m-0 section-heading">Camp Notes</h2>
+     </div>
+     <textarea id="notes-area" class="w-full h-64 rounded-2xl p-4 text-sm resize-none border border-[#E9E3D8] bg-white/90" placeholder="Write your camp notes here..."></textarea>
+     <div class="mt-4 flex flex-col sm:flex-row gap-3">
+      <button id="save-notes-btn" type="button" class="canva-button px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Save Notes</button>
+      <button id="delete-notes-btn" type="button" class="px-4 py-2 rounded-full text-sm font-medium bg-[#F8F7F3] text-[#2D5A27] border border-[#E9E3D8]">Delete Notes</button>
+     </div>
     </div>
    </section>
   </main>
@@ -706,6 +697,30 @@
 
     navBtns.forEach(btn => btn.addEventListener('click', function() { showSection(this.dataset.section); }));
     
+    document.getElementById('save-notes-btn')?.addEventListener('click', async function() {
+      var noteArea = document.getElementById('notes-area');
+      if (!noteArea) return;
+      var notesText = noteArea.value.trim();
+      var noteItem = allData.find(function(d) { return d.section === 'note'; });
+      if (noteItem) {
+        noteItem.notes = notesText;
+        await updateDataItem(Object.assign({}, noteItem));
+      } else {
+        await createDataItem({ section: 'note', notes: notesText });
+      }
+      renderNotes();
+    });
+
+    document.getElementById('delete-notes-btn')?.addEventListener('click', async function() {
+      var noteArea = document.getElementById('notes-area');
+      var noteItem = allData.find(function(d) { return d.section === 'note'; });
+      if (noteItem) {
+        await deleteDataItem(noteItem);
+      }
+      if (noteArea) noteArea.value = '';
+      renderNotes();
+    });
+
     // Remove roulette from nav if present
     document.querySelectorAll('[data-section="roulette"]').forEach(el => el.remove());
 
@@ -784,12 +799,20 @@
       return { isOk: true };
     }
 
+    function renderNotes() {
+      var noteArea = document.getElementById('notes-area');
+      if (!noteArea) return;
+      var noteItem = allData.find(function(d) { return d.section === 'note'; });
+      noteArea.value = noteItem ? (noteItem.notes || '') : '';
+    }
+
     function refreshViews() {
       renderTrips();
       renderGrocery();
       renderPackingList();
       renderActivities();
       renderPhotos();
+      renderNotes();
     }
 
     const weatherSuggestionCatalog = {
@@ -1860,20 +1883,6 @@
         document.getElementById('custom-item-category').value = '';
         renderKitchen();
       }
-    });
-
-    // Roulette
-    document.getElementById('roulette-spin').addEventListener('click', function() {
-      var items = document.querySelectorAll('.roulette-item');
-      items.forEach(function(i) { i.classList.remove('highlighted'); });
-      var count = 0;
-      var total = 12 + Math.floor(Math.random() * 6);
-      var interval = setInterval(function() {
-        items.forEach(function(i) { i.classList.remove('highlighted'); });
-        items[count % items.length].classList.add('highlighted');
-        count++;
-        if (count >= total) clearInterval(interval);
-      }, 150);
     });
 
     // Photo Journal
