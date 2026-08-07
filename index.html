@@ -182,8 +182,49 @@
        <h3 id="recipe-detail-title" class="text-xl font-bold heading-font mb-4"></h3>
        <div id="recipe-detail-content" class="text-sm text-gray-700 space-y-2"></div><button id="add-recipe-to-grocery-btn" type="button" class="mt-4 px-5 py-2 rounded-lg font-medium text-sm bg-emerald-600 hover:bg-emerald-700 text-white">✓ Add Ingredients to Grocery List</button>
       </div>
-     </div><!-- Roulette -->
-     <div class="border-t pt-6 mb-8">
+     </div><!-- Grocery List -->
+     <div class="border-t pt-6">
+      <h3 data-template-id="grocery-list-subtitle" class="canva-text font-bold text-lg mb-4" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 19px;">Grocery List</h3>
+      <div class="flex gap-2 mb-6 items-end">
+       <form id="grocery-form" class="flex gap-2 flex-1"><select id="grocery-cat" class="border rounded-lg px-3 py-2 text-sm"><option>Produce</option><option>Meat</option><option>Pantry</option><option>Refrigerated</option><option>Frozen</option><option>Snacks</option><option>Drinks</option></select> <input id="grocery-item-input" type="text" class="flex-1 border rounded-lg px-3 py-2 text-sm" placeholder="Add item..."> <button data-template-id="add-grocery-btn" type="submit" class="canva-button px-4 py-2 rounded-lg text-sm font-medium" style="background: rgb(26, 46, 26); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Add</button>
+       </form><button id="clear-all-grocery" type="button" class="px-4 py-2 rounded-lg text-sm font-medium bg-red-100 hover:bg-red-200 text-red-700">Clear All</button>
+      </div>
+      <div id="grocery-list" class="space-y-6"></div>
+     </div>
+    </div>
+   </section><!-- Packing List -->
+   <section class="section-page" id="sec-kitchen">
+    <div class="p-6 md:p-10 max-w-4xl">
+     <h2 data-template-id="kitchen-title" class="canva-text heading-font mb-4 section-heading" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 24px;">Packing List</h2>
+     <p data-template-id="kitchen-desc" class="canva-text text-gray-600 mb-6" style="color: rgb(107, 114, 128); font-weight: 400; font-style: normal; font-size: 16px;">Tap items to check them off. Green means packed!</p>
+     <div class="mb-8 p-4 bg-teal-50 rounded-lg border border-teal-200">
+      <h3 class="text-sm font-semibold text-gray-700 mb-3">Weather-Based Suggestions</h3>
+      <div class="flex flex-col md:flex-row gap-3">
+       <div class="flex-1">
+        <label for="packing-weather-select" class="text-xs text-gray-600 block mb-1">Select conditions:</label> <select id="packing-weather-select" class="w-full border rounded-lg px-3 py-2 text-sm"> <option value="">-- Choose weather --</option> <option value="hot">Hot &amp; Sunny</option> <option value="cold">Cold &amp; Snowy</option> <option value="rainy">Rainy &amp; Damp</option> <option value="windy">Windy &amp; Dry</option> </select>
+       </div><button id="apply-weather-btn" type="button" class="px-4 py-2 rounded-lg text-sm font-medium bg-teal-600 hover:bg-teal-700 text-white h-fit">Apply Suggestions</button>
+      </div>
+     </div>
+     <form id="custom-item-form" class="mb-6 flex gap-2">
+      <input id="custom-item-input" type="text" class="flex-1 border rounded-lg px-3 py-2 text-sm" placeholder="Add custom item..."> <input id="custom-item-quantity" type="text" class="w-20 border rounded-lg px-3 py-2 text-sm" placeholder="Qty"> <select id="custom-item-category" class="border rounded-lg px-3 py-2 text-sm"> <option value="">Category</option> <option value="Clothing">Clothing</option> <option value="Gear">Gear</option> <option value="Kitchen">Kitchen</option> <option value="Toiletries">Toiletries</option> <option value="Safety">Safety</option> </select> <button data-template-id="add-custom-item-btn" type="submit" class="canva-button px-4 py-2 rounded-lg text-sm font-medium" style="background: rgb(26, 46, 26); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Add Item</button>
+     </form>
+     <div id="kitchen-list" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+    </div>
+   </section><!-- Activities -->
+   <section class="section-page" id="sec-activities">
+    <div class="p-6 md:p-10 max-w-3xl">
+     <h2 data-template-id="activities-title" class="canva-text heading-font mb-4 section-heading" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 24px;">Activities</h2>
+     <p data-template-id="activities-desc" class="canva-text text-gray-600 mb-6" style="color: rgb(107, 114, 128); font-weight: 400; font-style: normal; font-size: 16px;">Plan activities and entertainment for the trip.</p>
+     <div class="mb-8">
+      <h3 class="text-sm font-semibold text-gray-700 mb-3">Activity Library</h3>
+      <div id="activity-library" class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6"></div>
+     </div>
+     <div class="mb-6 pb-6 border-t pt-6">
+      <h3 class="text-sm font-semibold text-gray-700 mb-3">Add Custom Activity</h3>
+      <form id="activity-form" class="flex gap-2"><input id="activity-input" type="text" class="flex-1 border rounded-lg px-3 py-2 text-sm" placeholder="e.g. Bonfire, Scavenger hunt..."> <button data-template-id="add-activity-btn" type="submit" class="canva-button px-4 py-2 rounded-lg text-sm font-medium" style="background: rgb(26, 46, 26); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Add</button>
+      </form>
+     </div>
+     <div class="mb-8 pb-6 border-t pt-6">
       <h3 class="text-lg font-bold mb-4 heading-font">Can't Decide?</h3>
       <p class="text-gray-600 text-sm mb-6">Close your eyes... tap the button... eat what it picks!</p>
       <div id="roulette-grid" class="grid grid-cols-3 gap-3 mb-8">
@@ -232,47 +273,6 @@
         <p class="text-sm font-medium mt-1">Campfire Nachos</p>
        </div>
       </div><button id="roulette-spin" type="button" class="w-full px-8 py-3 rounded-full font-bold text-lg bg-amber-400 hover:bg-amber-500 text-white"><i data-lucide="shuffle" style="display:inline-block;width:24px;height:24px;margin-right:6px;vertical-align:middle;"></i>Shuffle</button>
-     </div><!-- Grocery List -->
-     <div class="border-t pt-6">
-      <h3 data-template-id="grocery-list-subtitle" class="canva-text font-bold text-lg mb-4" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 19px;">Grocery List</h3>
-      <div class="flex gap-2 mb-6 items-end">
-       <form id="grocery-form" class="flex gap-2 flex-1"><select id="grocery-cat" class="border rounded-lg px-3 py-2 text-sm"><option>Produce</option><option>Meat</option><option>Pantry</option><option>Refrigerated</option><option>Frozen</option><option>Snacks</option><option>Drinks</option></select> <input id="grocery-item-input" type="text" class="flex-1 border rounded-lg px-3 py-2 text-sm" placeholder="Add item..."> <button data-template-id="add-grocery-btn" type="submit" class="canva-button px-4 py-2 rounded-lg text-sm font-medium" style="background: rgb(26, 46, 26); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Add</button>
-       </form><button id="clear-all-grocery" type="button" class="px-4 py-2 rounded-lg text-sm font-medium bg-red-100 hover:bg-red-200 text-red-700">Clear All</button>
-      </div>
-      <div id="grocery-list" class="space-y-6"></div>
-     </div>
-    </div>
-   </section><!-- Packing List -->
-   <section class="section-page" id="sec-kitchen">
-    <div class="p-6 md:p-10 max-w-4xl">
-     <h2 data-template-id="kitchen-title" class="canva-text heading-font mb-4 section-heading" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 24px;">Packing List</h2>
-     <p data-template-id="kitchen-desc" class="canva-text text-gray-600 mb-6" style="color: rgb(107, 114, 128); font-weight: 400; font-style: normal; font-size: 16px;">Tap items to check them off. Green means packed!</p>
-     <div class="mb-8 p-4 bg-teal-50 rounded-lg border border-teal-200">
-      <h3 class="text-sm font-semibold text-gray-700 mb-3">Weather-Based Suggestions</h3>
-      <div class="flex flex-col md:flex-row gap-3">
-       <div class="flex-1">
-        <label for="packing-weather-select" class="text-xs text-gray-600 block mb-1">Select conditions:</label> <select id="packing-weather-select" class="w-full border rounded-lg px-3 py-2 text-sm"> <option value="">-- Choose weather --</option> <option value="hot">Hot &amp; Sunny</option> <option value="cold">Cold &amp; Snowy</option> <option value="rainy">Rainy &amp; Damp</option> <option value="windy">Windy &amp; Dry</option> </select>
-       </div><button id="apply-weather-btn" type="button" class="px-4 py-2 rounded-lg text-sm font-medium bg-teal-600 hover:bg-teal-700 text-white h-fit">Apply Suggestions</button>
-      </div>
-     </div>
-     <form id="custom-item-form" class="mb-6 flex gap-2">
-      <input id="custom-item-input" type="text" class="flex-1 border rounded-lg px-3 py-2 text-sm" placeholder="Add custom item..."> <input id="custom-item-quantity" type="text" class="w-20 border rounded-lg px-3 py-2 text-sm" placeholder="Qty"> <select id="custom-item-category" class="border rounded-lg px-3 py-2 text-sm"> <option value="">Category</option> <option value="Clothing">Clothing</option> <option value="Gear">Gear</option> <option value="Kitchen">Kitchen</option> <option value="Toiletries">Toiletries</option> <option value="Safety">Safety</option> </select> <button data-template-id="add-custom-item-btn" type="submit" class="canva-button px-4 py-2 rounded-lg text-sm font-medium" style="background: rgb(26, 46, 26); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Add Item</button>
-     </form>
-     <div id="kitchen-list" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
-    </div>
-   </section><!-- Activities -->
-   <section class="section-page" id="sec-activities">
-    <div class="p-6 md:p-10 max-w-3xl">
-     <h2 data-template-id="activities-title" class="canva-text heading-font mb-4 section-heading" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 24px;">Activities</h2>
-     <p data-template-id="activities-desc" class="canva-text text-gray-600 mb-6" style="color: rgb(107, 114, 128); font-weight: 400; font-style: normal; font-size: 16px;">Plan activities and entertainment for the trip.</p>
-     <div class="mb-8">
-      <h3 class="text-sm font-semibold text-gray-700 mb-3">Activity Library</h3>
-      <div id="activity-library" class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6"></div>
-     </div>
-     <div class="mb-6 pb-6 border-t pt-6">
-      <h3 class="text-sm font-semibold text-gray-700 mb-3">Add Custom Activity</h3>
-      <form id="activity-form" class="flex gap-2"><input id="activity-input" type="text" class="flex-1 border rounded-lg px-3 py-2 text-sm" placeholder="e.g. Bonfire, Scavenger hunt..."> <button data-template-id="add-activity-btn" type="submit" class="canva-button px-4 py-2 rounded-lg text-sm font-medium" style="background: rgb(26, 46, 26); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Add</button>
-      </form>
      </div>
      <div>
       <h3 class="text-sm font-semibold text-gray-700 mb-3">Planned Activities</h3>
@@ -376,9 +376,33 @@
     };
 
     async function initApp() {
-      const r = await window.dataSdk.init(handler);
-      if (!r.isOk) {
-        // SDK init failed - show inline message
+      if (!window.dataSdk || typeof window.dataSdk.init !== 'function') {
+        allData = [];
+        renderTrips();
+        renderGrocery();
+        renderKitchen();
+        renderActivities();
+        renderPhotos();
+        return;
+      }
+
+      try {
+        const r = await window.dataSdk.init(handler);
+        if (!r || !r.isOk) {
+          allData = [];
+          renderTrips();
+          renderGrocery();
+          renderKitchen();
+          renderActivities();
+          renderPhotos();
+        }
+      } catch (e) {
+        allData = [];
+        renderTrips();
+        renderGrocery();
+        renderKitchen();
+        renderActivities();
+        renderPhotos();
       }
     }
     initApp();
@@ -562,20 +586,23 @@
 
     function renderGrocery() {
       var container = document.getElementById('grocery-list');
-      if (!groceryItems.length) {
+      if (!container) return;
+
+      var items = Array.isArray(groceryItems) ? groceryItems : [];
+      if (!items.length) {
         container.innerHTML = '<p class="text-gray-400 text-center py-4">Add items from a recipe or manually to get started</p>';
         return;
       }
       var orderedCats = ['Produce', 'Meat', 'Pantry', 'Refrigerated', 'Frozen', 'Snacks', 'Drinks'];
       var catNames = orderedCats.slice();
-      groceryItems.forEach(function(item) {
+      items.forEach(function(item) {
         if (item.category && catNames.indexOf(item.category) === -1) {
           catNames.push(item.category);
         }
       });
 
       container.innerHTML = catNames.map(function(cat) {
-        var catItems = groceryItems.filter(function(i) { return i.category === cat; });
+        var catItems = items.filter(function(i) { return i.category === cat; });
         if (!catItems.length) return '';
         return '<div><h4 class="font-bold text-sm text-gray-700 mb-2">' + cat + '</h4><div class="space-y-2">' + catItems.map(function(i) {
           return '<div class="checkbox-item ' + (i.checked ? 'checked' : '') + ' flex items-center gap-3 p-2 rounded-lg border cursor-pointer" data-toggle-grocery="' + i.id + '"><span class="w-5 h-5 rounded border-2 flex items-center justify-center text-xs ' + (i.checked ? 'bg-white text-emerald-700 border-white' : 'border-gray-300') + '">' + (i.checked ? '✓' : '') + '</span><span class="text-sm flex-1 ' + (i.checked ? 'line-through opacity-70' : '') + '">' + i.item_name + '</span><button type="button" class="text-red-400 hover:text-red-600 text-sm font-medium px-2" data-delete-grocery="' + i.id + '">✕</button></div>';
