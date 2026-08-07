@@ -612,7 +612,7 @@
      <div class="border-t border-[#E9E3D8] pt-6">
       <h3 data-template-id="grocery-list-subtitle" class="canva-text font-bold text-lg mb-4 text-[#2D5A27]">Grocery List</h3>
       <div class="flex flex-col sm:flex-row gap-2 mb-6 items-stretch sm:items-end">
-       <form id="grocery-form" class="flex flex-col sm:flex-row gap-2 flex-1"><select id="grocery-cat" class="border rounded-2xl px-3 py-2 text-sm min-w-[140px]"><option>Produce</option><option>Meat</option><option>Pantry</option><option>Refrigerated</option><option>Frozen</option><option>Snacks</option><option>Drinks</option></select> <input id="grocery-item-input" type="text" class="flex-1 border rounded-2xl px-3 py-2 text-sm" placeholder="Add item..."> <button data-template-id="add-grocery-btn" type="submit" class="canva-button px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Add</button>
+         <form id="grocery-form" class="flex flex-col sm:flex-row gap-2 flex-1"><input id="grocery-item-input" type="text" class="flex-1 border rounded-2xl px-3 py-2 text-sm" placeholder="Add item (auto-categorized)..."> <button data-template-id="add-grocery-btn" type="submit" class="canva-button px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Add</button>
        </form><button id="clear-all-grocery" type="button" class="px-4 py-2 rounded-full text-sm font-medium bg-[#F8F7F3] text-[#2D5A27] border border-[#E9E3D8]">Clear All</button>
       </div>
       <div id="grocery-list" class="space-y-6"></div>
@@ -1395,9 +1395,32 @@
       localStorage.setItem(groceryStorageKey, JSON.stringify(groceryItems));
     }
 
+    function detectGroceryCategory(itemName) {
+      var normalized = String(itemName || '').toLowerCase().trim();
+      if (!normalized) return 'Pantry';
+
+      var categoryKeywords = [
+        { name: 'Frozen', terms: ['frozen', 'ice cream', 'hash brown', 'hashbrowns', 'frozen vegetables', 'frozen fruit', 'frozen berries', 'popsicle'] },
+        { name: 'Drinks', terms: ['water', 'sparkling water', 'juice', 'apple juice', 'orange juice', 'soda', 'coffee', 'tea', 'lemonade', 'drink', 'gatorade', 'sports drink', 'electrolyte', 'energy drink'] },
+        { name: 'Snacks', terms: ['chips', 'crackers', 'granola', 'trail mix', 'nuts', 'almonds', 'cashews', 'popcorn', 'snack', 'pretzel', 'pretzels', 'cookie', 'cookies', 'jerky', 'protein bar', 'granola bar'] },
+        { name: 'Meat', terms: ['beef', 'ground beef', 'bacon', 'chicken', 'ground chicken', 'turkey', 'ground turkey', 'pork', 'ground pork', 'sausage', 'brat', 'hot dog', 'hotdogs', 'ham', 'steak', 'roast', 'meat', 'salmon', 'fish', 'shrimp'] },
+        { name: 'Refrigerated', terms: ['milk', 'almond milk', 'oat milk', 'cheese', 'cheddar', 'mozzarella', 'parmesan', 'butter', 'yogurt', 'greek yogurt', 'sour cream', 'cream', 'heavy cream', 'cottage cheese', 'cream cheese', 'eggs', 'egg', 'half and half'] },
+        { name: 'Produce', terms: ['lettuce', 'romaine', 'spinach', 'kale', 'arugula', 'tomato', 'onion', 'pepper', 'jalapeno', 'potato', 'sweet potato', 'corn', 'garlic', 'avocado', 'apple', 'banana', 'orange', 'grape', 'berry', 'berries', 'strawberry', 'blueberry', 'raspberry', 'fruit', 'vegetable', 'carrot', 'celery', 'cucumber', 'broccoli', 'cauliflower', 'zucchini', 'squash', 'mushroom', 'cilantro', 'parsley', 'lime', 'lemon'] }
+      ];
+
+      var matchedCategory = categoryKeywords.find(function(category) {
+        return category.terms.some(function(keyword) {
+          return normalized.indexOf(keyword) !== -1;
+        });
+      });
+
+      return matchedCategory ? matchedCategory.name : 'Pantry';
+    }
+
     function addGroceryItem(itemName, category) {
       var trimmedName = (itemName || '').trim();
       if (!trimmedName) return null;
+      var resolvedCategory = category || detectGroceryCategory(trimmedName);
       var newItem = {
         id: 'grocery-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
         section: 'grocery',
@@ -1410,7 +1433,7 @@
         would_make_again: false,
         notes: '',
         checked: false,
-        category: category || 'Pantry',
+        category: resolvedCategory,
         item_name: trimmedName,
         quantity: '',
         activity_name: '',
@@ -1449,7 +1472,7 @@
       e.preventDefault();
       var input = document.getElementById('grocery-item-input');
       if (!input.value.trim()) return;
-      addGroceryItem(input.value, document.getElementById('grocery-cat').value);
+      addGroceryItem(input.value);
       input.value = '';
     });
 
