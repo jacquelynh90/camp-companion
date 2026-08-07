@@ -720,6 +720,13 @@
      <div id="photo-gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </div>
   </section>
+    <div id="photo-viewer-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4" role="dialog" aria-modal="true" aria-label="Expanded photo view">
+      <button id="photo-viewer-close" type="button" class="absolute top-4 right-4 rounded-full bg-white/90 px-3 py-1 text-sm font-semibold text-[#2B2B2B] shadow" aria-label="Close expanded photo">Close</button>
+      <div class="w-full max-w-4xl rounded-[20px] bg-white p-3 md:p-4 shadow-[0_24px_45px_rgba(0,0,0,0.25)]">
+        <img id="photo-viewer-image" src="" alt="Expanded camp photo" class="w-full max-h-[75vh] object-contain rounded-[14px] bg-[#ECE8DE]">
+        <p id="photo-viewer-caption" class="mt-3 text-sm font-medium text-[#2B2B2B]"></p>
+      </div>
+    </div>
   </main>
   <nav class="mobile-nav md:hidden" aria-label="Primary navigation">
    <button class="nav-item active flex items-center justify-center" data-section="cover" aria-label="Home"><i data-lucide="home" class="w-5 h-5"></i></button>
@@ -1244,11 +1251,22 @@
         container.innerHTML = '<div class="rounded-[20px] bg-[#F8F7F3] p-4 text-sm text-[#4b4b4b]">No trip saved yet. Add one in Trip Details and it will appear here.</div>';
         return;
       }
+      function formatReadableDate(dateValue) {
+        if (!dateValue) return '';
+        var parsed = new Date(dateValue + 'T00:00:00');
+        if (isNaN(parsed.getTime())) return dateValue;
+        return parsed.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      }
       var dates = (latestTrip.dates || '').split('|');
       var startDate = dates[0] || '';
       var endDate = dates[1] || '';
-      var dateLabel = startDate && endDate ? startDate + ' to ' + endDate : (startDate || 'Tap to set dates');
+      var formattedStartDate = formatReadableDate(startDate);
+      var formattedEndDate = formatReadableDate(endDate);
+      var dateLabel = formattedStartDate && formattedEndDate ? formattedStartDate + ' to ' + formattedEndDate : (formattedStartDate || 'Tap to set dates');
       var notes = latestTrip.notes || '';
+      var filteredNotes = notes.split('|').map(function(part) { return part.trim(); }).filter(function(part) {
+        return part && part.toLowerCase().indexOf('group:') !== 0;
+      }).join(' | ');
       var countdownText = '';
       if (startDate) {
         var tripStart = new Date(startDate);
@@ -1264,7 +1282,7 @@
           countdownText = '<div class="text-sm font-semibold text-[#2D5A27]">Started</div>';
         }
       }
-      container.innerHTML = '<div class="rounded-[20px] bg-[#F8F7F3] p-4 space-y-2"><div class="font-semibold text-lg text-[#2B2B2B]">' + (latestTrip.location || 'Trip details') + '</div><div class="text-sm text-[#4b4b4b]">' + dateLabel + '</div>' + countdownText + (notes ? '<div class="text-sm text-[#4b4b4b] leading-relaxed">' + notes + '</div>' : '') + '</div>';
+      container.innerHTML = '<div class="rounded-[20px] bg-[#F8F7F3] p-4 space-y-2"><div class="font-semibold text-lg text-[#2B2B2B]">' + (latestTrip.location || 'Trip details') + '</div><div class="text-sm text-[#4b4b4b]">' + dateLabel + '</div>' + countdownText + (filteredNotes ? '<div class="text-sm text-[#4b4b4b] leading-relaxed">' + filteredNotes + '</div>' : '') + '</div>';
     }
 
     function renderTrips() {
@@ -1272,7 +1290,7 @@
       var container = document.getElementById('trip-list');
       if (!container) return;
       if (!trips.length) { container.innerHTML = '<p class="text-gray-400 text-center py-4">No trips planned yet</p>'; renderHomeTripCard(); return; }
-      container.innerHTML = trips.map(function(t) {
+      container.innerHTML = trips.map(function(t, index) {
         var dates = (t.dates || '').split('|');
         var ratingValue = parseInt(t.trip_rating, 10) || 0;
         var cleanlinessValue = parseInt(t.campground_cleanliness, 10) || 0;
@@ -1284,6 +1302,9 @@
         var petValue = t.pet_friendly || '';
         var favoritePart = t.favorite_part || '';
         var improveValue = t.improve_next_time || '';
+        var isLatestTrip = index === trips.length - 1;
+        var detailsOpenAttr = isLatestTrip ? ' open' : '';
+        var tripBadge = isLatestTrip ? 'Current trip' : 'Previous trip';
         var ratingStars = Array.from({length: 5}, function(_, i) {
           var filled = i < ratingValue;
           return '<button type="button" class="text-lg ' + (filled ? 'text-[#2D5A27]' : 'text-[#A4B494]') + '" data-update-trip-rating="' + t.__backendId + '" data-rating-value="' + (i + 1) + '">★</button>';
@@ -1292,7 +1313,8 @@
           var filled = i < cleanlinessValue;
           return '<button type="button" class="text-sm ' + (filled ? 'text-[#2D5A27]' : 'text-[#A4B494]') + '" data-update-cleanliness="' + t.__backendId + '" data-cleanliness-value="' + (i + 1) + '">★</button>';
         }).join('');
-        return '<div class="rounded-[24px] bg-[#F8F7F3] p-4 shadow-[0_12px_28px_rgba(43,43,43,0.04)]"><div class="flex items-start justify-between mb-3 gap-2"><div><div class="font-medium text-lg">' + (t.location || 'Unknown') + '</div><div class="text-sm text-gray-600">' + (dates[0] || '') + ' to ' + (dates[1] || '') + '</div></div><button type="button" class="text-[#2D5A27] text-sm font-medium shrink-0" data-delete-trip="' + t.__backendId + '">Delete</button></div><div class="space-y-3">' + (t.notes ? '<div class="text-sm text-gray-700 rounded-[16px] bg-white/70 p-2">' + t.notes + '</div>' : '') + '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs"><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Overall trip rating</div><div class="flex gap-1" data-rating-group="' + t.__backendId + '">' + ratingStars + '</div></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Would visit again</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="would_visit_again"><option value="" ' + (visitValue === '' ? 'selected' : '') + '>—</option><option value="Yes" ' + (visitValue === 'Yes' ? 'selected' : '') + '>Yes</option><option value="Maybe" ' + (visitValue === 'Maybe' ? 'selected' : '') + '>Maybe</option><option value="No" ' + (visitValue === 'No' ? 'selected' : '') + '>No</option></select></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Would recommend</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="would_recommend"><option value="" ' + (recommendValue === '' ? 'selected' : '') + '>—</option><option value="Yes" ' + (recommendValue === 'Yes' ? 'selected' : '') + '>Yes</option><option value="Maybe" ' + (recommendValue === 'Maybe' ? 'selected' : '') + '>Maybe</option><option value="No" ' + (recommendValue === 'No' ? 'selected' : '') + '>No</option></select></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Campground cleanliness</div><div class="flex gap-1" data-cleanliness-group="' + t.__backendId + '">' + cleanlinessStars + '</div></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Noise level</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="noise_level"><option value="" ' + (noiseValue === '' ? 'selected' : '') + '>—</option><option value="Quiet" ' + (noiseValue === 'Quiet' ? 'selected' : '') + '>Quiet</option><option value="Moderate" ' + (noiseValue === 'Moderate' ? 'selected' : '') + '>Moderate</option><option value="Loud" ' + (noiseValue === 'Loud' ? 'selected' : '') + '>Loud</option></select></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Cell service</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="cell_service"><option value="" ' + (cellValue === '' ? 'selected' : '') + '>—</option><option value="None" ' + (cellValue === 'None' ? 'selected' : '') + '>None</option><option value="Weak" ' + (cellValue === 'Weak' ? 'selected' : '') + '>Weak</option><option value="Good" ' + (cellValue === 'Good' ? 'selected' : '') + '>Good</option><option value="Excellent" ' + (cellValue === 'Excellent' ? 'selected' : '') + '>Excellent</option></select></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Kid friendly</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="kid_friendly"><option value="" ' + (kidValue === '' ? 'selected' : '') + '>—</option><option value="Yes" ' + (kidValue === 'Yes' ? 'selected' : '') + '>Yes</option><option value="No" ' + (kidValue === 'No' ? 'selected' : '') + '>No</option><option value="Not Applicable" ' + (kidValue === 'Not Applicable' ? 'selected' : '') + '>Not Applicable</option></select></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Pet friendly</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="pet_friendly"><option value="" ' + (petValue === '' ? 'selected' : '') + '>—</option><option value="Yes" ' + (petValue === 'Yes' ? 'selected' : '') + '>Yes</option><option value="No" ' + (petValue === 'No' ? 'selected' : '') + '>No</option><option value="Not Applicable" ' + (petValue === 'Not Applicable' ? 'selected' : '') + '>Not Applicable</option></select></div></div><div class="space-y-2"><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Favorite part</div><input type="text" class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" value="' + (favoritePart || '').replace(/'/g, '&#39;') + '" data-update-review="' + t.__backendId + '" data-review-field="favorite_part"></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">What to improve next time</div><input type="text" class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" value="' + (improveValue || '').replace(/'/g, '&#39;') + '" data-update-review="' + t.__backendId + '" data-review-field="improve_next_time"></div></div></div></div>';
+
+        return '<details class="rounded-[24px] bg-[#F8F7F3] p-4 shadow-[0_12px_28px_rgba(43,43,43,0.04)]" data-trip-details="' + t.__backendId + '"' + detailsOpenAttr + '><summary class="list-none cursor-pointer"><div class="flex items-start justify-between gap-2"><div><div class="font-medium text-lg">' + (t.location || 'Unknown') + '</div><div class="text-sm text-gray-600">' + (dates[0] || '') + ' to ' + (dates[1] || '') + '</div><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mt-1">' + tripBadge + '</div></div><i data-lucide="chevron-down" class="w-4 h-4 text-[#6D8B54] shrink-0 mt-1"></i></div></summary><div class="space-y-3 pt-3 mt-3 border-t border-[#E9E3D8]">' + (t.notes ? '<div class="text-sm text-gray-700 rounded-[16px] bg-white/70 p-2">' + t.notes + '</div>' : '') + '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs"><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Overall trip rating</div><div class="flex gap-1" data-rating-group="' + t.__backendId + '">' + ratingStars + '</div></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Would visit again</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="would_visit_again"><option value="" ' + (visitValue === '' ? 'selected' : '') + '>—</option><option value="Yes" ' + (visitValue === 'Yes' ? 'selected' : '') + '>Yes</option><option value="Maybe" ' + (visitValue === 'Maybe' ? 'selected' : '') + '>Maybe</option><option value="No" ' + (visitValue === 'No' ? 'selected' : '') + '>No</option></select></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Would recommend</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="would_recommend"><option value="" ' + (recommendValue === '' ? 'selected' : '') + '>—</option><option value="Yes" ' + (recommendValue === 'Yes' ? 'selected' : '') + '>Yes</option><option value="Maybe" ' + (recommendValue === 'Maybe' ? 'selected' : '') + '>Maybe</option><option value="No" ' + (recommendValue === 'No' ? 'selected' : '') + '>No</option></select></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Campground cleanliness</div><div class="flex gap-1" data-cleanliness-group="' + t.__backendId + '">' + cleanlinessStars + '</div></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Noise level</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="noise_level"><option value="" ' + (noiseValue === '' ? 'selected' : '') + '>—</option><option value="Quiet" ' + (noiseValue === 'Quiet' ? 'selected' : '') + '>Quiet</option><option value="Moderate" ' + (noiseValue === 'Moderate' ? 'selected' : '') + '>Moderate</option><option value="Loud" ' + (noiseValue === 'Loud' ? 'selected' : '') + '>Loud</option></select></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Cell service</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="cell_service"><option value="" ' + (cellValue === '' ? 'selected' : '') + '>—</option><option value="None" ' + (cellValue === 'None' ? 'selected' : '') + '>None</option><option value="Weak" ' + (cellValue === 'Weak' ? 'selected' : '') + '>Weak</option><option value="Good" ' + (cellValue === 'Good' ? 'selected' : '') + '>Good</option><option value="Excellent" ' + (cellValue === 'Excellent' ? 'selected' : '') + '>Excellent</option></select></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Kid friendly</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="kid_friendly"><option value="" ' + (kidValue === '' ? 'selected' : '') + '>—</option><option value="Yes" ' + (kidValue === 'Yes' ? 'selected' : '') + '>Yes</option><option value="No" ' + (kidValue === 'No' ? 'selected' : '') + '>No</option><option value="Not Applicable" ' + (kidValue === 'Not Applicable' ? 'selected' : '') + '>Not Applicable</option></select></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Pet friendly</div><select class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" data-update-review="' + t.__backendId + '" data-review-field="pet_friendly"><option value="" ' + (petValue === '' ? 'selected' : '') + '>—</option><option value="Yes" ' + (petValue === 'Yes' ? 'selected' : '') + '>Yes</option><option value="No" ' + (petValue === 'No' ? 'selected' : '') + '>No</option><option value="Not Applicable" ' + (petValue === 'Not Applicable' ? 'selected' : '') + '>Not Applicable</option></select></div></div><div class="space-y-2"><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">Favorite part</div><input type="text" class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" value="' + (favoritePart || '').replace(/'/g, '&#39;') + '" data-update-review="' + t.__backendId + '" data-review-field="favorite_part"></div><div class="rounded-[16px] bg-white/70 p-2"><div class="text-[10px] uppercase tracking-[0.2em] text-[#6D8B54] mb-1">What to improve next time</div><input type="text" class="w-full rounded-lg border border-[#E9E3D8] bg-white px-2 py-1 text-xs" value="' + (improveValue || '').replace(/'/g, '&#39;') + '" data-update-review="' + t.__backendId + '" data-review-field="improve_next_time"></div></div><div class="flex justify-end"><button type="button" class="text-[#2D5A27] text-sm font-medium" data-delete-trip="' + t.__backendId + '">Delete</button></div></div></details>';
       }).join('');
 
       container.querySelectorAll('[data-update-trip-rating]').forEach(function(star) {
@@ -1401,7 +1423,7 @@
 
       var categoryKeywords = [
         { name: 'Frozen', terms: ['frozen', 'ice cream', 'hash brown', 'hashbrowns', 'frozen vegetables', 'frozen fruit', 'frozen berries', 'popsicle'] },
-        { name: 'Drinks', terms: ['water', 'sparkling water', 'juice', 'apple juice', 'orange juice', 'soda', 'coffee', 'tea', 'lemonade', 'drink', 'gatorade', 'sports drink', 'electrolyte', 'energy drink'] },
+        { name: 'Drinks', terms: ['water', 'sparkling water', 'juice', 'apple juice', 'orange juice', 'soda', 'pop', 'cola', 'coke', 'pepsi', 'coffee', 'tea', 'lemonade', 'drink', 'gatorade', 'sports drink', 'electrolyte', 'energy drink'] },
         { name: 'Snacks', terms: ['chips', 'crackers', 'granola', 'trail mix', 'nuts', 'almonds', 'cashews', 'popcorn', 'snack', 'pretzel', 'pretzels', 'cookie', 'cookies', 'jerky', 'protein bar', 'granola bar'] },
         { name: 'Meat', terms: ['beef', 'ground beef', 'bacon', 'chicken', 'ground chicken', 'turkey', 'ground turkey', 'pork', 'ground pork', 'sausage', 'brat', 'hot dog', 'hotdogs', 'ham', 'steak', 'roast', 'meat', 'salmon', 'fish', 'shrimp'] },
         { name: 'Refrigerated', terms: ['milk', 'almond milk', 'oat milk', 'cheese', 'cheddar', 'mozzarella', 'parmesan', 'butter', 'yogurt', 'greek yogurt', 'sour cream', 'cream', 'heavy cream', 'cottage cheese', 'cream cheese', 'eggs', 'egg', 'half and half'] },
@@ -2131,6 +2153,42 @@
       }
     });
 
+    function openPhotoViewer(imageSrc, caption) {
+      var modal = document.getElementById('photo-viewer-modal');
+      var modalImage = document.getElementById('photo-viewer-image');
+      var modalCaption = document.getElementById('photo-viewer-caption');
+      if (!modal || !modalImage || !modalCaption) return;
+      modalImage.src = imageSrc;
+      modalCaption.textContent = caption || 'Camp photo';
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closePhotoViewer() {
+      var modal = document.getElementById('photo-viewer-modal');
+      var modalImage = document.getElementById('photo-viewer-image');
+      if (!modal || modal.classList.contains('hidden')) return;
+      modal.classList.remove('flex');
+      modal.classList.add('hidden');
+      if (modalImage) modalImage.src = '';
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    var photoViewerModal = document.getElementById('photo-viewer-modal');
+    var photoViewerCloseBtn = document.getElementById('photo-viewer-close');
+    if (photoViewerCloseBtn) {
+      photoViewerCloseBtn.addEventListener('click', closePhotoViewer);
+    }
+    if (photoViewerModal) {
+      photoViewerModal.addEventListener('click', function(e) {
+        if (e.target === photoViewerModal) closePhotoViewer();
+      });
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closePhotoViewer();
+    });
+
     function renderPhotos() {
       var photos = allData.filter(function(d) { return d.section === 'photo'; });
       var container = document.getElementById('photo-gallery');
@@ -2139,8 +2197,15 @@
         return;
       }
       container.innerHTML = photos.map(function(p) {
-        return '<div class="overflow-hidden rounded-[24px] bg-[#F8F7F3] shadow-[0_12px_28px_rgba(43,43,43,0.04)]"><img src="' + (p.notes || 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80') + '" class="w-full h-48 object-cover"><div class="p-3"><p class="font-medium text-sm mb-1">' + p.meal_name + '</p><button type="button" class="text-[#2D5A27] text-xs font-medium" data-delete-photo="' + p.__backendId + '">Delete</button></div></div>';
+        return '<div class="overflow-hidden rounded-[24px] bg-[#F8F7F3] shadow-[0_12px_28px_rgba(43,43,43,0.04)]"><button type="button" class="block w-full" data-expand-photo="' + p.__backendId + '" aria-label="Expand photo"><img src="' + (p.notes || 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80') + '" class="w-full h-48 object-cover transition-transform duration-200 hover:scale-[1.02]"></button><div class="p-3"><p class="font-medium text-sm mb-1">' + p.meal_name + '</p><button type="button" class="text-[#2D5A27] text-xs font-medium" data-delete-photo="' + p.__backendId + '">Delete</button></div></div>';
       }).join('');
+      container.querySelectorAll('[data-expand-photo]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var item = allData.find(function(d) { return d.__backendId === btn.dataset.expandPhoto; });
+          if (!item) return;
+          openPhotoViewer(item.notes || 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=80', item.meal_name || 'Camp photo');
+        });
+      });
       container.querySelectorAll('[data-delete-photo]').forEach(function(btn) {
         btn.addEventListener('click', async function() {
           var item = allData.find(function(d) { return d.__backendId === btn.dataset.deletePhoto; });
