@@ -265,7 +265,7 @@
         <p class="text-sm font-semibold uppercase tracking-[0.24em] text-[#6D8B54]">Upcoming trip</p>
         <h3 class="text-xl font-semibold mt-1">Your next getaway</h3>
        </div>
-       <button type="button" class="rounded-full bg-[#E9E3D8] px-3 py-1 text-sm text-[#2D5A27]" data-section="trip">Edit</button>
+       <button type="button" class="nav-item rounded-full bg-[#E9E3D8] px-3 py-1 text-sm text-[#2D5A27]" data-section="trip">Edit</button>
       </div>
       <div id="home-trip-content" class="space-y-3"></div>
      </div>
@@ -277,7 +277,12 @@
      <form id="trip-form" class="content-card p-5 md:p-6 mb-6 space-y-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
        <div>
-        <label data-template-id="trip-location-label" for="trip-location-input" class="canva-text block text-sm font-medium mb-1" style="color: rgb(55, 65, 81); font-weight: 500; font-style: normal; font-size: 16px;">Location</label><input id="trip-location-input" type="text" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="e.g. Rocky Mountain National Park">
+        <label data-template-id="trip-location-label" for="trip-location-input" class="canva-text block text-sm font-medium mb-1" style="color: rgb(55, 65, 81); font-weight: 500; font-style: normal; font-size: 16px;">Location</label><input id="trip-location-input" type="text" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="Search campgrounds, parks, cities, or addresses">
+        <input type="hidden" id="trip-location-lat" name="trip-location-lat">
+        <input type="hidden" id="trip-location-lng" name="trip-location-lng">
+        <input type="hidden" id="trip-location-formatted-address" name="trip-location-formatted-address">
+        <input type="hidden" id="trip-location-place-id" name="trip-location-place-id">
+        <p id="trip-location-status" class="mt-2 text-xs text-[#4b4b4b]">Start typing to search places.</p>
        </div>
        <div>
         <label data-template-id="trip-start-date-label" for="trip-start-date-input" class="canva-text block text-sm font-medium mb-1" style="color: rgb(55, 65, 81); font-weight: 500; font-style: normal; font-size: 16px;">Start Date</label><input id="trip-start-date-input" type="date" class="w-full border rounded-lg px-3 py-2 text-sm">
@@ -575,10 +580,86 @@
     }
     initApp();
 
+    let googlePlacesAutocomplete = null;
+
+    function setTripLocationStatus(message, isError) {
+      var statusEl = document.getElementById('trip-location-status');
+      if (!statusEl) return;
+      statusEl.textContent = message;
+      statusEl.className = 'mt-2 text-xs ' + (isError ? 'text-[#8b3a3a]' : 'text-[#4b4b4b]');
+    }
+
+    function initGooglePlacesAutocomplete() {
+      var input = document.getElementById('trip-location-input');
+      var latInput = document.getElementById('trip-location-lat');
+      var lngInput = document.getElementById('trip-location-lng');
+      var formattedAddressInput = document.getElementById('trip-location-formatted-address');
+      var placeIdInput = document.getElementById('trip-location-place-id');
+      if (!input || !window.google || !window.google.maps || !window.google.maps.places || !window.google.maps.places.Autocomplete) {
+        setTripLocationStatus('Google Places could not be loaded. You can still type a location manually.', true);
+        return;
+      }
+
+      googlePlacesAutocomplete = new window.google.maps.places.Autocomplete(input, {
+        types: ['establishment', 'locality', 'administrative_area_level_1', 'country', 'address', 'park'],
+        fields: ['name', 'formatted_address', 'geometry', 'place_id']
+      });
+
+      googlePlacesAutocomplete.addListener('place_changed', function() {
+        var place = googlePlacesAutocomplete.getPlace();
+        if (!place || !place.geometry) {
+          setTripLocationStatus('Please choose one of the autocomplete suggestions.', true);
+          return;
+        }
+        var selectedValue = place.name || place.formatted_address || input.value;
+        input.value = selectedValue;
+        if (latInput) latInput.value = place.geometry.location.lat().toString();
+        if (lngInput) lngInput.value = place.geometry.location.lng().toString();
+        if (formattedAddressInput) formattedAddressInput.value = place.formatted_address || '';
+        if (placeIdInput) placeIdInput.value = place.place_id || '';
+        setTripLocationStatus('Location selected from Google Places.', false);
+      });
+
+      input.addEventListener('focus', function() {
+        setTripLocationStatus('Start typing to search places and choose a suggestion.', false);
+      });
+      setTripLocationStatus('Type to search places and choose a suggestion.', false);
+    }
+
+    window.initGooglePlacesAutocomplete = initGooglePlacesAutocomplete;
+
+    function ensureGooglePlacesLoaded() {
+      if (window.google && window.google.maps && window.google.maps.places && window.google.maps.places.Autocomplete) {
+        initGooglePlacesAutocomplete();
+        return;
+      }
+
+      var apiKey = window.__GOOGLE_MAPS_API_KEY__ || '';
+      if (!apiKey) {
+        setTripLocationStatus('Google Places is not configured for this app. You can still type a location manually.', true);
+        return;
+      }
+
+      var script = document.createElement('script');
+      script.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(apiKey) + '&libraries=places&callback=initGooglePlacesAutocomplete';
+      script.async = true;
+      script.defer = true;
+      script.onerror = function() {
+        setTripLocationStatus('Google Places could not be loaded. You can still type a location manually.', true);
+      };
+      document.head.appendChild(script);
+    }
+
+    ensureGooglePlacesLoaded();
+
     // Trip
     document.getElementById('trip-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       const location = document.getElementById('trip-location-input').value.trim();
+      const lat = document.getElementById('trip-location-lat').value.trim();
+      const lng = document.getElementById('trip-location-lng').value.trim();
+      const formattedAddress = document.getElementById('trip-location-formatted-address').value.trim();
+      const placeId = document.getElementById('trip-location-place-id').value.trim();
       const startDate = document.getElementById('trip-start-date-input').value.trim();
       const endDate = document.getElementById('trip-end-date-input').value.trim();
       const groupSize = document.getElementById('trip-group-size-input').value.trim();
@@ -593,18 +674,28 @@
         section: 'trip', meal_name: '', day: '', meal_type: '', cooking_method: '',
         difficulty: '', rating: 0, would_make_again: false, notes: tripNotes,
         checked: false, category: '', item_name: '',
-        quantity: '', activity_name: '', location: location, dates: startDate + '|' + endDate
+        quantity: '', activity_name: '', location: location, dates: startDate + '|' + endDate,
+        place_name: location,
+        formatted_address: formattedAddress,
+        latitude: lat,
+        longitude: lng,
+        place_id: placeId
       });
       btn.disabled = false;
       if (result.isOk) {
         renderTrips();
         document.getElementById('trip-location-input').value = '';
+        document.getElementById('trip-location-lat').value = '';
+        document.getElementById('trip-location-lng').value = '';
+        document.getElementById('trip-location-formatted-address').value = '';
+        document.getElementById('trip-location-place-id').value = '';
         document.getElementById('trip-start-date-input').value = '';
         document.getElementById('trip-end-date-input').value = '';
         document.getElementById('trip-group-size-input').value = '';
         document.getElementById('trip-campsite-input').value = '';
         document.getElementById('trip-directions-input').value = '';
         document.getElementById('trip-notes-input').value = '';
+        setTripLocationStatus('Start typing to search places.', false);
       }
     });
 
