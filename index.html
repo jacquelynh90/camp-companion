@@ -227,6 +227,207 @@
 
     .vh-full { min-height: calc(100 * min(var(--vh, 1vh), 1vh)); }
 
+    .trip-form-card {
+      background: linear-gradient(180deg, #fcfbf7 0%, #f6f1e8 100%);
+      border: 1px solid rgba(43, 43, 43, 0.08);
+      box-shadow: 0 18px 50px rgba(21, 33, 20, 0.06);
+      border-radius: 24px;
+    }
+
+    .trip-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .trip-form-card > .trip-field + .trip-field {
+      margin-top: 0.9rem;
+    }
+
+    .trip-field label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #374151;
+      margin: 0;
+    }
+
+    .trip-input-wrap {
+      position: relative;
+    }
+
+    .trip-input-wrap i {
+      position: absolute;
+      left: 0.95rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6D8B54;
+      pointer-events: none;
+      width: 0.95rem;
+      height: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .trip-input-wrap i svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .trip-input-wrap input,
+    .trip-input-wrap textarea {
+      width: 100%;
+      border: 1px solid rgba(43, 43, 43, 0.12);
+      border-radius: 12px;
+      background: #fff;
+      color: #1f2937;
+      font-size: 0.93rem;
+      padding: 0.8rem 0.85rem 0.8rem 2.5rem;
+      min-height: 46px;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.01);
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .trip-input-wrap textarea {
+      min-height: 108px;
+      padding-left: 2.5rem;
+      padding-top: 0.8rem;
+      resize: vertical;
+    }
+
+    .trip-input-wrap input:focus,
+    .trip-input-wrap textarea:focus {
+      outline: none;
+      border-color: #2D5A27;
+      box-shadow: 0 0 0 4px rgba(45, 90, 39, 0.12);
+    }
+
+    .trip-input-wrap input::placeholder,
+    .trip-input-wrap textarea::placeholder {
+      color: #9ca3af;
+      font-size: 0.9rem;
+    }
+
+    .trip-input-wrap input[type="date"] {
+      padding-right: 0.8rem;
+    }
+
+    .trip-input-wrap input[type="date"]::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      opacity: 0.7;
+      width: 0.9rem;
+      height: 0.9rem;
+      margin-left: 0.2rem;
+    }
+
+    .trip-group-stepper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      min-height: 46px;
+      border: 1px solid rgba(43, 43, 43, 0.12);
+      border-radius: 12px;
+      background: #fff;
+      padding: 0.3rem 0.4rem;
+    }
+
+    .trip-stepper-btn {
+      width: 30px;
+      height: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(43, 43, 43, 0.12);
+      border-radius: 999px;
+      background: #f9f7f3;
+      color: #2D5A27;
+      transition: background-color 160ms ease, transform 160ms ease;
+    }
+
+    .trip-stepper-btn:hover,
+    .trip-stepper-btn:focus-visible {
+      background: #E9E3D8;
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .trip-stepper-value {
+      min-width: 1.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #1f2937;
+      line-height: 1;
+    }
+
+    .trip-helper-text {
+      font-size: 0.68rem;
+      color: #7b857b;
+      margin-top: -0.1rem;
+    }
+
+    .trip-form-actions {
+      border-top: 1px solid rgba(43, 43, 43, 0.08);
+      padding-top: 1rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+
+    .trip-form-actions .btn-secondary,
+    .trip-form-actions .btn-primary {
+      border-radius: 999px;
+      padding: 0.8rem 1.1rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 46px;
+      transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+    }
+
+    .trip-form-actions .btn-secondary {
+      border: 1px solid rgba(45, 90, 39, 0.16);
+      background: #f8f7f2;
+      color: #2D5A27;
+    }
+
+    .trip-form-actions .btn-secondary:hover,
+    .trip-form-actions .btn-secondary:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(45, 90, 39, 0.08);
+      outline: none;
+    }
+
+    .trip-form-actions .btn-primary {
+      background: #2D5A27;
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(45, 90, 39, 0.14);
+    }
+
+    .trip-form-actions .btn-primary:hover,
+    .trip-form-actions .btn-primary:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(45, 90, 39, 0.18);
+      outline: none;
+    }
+
+    @media (max-width: 767px) {
+      .trip-form-actions {
+        flex-direction: column-reverse;
+      }
+
+      .trip-form-actions .btn-secondary,
+      .trip-form-actions .btn-primary {
+        width: 100%;
+      }
+    }
+
     @media (min-width: 768px) {
       .app-shell { flex-direction: row; }
       .sidebar { display: flex; flex-direction: column; padding: 1rem 0.9rem; }
@@ -240,7 +441,7 @@
  <body data-template-id="__page-root" class="w-full vh-full"><div class="app-shell"><!-- Sidebar -->
   <nav data-template-id="sidebar" class="sidebar canva-sidebar flex-shrink-0 flex flex-col py-4 overflow-y-auto">
    <div class="px-3 mb-8">
-    <div class="w-11 h-11 rounded-2xl bg-white/10 flex items-center justify-center mb-3"><i data-lucide="tent-tree" class="w-5 h-5"></i></div>
+    <div class="w-11 h-11 rounded-full bg-[#E9E3D8] flex items-center justify-center mb-3 shadow-[0_8px_16px_rgba(45,90,39,0.12)]"><i data-lucide="tent-tree" class="w-5 h-5 text-[#2D5A27]"></i></div>
     <h1 data-template-id="app-title" class="canva-text heading-font text-lg text-white">Camp Companion</h1>
     <p class="text-sm text-white/70 mt-1">Plan. Pack. Explore.</p>
    </div>
@@ -274,35 +475,73 @@
    <section class="section-page" id="sec-trip">
     <div class="p-4 md:p-8 max-w-3xl mx-auto">
      <h2 data-template-id="trip-title" class="canva-text heading-font mb-6 section-heading">Trip Details</h2>
-     <form id="trip-form" class="content-card p-5 md:p-6 mb-6 space-y-4">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-       <div>
-        <label data-template-id="trip-location-label" for="trip-location-input" class="canva-text block text-sm font-medium mb-1" style="color: rgb(55, 65, 81); font-weight: 500; font-style: normal; font-size: 16px;">Location</label><input id="trip-location-input" type="text" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="Search campgrounds, parks, cities, or addresses">
+     <form id="trip-form" class="trip-form-card p-5 md:p-6 mb-6 space-y-5">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+       <div class="trip-field md:col-span-2">
+        <label data-template-id="trip-location-label" for="trip-location-input">Location</label>
+        <div class="trip-input-wrap">
+         <i data-lucide="map-pin" class="w-4 h-4"></i>
+         <input id="trip-location-input" type="text" placeholder="Search campgrounds, parks, cities, or addresses">
+        </div>
         <input type="hidden" id="trip-location-lat" name="trip-location-lat">
         <input type="hidden" id="trip-location-lng" name="trip-location-lng">
         <input type="hidden" id="trip-location-formatted-address" name="trip-location-formatted-address">
         <input type="hidden" id="trip-location-place-id" name="trip-location-place-id">
-        <p id="trip-location-status" class="mt-2 text-xs text-[#4b4b4b]">Start typing to search places.</p>
+        <p id="trip-location-status" class="trip-helper-text">Start typing to search places.</p>
        </div>
-       <div>
-        <label data-template-id="trip-start-date-label" for="trip-start-date-input" class="canva-text block text-sm font-medium mb-1" style="color: rgb(55, 65, 81); font-weight: 500; font-style: normal; font-size: 16px;">Start Date</label><input id="trip-start-date-input" type="date" class="w-full border rounded-lg px-3 py-2 text-sm">
+       <div class="trip-field">
+        <label data-template-id="trip-start-date-label" for="trip-start-date-input">Start Date</label>
+        <div class="trip-input-wrap">
+         <i data-lucide="calendar-days" class="w-4 h-4"></i>
+         <input id="trip-start-date-input" type="date">
+        </div>
        </div>
-       <div>
-        <label data-template-id="trip-end-date-label" for="trip-end-date-input" class="canva-text block text-sm font-medium mb-1" style="color: rgb(55, 65, 81); font-weight: 500; font-style: normal; font-size: 16px;">End Date</label><input id="trip-end-date-input" type="date" class="w-full border rounded-lg px-3 py-2 text-sm">
+       <div class="trip-field">
+        <label data-template-id="trip-end-date-label" for="trip-end-date-input">End Date</label>
+        <div class="trip-input-wrap">
+         <i data-lucide="calendar-days" class="w-4 h-4"></i>
+         <input id="trip-end-date-input" type="date">
+        </div>
        </div>
-       <div>
-        <label data-template-id="trip-group-size-label" for="trip-group-size-input" class="canva-text block text-sm font-medium mb-1" style="color: rgb(55, 65, 81); font-weight: 500; font-style: normal; font-size: 16px;">Group Size</label><input id="trip-group-size-input" type="number" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="e.g. 5" min="1">
+       <div class="trip-field">
+        <label data-template-id="trip-group-size-label" for="trip-group-size-input">Group Size</label>
+        <div class="trip-input-wrap">
+         <i data-lucide="users" class="w-4 h-4"></i>
+         <div class="trip-group-stepper" role="group" aria-label="Adjust group size">
+          <button type="button" class="trip-stepper-btn" id="trip-group-size-minus" aria-label="Decrease group size"><i data-lucide="minus" class="w-3.5 h-3.5"></i></button>
+          <div class="trip-stepper-value" id="trip-group-size-value">1</div>
+          <button type="button" class="trip-stepper-btn" id="trip-group-size-plus" aria-label="Increase group size"><i data-lucide="plus" class="w-3.5 h-3.5"></i></button>
+         </div>
+        </div>
+        <input id="trip-group-size-input" type="number" class="sr-only" placeholder="e.g. 5" min="1" value="1" tabindex="-1">
+        <p class="trip-helper-text">e.g. 5 people</p>
        </div>
-       <div>
-        <label data-template-id="trip-campsite-label" for="trip-campsite-input" class="canva-text block text-sm font-medium mb-1" style="color: rgb(55, 65, 81); font-weight: 500; font-style: normal; font-size: 16px;">Campsite Number</label><input id="trip-campsite-input" type="text" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="e.g. Site 12A">
+       <div class="trip-field">
+        <label data-template-id="trip-campsite-label" for="trip-campsite-input">Campsite Number</label>
+        <div class="trip-input-wrap">
+         <i data-lucide="tent-tree" class="w-4 h-4"></i>
+         <input id="trip-campsite-input" type="text" placeholder="e.g. Site 12A">
+        </div>
        </div>
-       <div>
-        <label data-template-id="trip-directions-label" for="trip-directions-input" class="canva-text block text-sm font-medium mb-1" style="color: rgb(55, 65, 81); font-weight: 500; font-style: normal; font-size: 16px;">Directions or Coordinates</label><input id="trip-directions-input" type="text" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="e.g. Coordinates or directions">
+       <div class="trip-field md:col-span-2">
+        <label data-template-id="trip-directions-label" for="trip-directions-input">Directions or Coordinates</label>
+        <div class="trip-input-wrap">
+         <i data-lucide="navigation" class="w-4 h-4"></i>
+         <input id="trip-directions-input" type="text" placeholder="e.g. Coordinates or directions">
+        </div>
        </div>
       </div>
-      <div>
-       <label data-template-id="trip-notes-label" for="trip-notes-input" class="canva-text block text-sm font-medium mb-1" style="color: rgb(55, 65, 81); font-weight: 500; font-style: normal; font-size: 16px;">Trip Notes</label><textarea id="trip-notes-input" class="w-full border rounded-lg px-3 py-2 text-sm resize-none" rows="3" placeholder="e.g. Special notes..."></textarea>
-      </div><button data-template-id="add-trip-btn" type="submit" class="canva-button px-5 py-2 rounded-full font-medium text-sm bg-[#2D5A27] text-white">Add Trip</button>
+      <div class="trip-field">
+       <label data-template-id="trip-notes-label" for="trip-notes-input">Trip Notes</label>
+       <div class="trip-input-wrap">
+        <i data-lucide="notebook-pen" class="w-4 h-4" style="top: 1.1rem; transform: none;"></i>
+        <textarea id="trip-notes-input" rows="4" placeholder="e.g. Special notes, reminders, or anything important for this trip..."></textarea>
+       </div>
+      </div>
+      <div class="trip-form-actions">
+       <button type="button" class="btn-secondary">Cancel</button>
+       <button data-template-id="add-trip-btn" type="submit" class="btn-primary"><i data-lucide="plus" class="w-4 h-4"></i> Add Trip</button>
+      </div>
      </form>
      <div id="trip-list" class="space-y-3"></div>
     </div>
@@ -312,7 +551,7 @@
      <h2 data-template-id="grocery-title" class="canva-text heading-font mb-6 section-heading">Meal Planner</h2><!-- Recipes -->
      <div class="content-card p-5 md:p-6 mb-6">
       <h3 data-template-id="recipes-subtitle" class="canva-text font-bold text-lg mb-4" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 19px;">Camp Recipes</h3>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-3" id="recipe-buttons"><button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="burgers"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="grill" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Campfire Burgers</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="walking"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="sandwich" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Walking Tacos</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="pancakes"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="cake" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Pancakes</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="tacos"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="chef-hat" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Campground Tacos</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="foil"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="flame" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Campfire Foil Packets</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="chili"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="potato" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Dutch Oven Chili</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="kabobs"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="beef" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Kabobs</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="burritos"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="wrap-text" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Breakfast Burritos</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="hotdogs"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="salad" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Hot Dogs &amp; Beans</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="quesadillas"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="chevron-right" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Campfire Quesadillas</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="nachos"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="cookie" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Campfire Nachos</div></button>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3" id="recipe-buttons"><button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="burgers"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="grill" class="w-4 h-4 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110"></i></div><div class="text-sm font-semibold">Campfire Burgers</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="walking"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="sandwich" class="w-4 h-4 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110"></i></div><div class="text-sm font-semibold">Walking Tacos</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="pancakes"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="cake" class="w-4 h-4 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110"></i></div><div class="text-sm font-semibold">Pancakes</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="tacos"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="chef-hat" class="w-4 h-4 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110"></i></div><div class="text-sm font-semibold">Campground Tacos</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="foil"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="flame" class="w-4 h-4 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110"></i></div><div class="text-sm font-semibold">Campfire Foil Packets</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="chili"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="potato" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Dutch Oven Chili</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="kabobs"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="beef" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Kabobs</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="burritos"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="wrap-text" class="w-4 h-4 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110"></i></div><div class="text-sm font-semibold">Breakfast Burritos</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="hotdogs"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="salad" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Hot Dogs &amp; Beans</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="quesadillas"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="chevron-right" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Campfire Quesadillas</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform group" data-recipe="nachos"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3 transition-all duration-200 group-hover:scale-110 group-hover:bg-[#D8D0C1]"><i data-lucide="cookie" class="w-4 h-4 text-[#2D5A27] transition-transform duration-200 group-hover:scale-110"></i></div><div class="text-sm font-semibold">Campfire Nachos</div></button>
       </div>
       <div id="recipe-detail" class="mt-4 hidden rounded-[24px] bg-[#F8F7F3] p-6 shadow-[0_12px_28px_rgba(43,43,43,0.04)]"><button id="recipe-back" type="button" class="mb-4 flex items-center gap-2 text-sm font-medium text-[#2D5A27] hover:underline"><i data-lucide="arrow-left" class="w-4 h-4"></i>Back to recipes</button>
        <h3 id="recipe-detail-title" class="text-xl font-semibold heading-font mb-4"></h3>
@@ -712,6 +951,34 @@
     ensureGooglePlacesLoaded();
 
     // Trip
+    var tripGroupSizeInput = document.getElementById('trip-group-size-input');
+    var tripGroupSizeValue = document.getElementById('trip-group-size-value');
+
+    function syncTripGroupSize(value) {
+      var parsed = parseInt(value, 10);
+      var nextValue = (parsed && parsed > 0) ? parsed : 1;
+      if (tripGroupSizeInput) tripGroupSizeInput.value = String(nextValue);
+      if (tripGroupSizeValue) tripGroupSizeValue.textContent = String(nextValue);
+    }
+
+    var tripGroupSizeMinus = document.getElementById('trip-group-size-minus');
+    var tripGroupSizePlus = document.getElementById('trip-group-size-plus');
+    if (tripGroupSizeInput && tripGroupSizeMinus && tripGroupSizePlus) {
+      syncTripGroupSize(tripGroupSizeInput.value);
+      tripGroupSizeMinus.addEventListener('click', function() {
+        syncTripGroupSize((parseInt(tripGroupSizeInput.value, 10) || 1) - 1);
+      });
+      tripGroupSizePlus.addEventListener('click', function() {
+        syncTripGroupSize((parseInt(tripGroupSizeInput.value, 10) || 1) + 1);
+      });
+      tripGroupSizeInput.addEventListener('input', function() {
+        syncTripGroupSize(this.value);
+      });
+      tripGroupSizeInput.addEventListener('change', function() {
+        syncTripGroupSize(this.value);
+      });
+    }
+
     document.getElementById('trip-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       const location = document.getElementById('trip-location-input').value.trim();
@@ -782,7 +1049,22 @@
       var endDate = dates[1] || '';
       var dateLabel = startDate && endDate ? startDate + ' to ' + endDate : (startDate || 'Tap to set dates');
       var notes = latestTrip.notes || '';
-      container.innerHTML = '<div class="rounded-[20px] bg-[#F8F7F3] p-4 space-y-2"><div class="font-semibold text-lg text-[#2B2B2B]">' + (latestTrip.location || 'Trip details') + '</div><div class="text-sm text-[#4b4b4b]">' + dateLabel + '</div>' + (notes ? '<div class="text-sm text-[#4b4b4b] leading-relaxed">' + notes + '</div>' : '') + '</div>';
+      var countdownText = '';
+      if (startDate) {
+        var tripStart = new Date(startDate);
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        tripStart.setHours(0, 0, 0, 0);
+        var diffDays = Math.ceil((tripStart - today) / 86400000);
+        if (diffDays > 0) {
+          countdownText = '<div class="text-sm font-semibold text-[#2D5A27]">' + diffDays + ' days away</div>';
+        } else if (diffDays === 0) {
+          countdownText = '<div class="text-sm font-semibold text-[#2D5A27]">Today</div>';
+        } else {
+          countdownText = '<div class="text-sm font-semibold text-[#2D5A27]">Started</div>';
+        }
+      }
+      container.innerHTML = '<div class="rounded-[20px] bg-[#F8F7F3] p-4 space-y-2"><div class="font-semibold text-lg text-[#2B2B2B]">' + (latestTrip.location || 'Trip details') + '</div><div class="text-sm text-[#4b4b4b]">' + dateLabel + '</div>' + countdownText + (notes ? '<div class="text-sm text-[#4b4b4b] leading-relaxed">' + notes + '</div>' : '') + '</div>';
     }
 
     function renderTrips() {
