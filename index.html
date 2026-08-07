@@ -714,7 +714,8 @@
          <label for="photo-image-file" class="text-xs font-semibold text-gray-700 block mb-1">Upload Photo</label>
          <input id="photo-image-file" type="file" accept="image/*" class="w-full border rounded-lg px-3 py-2 text-sm bg-white">
          <p class="text-xs text-gray-500 mt-2">Choose an image from your device instead of pasting a link. Smaller images will save more reliably in browser storage.</p>
-        </div><button data-template-id="add-photo-btn" type="submit" class="canva-button px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Add Photo</button>
+        </div>
+      <p id="photo-form-status" class="hidden text-xs mb-3"></p><button data-template-id="add-photo-btn" type="submit" class="canva-button px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Add Photo</button>
      </form>
      <div id="photo-gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
     </div>
@@ -754,7 +755,25 @@
         var stored = localStorage.getItem(localDataStorageKey);
         if (!stored) return [];
         var parsed = JSON.parse(stored);
-        return Array.isArray(parsed) ? parsed.filter(function(item) { return item.section !== 'note'; }) : [];
+        if (!Array.isArray(parsed)) return [];
+        var didMutate = false;
+        var normalized = parsed
+          .filter(function(item) { return item.section !== 'note'; })
+          .map(function(item) {
+            if (!item || typeof item !== 'object') {
+              didMutate = true;
+              return Object.assign(buildDataRecord({}), { __backendId: createLocalId() });
+            }
+            if (!item.__backendId) {
+              didMutate = true;
+              return Object.assign({}, item, { __backendId: createLocalId() });
+            }
+            return item;
+          });
+        if (didMutate) {
+          localStorage.setItem(localDataStorageKey, JSON.stringify(normalized));
+        }
+        return normalized;
       } catch (e) {
         return [];
       }
@@ -774,6 +793,62 @@
         reader.onload = function() { resolve(reader.result); };
         reader.onerror = function() { reject(reader.error || new Error('Unable to read file.')); };
         reader.readAsDataURL(file);
+      });
+    }
+
+    function setPhotoFormStatus(message, isError) {
+      var statusEl = document.getElementById('photo-form-status');
+      if (!statusEl) return;
+      if (!message) {
+        statusEl.textContent = '';
+        statusEl.className = 'hidden text-xs mb-3';
+        return;
+      }
+      statusEl.textContent = message;
+      statusEl.className = 'text-xs mb-3 ' + (isError ? 'text-[#8b3a3a]' : 'text-[#2D5A27]');
+    }
+
+    function optimizeImageFileDataUrl(file, options) {
+      var config = Object.assign({ maxDimension: 1600, quality: 0.82 }, options || {});
+      return new Promise(function(resolve, reject) {
+        readFileAsDataUrl(file).then(function(sourceDataUrl) {
+          var image = new Image();
+          image.onload = function() {
+            var width = image.naturalWidth || image.width;
+            var height = image.naturalHeight || image.height;
+            if (!width || !height) {
+              resolve(sourceDataUrl);
+              return;
+            }
+
+            var scale = Math.min(1, config.maxDimension / Math.max(width, height));
+            var targetWidth = Math.max(1, Math.round(width * scale));
+            var targetHeight = Math.max(1, Math.round(height * scale));
+            var canvas = document.createElement('canvas');
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+
+            var ctx = canvas.getContext('2d');
+            if (!ctx) {
+              resolve(sourceDataUrl);
+              return;
+            }
+
+            ctx.drawImage(image, 0, 0, targetWidth, targetHeight);
+            try {
+              var optimizedDataUrl = canvas.toDataURL('image/jpeg', config.quality);
+              resolve(optimizedDataUrl || sourceDataUrl);
+            } catch (error) {
+              resolve(sourceDataUrl);
+            }
+          };
+          image.onerror = function() {
+            resolve(sourceDataUrl);
+          };
+          image.src = sourceDataUrl;
+        }).catch(function(error) {
+          reject(error);
+        });
       });
     }
 
@@ -970,7 +1045,15 @@
 
       const handler = {
       onDataChanged: function(data) {
-        allData = Array.isArray(data) ? data : [];
+        allData = Array.isArray(data) ? data.map(function(item) {
+          if (!item || typeof item !== 'object') {
+            return Object.assign(buildDataRecord({}), { __backendId: createLocalId() });
+          }
+          if (!item.__backendId) {
+            return Object.assign({}, item, { __backendId: createLocalId() });
+          }
+          return item;
+        }) : [];
         savePersistedData();
         refreshViews();
       }
@@ -1988,11 +2071,16 @@
       var imageFile = imageFileInput && imageFileInput.files ? imageFileInput.files[0] : null;
       if (!imageUrl && !imageFile) return;
       var btn = this.querySelector('[data-template-id="add-photo-btn"]');
+      var originalBtnText = btn ? btn.textContent : 'Add Photo';
       btn.disabled = true;
+      btn.setAttribute('aria-busy', 'true');
+      btn.classList.add('opacity-70', 'cursor-not-allowed');
+      btn.textContent = imageFile ? 'Uploading...' : 'Saving...';
+      setPhotoFormStatus(imageFile ? 'Uploading photo...' : 'Saving photo...', false);
       try {
         var imageSource = imageUrl;
         if (!imageSource && imageFile) {
-          imageSource = await readFileAsDataUrl(imageFile);
+          imageSource = await optimizeImageFileDataUrl(imageFile);
         }
         var photoCaption = derivePhotoCaption(caption, imageUrl, imageFile);
         var result = await createDataItem({
@@ -2005,10 +2093,18 @@
           document.getElementById('photo-caption').value = '';
           document.getElementById('photo-image-url').value = '';
           if (imageFileInput) imageFileInput.value = '';
+          setPhotoFormStatus('Photo added.', false);
           renderPhotos();
+        } else {
+          setPhotoFormStatus('Could not save photo. Please try again.', true);
         }
+      } catch (error) {
+        setPhotoFormStatus('Photo could not be saved. Try a smaller image or use an image URL.', true);
       } finally {
         btn.disabled = false;
+        btn.removeAttribute('aria-busy');
+        btn.classList.remove('opacity-70', 'cursor-not-allowed');
+        btn.textContent = originalBtnText;
       }
     });
 
