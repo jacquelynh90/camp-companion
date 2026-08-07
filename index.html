@@ -10,39 +10,42 @@
     :root {
       --forest: #2D5A27;
       --sage: #A4B494;
-      --cream: #F8F7F3;
+      --warm: #F8F7F3;
       --sand: #E9E3D8;
       --charcoal: #2B2B2B;
-      --moss: #6D8B54;
-      --shadow: 0 20px 45px rgba(45, 90, 39, 0.10);
+      --shadow: 0 24px 60px rgba(43, 43, 43, 0.08);
+      --radius-xl: 30px;
     }
 
+    * { box-sizing: border-box; }
+
     body {
-      font-family: 'Inter', 'DM Sans', sans-serif;
-      background: linear-gradient(135deg, #f8f7f3 0%, #f3eee4 100%);
+      font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(180deg, var(--warm) 0%, #efe8dc 100%);
       color: var(--charcoal);
+      line-height: 1.55;
     }
 
     .heading-font {
-      font-family: 'Fraunces', 'SF Pro Display', serif;
-      letter-spacing: -0.02em;
+      font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      letter-spacing: -0.025em;
+      font-weight: 600;
     }
 
     .app-shell {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      background: linear-gradient(135deg, rgba(255,255,255,0.45), rgba(233,227,216,0.35));
+      background: linear-gradient(135deg, rgba(248, 247, 243, 0.95), rgba(233, 227, 216, 0.8));
     }
 
     .sidebar {
       display: none;
-      width: 260px;
+      width: 270px;
       flex-shrink: 0;
-      background: linear-gradient(180deg, var(--forest) 0%, #22441f 100%);
+      background: linear-gradient(180deg, var(--forest) 0%, #21431d 100%);
       color: white;
-      border-right: 1px solid rgba(255,255,255,0.12);
-      box-shadow: 18px 0 60px rgba(45, 90, 39, 0.12);
+      box-shadow: 0 24px 60px rgba(45, 90, 39, 0.16);
     }
 
     .mobile-nav {
@@ -53,16 +56,17 @@
       right: 0;
       justify-content: space-between;
       gap: 0.35rem;
-      padding: 0.7rem 0.8rem calc(0.7rem + env(safe-area-inset-bottom));
-      background: rgba(248,247,243,0.94);
-      backdrop-filter: blur(16px);
-      border-top: 1px solid rgba(45, 90, 39, 0.08);
+      padding: 0.8rem 0.9rem calc(0.8rem + env(safe-area-inset-bottom));
+      background: rgba(248, 247, 243, 0.96);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(43, 43, 43, 0.06);
       z-index: 40;
+      box-shadow: 0 -12px 30px rgba(43, 43, 43, 0.05);
     }
 
     .nav-item {
       transition: all 0.2s ease;
-      border-radius: 16px;
+      border-radius: 999px;
       color: rgba(255,255,255,0.9);
       font-weight: 600;
       min-height: 44px;
@@ -87,34 +91,31 @@
       color: var(--forest);
     }
 
-    .section-page { display: none; }
+    .section-page { display: none; padding: 0.25rem 0 2rem; }
     .section-page.active { display: block; }
 
     .section-page > div,
     .section-page > form,
     .section-page .content-card {
-      background: rgba(255,255,255,0.82);
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(45, 90, 39, 0.08);
-      border-radius: 24px;
+      background: rgba(255,255,255,0.74);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(43, 43, 43, 0.04);
+      border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
     }
 
     .section-page > div {
-      padding: 1.2rem;
-    }
-
-    .section-page > div.p-6,
-    .section-page > div.p-6.md\:p-10 {
-      padding: 1.25rem;
+      padding: 1.4rem;
+      margin: 0.9rem 0.8rem 1.1rem;
     }
 
     .section-heading {
       position: relative;
       display: inline-block;
-      padding-bottom: 0.5rem;
+      padding-bottom: 0.45rem;
       color: var(--forest);
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.1rem;
+      font-size: clamp(1.45rem, 2vw, 1.8rem);
     }
 
     .section-heading::after {
@@ -122,7 +123,7 @@
       position: absolute;
       bottom: 0;
       left: 0;
-      width: 100%;
+      width: 76px;
       height: 3px;
       background: linear-gradient(90deg, var(--forest), var(--sage));
       border-radius: 999px;
@@ -133,68 +134,95 @@
     }
 
     input, select, textarea {
-      background: rgba(255,255,255,0.92);
-      border: 1px solid rgba(45, 90, 39, 0.14);
-      border-radius: 14px;
-      padding: 0.8rem 0.95rem;
+      background: rgba(255,255,255,0.94);
+      border: 1px solid rgba(43, 43, 43, 0.06);
+      border-radius: 16px;
+      padding: 0.86rem 0.95rem;
       color: var(--charcoal);
-      box-shadow: inset 0 1px 2px rgba(45, 90, 39, 0.03);
+      box-shadow: inset 0 1px 2px rgba(43, 43, 43, 0.03);
     }
 
     input:focus, select:focus, textarea:focus {
       outline: none;
-      border-color: rgba(45, 90, 39, 0.35);
+      border-color: rgba(45, 90, 39, 0.28);
       box-shadow: 0 0 0 4px rgba(45, 90, 39, 0.10);
     }
 
     button, .canva-button {
       border-radius: 999px;
       font-weight: 600;
-      box-shadow: 0 8px 20px rgba(45, 90, 39, 0.08);
+      box-shadow: none;
+      border: 0;
     }
 
     button:hover, .canva-button:hover, .nav-shortcut:hover {
       transform: translateY(-1px);
-      box-shadow: 0 12px 24px rgba(45, 90, 39, 0.14);
+      box-shadow: 0 12px 24px rgba(45, 90, 39, 0.12);
     }
 
     .nav-shortcut {
-      border-radius: 20px;
+      border-radius: 24px;
       background: rgba(255,255,255,0.86);
-      border: 1px solid rgba(45, 90, 39, 0.08);
-      box-shadow: 0 10px 24px rgba(45, 90, 39, 0.08);
+      border: 1px solid rgba(43, 43, 43, 0.04);
+      box-shadow: 0 16px 34px rgba(43, 43, 43, 0.05);
       transition: all 0.2s ease;
+    }
+
+    .hero-card {
+      padding: 0;
+      background: transparent;
+      border: 0;
+      box-shadow: 0 24px 60px rgba(43, 43, 43, 0.12);
     }
 
     .star { cursor: pointer; transition: transform 0.15s ease; }
-    .star:hover { transform: scale(1.2); }
+    .star:hover { transform: scale(1.08); }
 
-    .checkbox-item {
+    .checkbox-item,
+    .recipe-btn,
+    .activity-lib-btn,
+    .roulette-item {
       transition: all 0.2s ease;
-      border-radius: 16px;
-      border: 1px solid rgba(45, 90, 39, 0.10);
-      background: rgba(255,255,255,0.88);
-      box-shadow: 0 8px 18px rgba(45, 90, 39, 0.04);
+      border-radius: 22px;
+      border: 1px solid rgba(43, 43, 43, 0.04);
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 12px 28px rgba(43, 43, 43, 0.04);
     }
 
     .checkbox-item.checked {
-      background: linear-gradient(135deg, var(--moss) 0%, var(--forest) 100%);
+      background: linear-gradient(135deg, var(--sage) 0%, var(--forest) 100%);
       border-color: transparent;
       color: white;
     }
 
-    .roulette-item {
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.88);
-      box-shadow: 0 8px 18px rgba(45, 90, 39, 0.04);
+    .recipe-btn:hover,
+    .activity-lib-btn:hover,
+    .roulette-item:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 32px rgba(43, 43, 43, 0.06);
     }
 
     .roulette-item.highlighted {
-      border-color: var(--forest);
-      background: linear-gradient(135deg, #f4f0e2 0%, #e5ebda 100%);
-      transform: scale(1.03);
+      border-color: var(--sage);
+      background: linear-gradient(135deg, var(--sand), var(--warm));
+      transform: scale(1.01);
+      color: var(--forest);
+    }
+
+    .text-gray-400, .text-gray-500, .text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900 {
+      color: var(--charcoal) !important;
+    }
+
+    .text-gray-600 { opacity: 0.82; }
+    .text-gray-500 { opacity: 0.74; }
+    .text-gray-400 { opacity: 0.6; }
+
+    .bg-white, .bg-white\/90, .bg-white\/80, .bg-white\/85 {
+      background-color: var(--warm) !important;
+    }
+
+    .border-gray-300, .border-gray-200, .border-gray-100 {
+      border-color: rgba(43, 43, 43, 0.08) !important;
     }
 
     .vh-full { min-height: calc(100 * min(var(--vh, 1vh), 1vh)); }
@@ -204,7 +232,7 @@
       .sidebar { display: flex; flex-direction: column; padding: 1rem 0.9rem; }
       .mobile-nav { display: none; }
       main { flex: 1; }
-      .section-page > div { padding: 1.5rem; }
+      .section-page > div { padding: 1.8rem 2rem; margin: 1rem 1rem 1.25rem; }
     }
   </style>
   <script src="/_sdk/04cc6185e046f597.resizing_sdk.js" type="text/javascript" integrity="sha512-CiE/G92aQF0nxneFg1kdOvXih8sQ1Z2a2QI3+r/WvzJwQqH6+IyB3iL07OkJmpm3ABAaf07+FnqWny98f5sR6w=="></script>
@@ -221,7 +249,7 @@
   </nav>
   <main class="flex-1 overflow-y-auto"><!-- Cover -->
    <section class="section-page active" id="sec-cover">
-    <div class="relative overflow-hidden rounded-[28px] m-4 md:m-6 shadow-[0_24px_50px_rgba(45,90,39,0.12)]"><img data-template-id="hero-image" class="canva-image w-full h-72 md:h-96 object-cover" loading="lazy" src="https://images.pexels.com/photos/1687845/pexels-photo-1687845.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1280" alt="Vibrant tents on a grassy mountain ridge with a stunning sunrise view, ideal for adventure.">
+    <div class="hero-card relative overflow-hidden rounded-[32px] m-4 md:m-6"><img data-template-id="hero-image" class="canva-image w-full h-72 md:h-96 object-cover" loading="lazy" src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=1400&q=80" alt="Immersive outdoor campsite scene surrounded by pine trees and mountains.">
      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-6 md:p-10">
       <div class="max-w-2xl">
        <p class="text-sm uppercase tracking-[0.3em] text-white/80 mb-2">Welcome back</p>
@@ -240,9 +268,9 @@
        <div class="rounded-full bg-[#E9E3D8] px-3 py-1 text-sm text-[#2D5A27]">3 days away</div>
       </div>
       <div class="grid sm:grid-cols-3 gap-3 text-sm text-[#4b4b4b]">
-       <div class="rounded-2xl bg-[#F8F7F3] p-3"><p class="text-xs uppercase tracking-[0.2em] text-[#6D8B54]">Weather</p><p class="mt-1 font-semibold">Cool mornings</p></div>
-       <div class="rounded-2xl bg-[#F8F7F3] p-3"><p class="text-xs uppercase tracking-[0.2em] text-[#6D8B54]">Group</p><p class="mt-1 font-semibold">6 campers</p></div>
-       <div class="rounded-2xl bg-[#F8F7F3] p-3"><p class="text-xs uppercase tracking-[0.2em] text-[#6D8B54]">Status</p><p class="mt-1 font-semibold">Almost ready</p></div>
+       <div class="rounded-[20px] bg-[#F8F7F3] p-3"><p class="text-xs uppercase tracking-[0.2em] text-[#6D8B54]">Weather</p><p class="mt-1 font-semibold">Cool mornings</p></div>
+       <div class="rounded-[20px] bg-[#F8F7F3] p-3"><p class="text-xs uppercase tracking-[0.2em] text-[#6D8B54]">Group</p><p class="mt-1 font-semibold">6 campers</p></div>
+       <div class="rounded-[20px] bg-[#F8F7F3] p-3"><p class="text-xs uppercase tracking-[0.2em] text-[#6D8B54]">Status</p><p class="mt-1 font-semibold">Almost ready</p></div>
       </div>
      </div>
      <div class="content-card p-5 md:p-6">
@@ -282,7 +310,7 @@
       </div>
       <div>
        <label data-template-id="trip-notes-label" for="trip-notes-input" class="canva-text block text-sm font-medium mb-1" style="color: rgb(55, 65, 81); font-weight: 500; font-style: normal; font-size: 16px;">Trip Notes</label><textarea id="trip-notes-input" class="w-full border rounded-lg px-3 py-2 text-sm resize-none" rows="3" placeholder="e.g. Special notes..."></textarea>
-      </div><button data-template-id="add-trip-btn" type="submit" class="canva-button px-5 py-2 rounded-lg font-medium text-sm" style="background: rgb(26, 46, 26); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Add Trip</button>
+      </div><button data-template-id="add-trip-btn" type="submit" class="canva-button px-5 py-2 rounded-full font-medium text-sm bg-[#2D5A27] text-white">Add Trip</button>
      </form>
      <div id="trip-list" class="space-y-3"></div>
     </div>
@@ -292,77 +320,11 @@
      <h2 data-template-id="grocery-title" class="canva-text heading-font mb-6 section-heading">Meal Planner</h2><!-- Recipes -->
      <div class="content-card p-5 md:p-6 mb-6">
       <h3 data-template-id="recipes-subtitle" class="canva-text font-bold text-lg mb-4" style="color: rgb(26, 46, 26); font-weight: 700; font-style: normal; font-size: 19px;">Camp Recipes</h3>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-3" id="recipe-buttons"><button class="recipe-btn rounded-[20px] p-4 text-center bg-[#F8F7F3] border border-[#E9E3D8] hover:scale-[1.01] transition-transform" data-recipe="burgers">
-        <div class="text-3xl mb-1">
-         🍔
-        </div>
-        <div class="text-sm font-medium">
-         Campfire Burgers
-        </div></button> <button class="recipe-btn rounded-xl p-4 text-center bg-yellow-50 border border-yellow-200 hover:scale-105 transition-transform" data-recipe="walking">
-        <div class="text-3xl mb-1">
-         🌮
-        </div>
-        <div class="text-sm font-medium">
-         Walking Tacos
-        </div></button> <button class="recipe-btn rounded-xl p-4 text-center bg-amber-50 border border-amber-200 hover:scale-105 transition-transform" data-recipe="pancakes">
-        <div class="text-3xl mb-1">
-         🥞
-        </div>
-        <div class="text-sm font-medium">
-         Pancakes
-        </div></button> <button class="recipe-btn rounded-xl p-4 text-center bg-yellow-50 border border-yellow-200 hover:scale-105 transition-transform" data-recipe="tacos">
-        <div class="text-3xl mb-1">
-         🌮
-        </div>
-        <div class="text-sm font-medium">
-         Campground Tacos
-        </div></button> <button class="recipe-btn rounded-xl p-4 text-center bg-orange-50 border border-orange-200 hover:scale-105 transition-transform" data-recipe="foil">
-        <div class="text-3xl mb-1">
-         🔥
-        </div>
-        <div class="text-sm font-medium">
-         Campfire Foil Packets
-        </div></button> <button class="recipe-btn rounded-xl p-4 text-center bg-emerald-50 border border-emerald-200 hover:scale-105 transition-transform" data-recipe="chili">
-        <div class="text-3xl mb-1">
-         🍲
-        </div>
-        <div class="text-sm font-medium">
-         Dutch Oven Chili
-        </div></button> <button class="recipe-btn rounded-xl p-4 text-center bg-sky-50 border border-sky-200 hover:scale-105 transition-transform" data-recipe="kabobs">
-        <div class="text-3xl mb-1">
-         🥩
-        </div>
-        <div class="text-sm font-medium">
-         Kabobs
-        </div></button> <button class="recipe-btn rounded-xl p-4 text-center bg-yellow-100 border border-yellow-300 hover:scale-105 transition-transform" data-recipe="burritos">
-        <div class="text-3xl mb-1">
-         🌯
-        </div>
-        <div class="text-sm font-medium">
-         Breakfast Burritos
-        </div></button> <button class="recipe-btn rounded-xl p-4 text-center bg-red-100 border border-red-300 hover:scale-105 transition-transform" data-recipe="hotdogs">
-        <div class="text-3xl mb-1">
-         🌭
-        </div>
-        <div class="text-sm font-medium">
-         Hot Dogs &amp; Beans
-        </div></button> <button class="recipe-btn rounded-xl p-4 text-center bg-yellow-50 border border-yellow-200 hover:scale-105 transition-transform" data-recipe="quesadillas">
-        <div class="text-3xl mb-1">
-         🧀
-        </div>
-        <div class="text-sm font-medium">
-         Campfire Quesadillas
-        </div></button> <button class="recipe-btn rounded-xl p-4 text-center bg-orange-100 border border-orange-300 hover:scale-105 transition-transform" data-recipe="nachos">
-        <div class="text-3xl mb-1">
-         🍌
-        </div>
-        <div class="text-sm font-medium">
-         Campfire Nachos
-        </div></button>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3" id="recipe-buttons"><button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="burgers"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="utensils-crossed" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Campfire Burgers</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="walking"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="sandwich" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Walking Tacos</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="pancakes"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="cake-slice" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Pancakes</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="tacos"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="chef-hat" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Campground Tacos</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="foil"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="flame" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Campfire Foil Packets</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="chili"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="potato" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Dutch Oven Chili</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="kabobs"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="beef" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Kabobs</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="burritos"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="wrap-text" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Breakfast Burritos</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="hotdogs"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="salad" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Hot Dogs &amp; Beans</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="quesadillas"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="chevron-right" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Campfire Quesadillas</div></button> <button class="recipe-btn rounded-[22px] p-4 text-left bg-[#F8F7F3] hover:scale-[1.01] transition-transform" data-recipe="nachos"><div class="w-10 h-10 rounded-2xl bg-[#E9E3D8] flex items-center justify-center mb-3"><i data-lucide="cookie" class="w-4 h-4 text-[#2D5A27]"></i></div><div class="text-sm font-semibold">Campfire Nachos</div></button>
       </div>
-      <div id="recipe-detail" class="mt-4 hidden bg-white rounded-xl border p-6"><button id="recipe-back" type="button" class="text-sm text-emerald-700 mb-4 hover:underline">← Back to recipes</button>
-       <h3 id="recipe-detail-title" class="text-xl font-bold heading-font mb-4"></h3>
-       <div id="recipe-detail-content" class="text-sm text-gray-700 space-y-2"></div><button id="add-recipe-to-grocery-btn" type="button" class="mt-4 px-5 py-2 rounded-lg font-medium text-sm bg-emerald-600 hover:bg-emerald-700 text-white">✓ Add Ingredients to Grocery List</button>
+      <div id="recipe-detail" class="mt-4 hidden rounded-[24px] bg-[#F8F7F3] p-6 shadow-[0_12px_28px_rgba(43,43,43,0.04)]"><button id="recipe-back" type="button" class="mb-4 flex items-center gap-2 text-sm font-medium text-[#2D5A27] hover:underline"><i data-lucide="arrow-left" class="w-4 h-4"></i>Back to recipes</button>
+       <h3 id="recipe-detail-title" class="text-xl font-semibold heading-font mb-4"></h3>
+       <div id="recipe-detail-content" class="text-sm text-gray-700 space-y-2"></div><button id="add-recipe-to-grocery-btn" type="button" class="mt-4 px-5 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white">Add Ingredients to Grocery List</button>
       </div>
      </div><!-- Grocery List -->
      <div class="border-t border-[#E9E3D8] pt-6">
@@ -379,12 +341,12 @@
     <div class="p-4 md:p-8 max-w-5xl mx-auto">
      <h2 data-template-id="kitchen-title" class="canva-text heading-font mb-4 section-heading">Packing List</h2>
      <p data-template-id="kitchen-desc" class="canva-text text-gray-600 mb-6" style="color: rgb(107, 114, 128); font-weight: 400; font-style: normal; font-size: 16px;">Tap items to check them off. Green means packed!</p>
-     <div class="mb-8 p-4 bg-[#F8F7F3] rounded-2xl border border-[#E9E3D8]">
+     <div class="mb-8 p-4 bg-[#F8F7F3] rounded-[24px] shadow-[0_12px_28px_rgba(43,43,43,0.04)]">
       <h3 class="text-sm font-semibold text-gray-700 mb-3">Weather-Based Suggestions</h3>
       <div class="flex flex-col md:flex-row gap-3">
        <div class="flex-1">
         <label for="packing-weather-select" class="text-xs text-gray-600 block mb-1">Select conditions:</label> <select id="packing-weather-select" class="w-full border rounded-lg px-3 py-2 text-sm"> <option value="">-- Choose weather --</option> <option value="hot">Hot &amp; Sunny</option> <option value="cold">Cold &amp; Snowy</option> <option value="rainy">Rainy &amp; Damp</option> <option value="windy">Windy &amp; Dry</option> </select>
-       </div><button id="apply-weather-btn" type="button" class="px-4 py-2 rounded-lg text-sm font-medium bg-teal-600 hover:bg-teal-700 text-white h-fit">Apply Suggestions</button>
+       </div><button id="apply-weather-btn" type="button" class="px-4 py-2 rounded-full text-sm font-medium bg-[#2D5A27] text-white h-fit">Apply Suggestions</button>
       </div>
      </div>
      <form id="custom-item-form" class="mb-6 flex flex-col sm:flex-row gap-2">
@@ -410,51 +372,18 @@
       <h3 class="text-lg font-bold mb-4 heading-font">Can't Decide?</h3>
       <p class="text-gray-600 text-sm mb-6">Close your eyes... tap the button... eat what it picks!</p>
       <div id="roulette-grid" class="grid grid-cols-3 gap-3 mb-8">
-       <div class="roulette-item rounded-xl p-4 bg-white border text-center">
-        <span class="text-2xl">🍲</span>
-        <p class="text-sm font-medium mt-1">Dutch Oven Chili</p>
-       </div>
-       <div class="roulette-item rounded-xl p-4 bg-white border text-center">
-        <span class="text-2xl">🍔</span>
-        <p class="text-sm font-medium mt-1">Campfire Burgers</p>
-       </div>
-       <div class="roulette-item rounded-xl p-4 bg-white border text-center">
-        <span class="text-2xl">🌮</span>
-        <p class="text-sm font-medium mt-1">Campground Tacos</p>
-       </div>
-       <div class="roulette-item rounded-xl p-4 bg-white border text-center">
-        <span class="text-2xl">🌮</span>
-        <p class="text-sm font-medium mt-1">Campground Tacos</p>
-       </div>
-       <div class="roulette-item rounded-xl p-4 bg-white border text-center">
-        <span class="text-2xl">🥞</span>
-        <p class="text-sm font-medium mt-1">Pancakes</p>
-       </div>
-       <div class="roulette-item rounded-xl p-4 bg-white border text-center">
-        <span class="text-2xl">🥩</span>
-        <p class="text-sm font-medium mt-1">Grilled Kabobs</p>
-       </div>
-       <div class="roulette-item rounded-xl p-4 bg-white border text-center">
-        <span class="text-2xl">🔥</span>
-        <p class="text-sm font-medium mt-1">Campfire Foil Packets</p>
-       </div>
-       <div class="roulette-item rounded-xl p-4 bg-white border text-center">
-        <span class="text-2xl">🌯</span>
-        <p class="text-sm font-medium mt-1">Breakfast Burritos</p>
-       </div>
-       <div class="roulette-item rounded-xl p-4 bg-white border text-center">
-        <span class="text-2xl">🌭</span>
-        <p class="text-sm font-medium mt-1">Hot Dogs &amp; Beans</p>
-       </div>
-       <div class="roulette-item rounded-xl p-4 bg-white border text-center">
-        <span class="text-2xl">🧀</span>
-        <p class="text-sm font-medium mt-1">Campfire Quesadillas</p>
-       </div>
-       <div class="roulette-item rounded-xl p-4 bg-white border text-center">
-        <span class="text-2xl">🍌</span>
-        <p class="text-sm font-medium mt-1">Campfire Nachos</p>
-       </div>
-      </div><button id="roulette-spin" type="button" class="w-full px-8 py-3 rounded-full font-bold text-lg bg-amber-400 hover:bg-amber-500 text-white"><i data-lucide="shuffle" style="display:inline-block;width:24px;height:24px;margin-right:6px;vertical-align:middle;"></i>Shuffle</button>
+       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="pot-hot" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Dutch Oven Chili</p></div>
+       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="grill" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Campfire Burgers</p></div>
+       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="chef-hat" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Campground Tacos</p></div>
+       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="chef-hat" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Campground Tacos</p></div>
+       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="cake-slice" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Pancakes</p></div>
+       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="beef" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Grilled Kabobs</p></div>
+       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="flame" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Campfire Foil Packets</p></div>
+       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="wrap-text" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Breakfast Burritos</p></div>
+       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="salad" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Hot Dogs &amp; Beans</p></div>
+       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="chevron-right" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Campfire Quesadillas</p></div>
+       <div class="roulette-item p-4 text-center"><div class="w-8 h-8 rounded-full bg-[#E9E3D8] flex items-center justify-center mx-auto mb-2"><i data-lucide="cookie" class="w-4 h-4 text-[#2D5A27]"></i></div><p class="text-sm font-medium">Campfire Nachos</p></div>
+      </div><button id="roulette-spin" type="button" class="w-full px-8 py-3 rounded-full font-bold text-lg bg-[#2D5A27] text-white"><i data-lucide="shuffle" style="display:inline-block;width:20px;height:20px;margin-right:6px;vertical-align:middle;"></i>Shuffle</button>
      </div>
      <div>
       <h3 class="text-sm font-semibold uppercase tracking-[0.24em] text-[#6D8B54] mb-3">Planned Activities</h3>
@@ -628,9 +557,9 @@
       container.innerHTML = trips.map(function(t) {
         var dates = (t.dates || '').split('|');
         var rating = t.rating || 0;
-        var stars = Array.from({length: 5}, function(_, i) { return '<span class="star text-xl ' + (i < rating ? 'text-amber-400' : 'text-gray-300') + '" data-rate-trip="' + t.__backendId + '" data-rating="' + (i + 1) + '">★</span>'; }).join('');
+        var stars = Array.from({length: 5}, function(_, i) { return '<span class="star text-xl ' + (i < rating ? 'text-[#2D5A27]' : 'text-[#A4B494]') + '" data-rate-trip="' + t.__backendId + '" data-rating="' + (i + 1) + '">★</span>'; }).join('');
         var wouldMakeAgain = t.would_make_again;
-        return '<div class="bg-white rounded-lg border p-4"><div class="flex items-start justify-between mb-3"><div><div class="font-medium text-lg">' + (t.location || 'Unknown') + '</div><div class="text-sm text-gray-600">' + (dates[0] || '') + ' to ' + (dates[1] || '') + '</div></div><button type="button" class="text-red-400 hover:text-red-600 text-sm font-medium" data-delete-trip="' + t.__backendId + '">Delete</button></div><div class="space-y-2"><div class="flex items-center gap-2"><span class="text-xs text-gray-600 font-medium">Rating:</span><div class="flex gap-1">' + stars + '</div></div><div class="flex items-center gap-3"><button type="button" class="toggle-again ' + (wouldMakeAgain ? 'bg-emerald-100 text-emerald-700 border-emerald-300' : 'bg-gray-100 text-gray-600 border-gray-300') + ' flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border transition-colors" data-toggle-again="' + t.__backendId + '"><span class="text-sm">' + (wouldMakeAgain ? '✓' : '✓') + '</span>Would make again</button></div>' + (t.notes ? '<div class="text-sm text-gray-700 bg-emerald-50 rounded p-2">' + t.notes + '</div>' : '') + '</div></div>';
+        return '<div class="rounded-[24px] bg-[#F8F7F3] p-4 shadow-[0_12px_28px_rgba(43,43,43,0.04)]"><div class="flex items-start justify-between mb-3"><div><div class="font-medium text-lg">' + (t.location || 'Unknown') + '</div><div class="text-sm text-gray-600">' + (dates[0] || '') + ' to ' + (dates[1] || '') + '</div></div><button type="button" class="text-[#2D5A27] text-sm font-medium" data-delete-trip="' + t.__backendId + '">Delete</button></div><div class="space-y-2"><div class="flex items-center gap-2"><span class="text-xs text-gray-600 font-medium">Rating:</span><div class="flex gap-1">' + stars + '</div></div><div class="flex items-center gap-3"><button type="button" class="toggle-again ' + (wouldMakeAgain ? 'bg-[#E9E3D8] text-[#2D5A27]' : 'bg-[#F8F7F3] text-[#2B2B2B]') + ' flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium transition-colors" data-toggle-again="' + t.__backendId + '"><span class="text-sm">✓</span>Would make again</button></div>' + (t.notes ? '<div class="text-sm text-gray-700 rounded-[16px] bg-[#F8F7F3] p-2">' + t.notes + '</div>' : '') + '</div></div>';
       }).join('');
       
       container.querySelectorAll('[data-rate-trip]').forEach(function(star) {
@@ -787,7 +716,7 @@
         var catItems = items.filter(function(i) { return i.category === cat; });
         if (!catItems.length) return '';
         return '<div><h4 class="font-bold text-sm text-gray-700 mb-2">' + cat + '</h4><div class="space-y-2">' + catItems.map(function(i) {
-          return '<div class="checkbox-item ' + (i.checked ? 'checked' : '') + ' flex items-center gap-3 p-2 rounded-lg border cursor-pointer" data-toggle-grocery="' + i.id + '"><span class="w-5 h-5 rounded border-2 flex items-center justify-center text-xs ' + (i.checked ? 'bg-white text-emerald-700 border-white' : 'border-gray-300') + '">' + (i.checked ? '✓' : '') + '</span><span class="text-sm flex-1 ' + (i.checked ? 'line-through opacity-70' : '') + '">' + i.item_name + '</span><button type="button" class="text-red-400 hover:text-red-600 text-sm font-medium px-2" data-delete-grocery="' + i.id + '">✕</button></div>';
+          return '<div class="checkbox-item ' + (i.checked ? 'checked' : '') + ' flex items-center gap-3 p-2 rounded-[18px] cursor-pointer" data-toggle-grocery="' + i.id + '"><span class="w-5 h-5 rounded-full border-2 flex items-center justify-center text-xs ' + (i.checked ? 'bg-white text-[#2D5A27] border-white' : 'border-[#E9E3D8]') + '">' + (i.checked ? '✓' : '') + '</span><span class="text-sm flex-1 ' + (i.checked ? 'line-through opacity-70' : '') + '">' + i.item_name + '</span><button type="button" class="text-[#2D5A27] text-sm font-medium px-2" data-delete-grocery="' + i.id + '"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div>';
         }).join('') + '</div></div>';
       }).join('');
 
@@ -811,17 +740,17 @@
 
     // Recipes
     var recipes = {
-      burgers: { title: '🍔 Campfire Burgers', content: '<p><b>Cook:</b> Camp Grill or Campfire</p><p><b>Prep:</b> 10 minutes | <b>Cook:</b> 10–15 minutes</p><p><b>Equipment Needed:</b><br>• Camp grill grate or portable grill<br>• Spatula<br>• Tongs<br>• Plate or tray</p><p><b>Ingredients:</b><br>• 1 lb ground beef<br>• 4 hamburger buns<br>• 4 slices cheddar cheese (optional)<br>• Lettuce<br>• 1 tomato, sliced<br>• 1/2 onion, sliced<br>• Pickles<br>• Ketchup<br>• Mustard<br>• Mayonnaise<br>• Salt and pepper to taste</p><p><b>Instructions:</b><br>1. Preheat your camp grill or place a grill grate over hot campfire coals.<br>2. Season the hamburger patties with salt and pepper.<br>3. Grill the burgers for 4–6 minutes per side, or until they reach your preferred level of doneness.<br>4. Add cheese during the last minute of cooking, if desired.<br>5. Lightly toast the buns on the grill for 1–2 minutes.<br>6. Assemble the burgers with your favorite toppings and condiments.<br>7. Serve with chips, baked beans, pasta salad, or grilled corn for an easy campsite meal.</p><p><b>Camping Tips:</b><br>✔ Form burger patties at home and store them in a sealed container or freezer bag<br>✔ Keep raw meat in the coldest part of your cooler until you\'re ready to cook<br>✔ Bring pre-sliced toppings to save prep time at the campsite</p>', ingredients: [{item:'1 lb ground beef',category:'Meat'},{item:'4 hamburger buns',category:'Pantry'},{item:'4 slices cheddar cheese',category:'Refrigerated'},{item:'Lettuce',category:'Produce'},{item:'1 tomato',category:'Produce'},{item:'1/2 onion',category:'Produce'},{item:'Pickles',category:'Pantry'},{item:'Ketchup',category:'Pantry'},{item:'Mustard',category:'Pantry'},{item:'Mayonnaise',category:'Pantry'},{item:'Salt',category:'Pantry'},{item:'Black pepper',category:'Pantry'}] },
-      walking: { title: '🌮 Walking Tacos', content: '<p><b>Cook:</b> Camp Stove or Grill</p><p><b>Prep:</b> 10 minutes | <b>Cook:</b> 15 minutes</p><p><b>Equipment Needed:</b><br>• Camp stove or grill<br>• Large skillet<br>• Spatula<br>• Serving spoon</p><p><b>Ingredients:</b><br>• 1 lb ground beef<br>• 1 packet taco seasoning<br>• ⅔ cup water<br>• 8 individual bags of corn chips (such as Fritos® or Doritos®)<br>• 2 cups shredded cheddar cheese<br>• 2 cups shredded lettuce<br>• 2 tomatoes, diced<br>• ½ cup diced onion (optional)<br>• Salsa<br>• Sour cream<br>• Jalapeños (optional)</p><p><b>Instructions:</b><br>1. Heat a large skillet over medium heat on your camp stove or grill.<br>2. Brown the ground beef, breaking it into small pieces as it cooks. Drain excess grease if needed.<br>3. Stir in the taco seasoning and water. Simmer for about 5 minutes until the sauce thickens.<br>4. Slightly crush the individual bags of chips and open them from the top.<br>5. Spoon the seasoned taco meat directly into each bag.<br>6. Top with cheese, lettuce, tomatoes, onion, salsa, sour cream, and any other favorite toppings.<br>7. Mix with a fork and enjoy straight from the bag for an easy, no-mess campsite meal.</p><p><b>Camping Tips:</b><br>✔ Prep toppings at home and store them in airtight containers.<br>✔ Walking tacos are perfect for feeding a crowd with very little cleanup.<br>✔ Keep toppings chilled in your cooler until serving.<br>✔ Provide forks and let everyone customize their own taco bag.</p>', ingredients: [{item:'1 lb ground beef',category:'Meat'},{item:'1 packet taco seasoning',category:'Pantry'},{item:'8 bags corn chips',category:'Snacks'},{item:'2 cups shredded cheese',category:'Refrigerated'},{item:'2 cups shredded lettuce',category:'Produce'},{item:'2 tomatoes',category:'Produce'},{item:'½ cup diced onion',category:'Produce'},{item:'Salsa',category:'Pantry'},{item:'Sour cream',category:'Refrigerated'},{item:'Jalapeños',category:'Produce'}] },
-      pancakes: { title: '🥞 Campground Pancakes', content: '<p><b>Cook:</b> Camp Stove or Griddle</p><p><b>Prep:</b> 5 minutes | <b>Cook:</b> 10–15 minutes</p><p><b>Equipment Needed:</b><br>• Camp stove or griddle<br>• Mixing bowl<br>• Whisk or spoon<br>• Measuring cup<br>• Spatula<br>• Skillet or griddle</p><p><b>Ingredients:</b><br>• 2 cups complete pancake mix<br>• Water (according to package directions)<br>• Butter or cooking spray<br>• Maple syrup<br>• Fresh berries or sliced bananas (optional)<br>• Powdered sugar (optional)</p><p><b>Instructions:</b><br>1. Preheat your skillet or griddle over medium heat.<br>2. Prepare the pancake batter according to the package directions.<br>3. Lightly grease the cooking surface with butter or cooking spray.<br>4. Pour about ¼ cup of batter onto the hot griddle for each pancake.<br>5. Cook until bubbles begin to form on the surface and the edges start to set.<br>6. Flip the pancakes and cook for another 1–2 minutes until golden brown.<br>7. Serve warm with butter, maple syrup, and your favorite toppings.</p><p><b>Camping Tips:</b><br>✔ Use a complete pancake mix that only requires water to reduce packing and cleanup.<br>✔ Pre-measure the dry mix into a resealable bag before your trip.<br>✔ Add chocolate chips or blueberries to the batter for an easy camping treat.<br>✔ Pair with bacon, sausage, or fresh fruit for a hearty campsite breakfast.</p>', ingredients: [{item:'2 cups pancake mix',category:'Pantry'},{item:'Butter or cooking spray',category:'Pantry'},{item:'Maple syrup',category:'Pantry'},{item:'Fresh berries or bananas',category:'Produce'},{item:'Powdered sugar',category:'Pantry'}] },
-      tacos: { title: '🌮 Campground Beef Tacos', content: '<p><b>Cook:</b> Camp Stove or Grill</p><p><b>Prep:</b> 10 minutes | <b>Cook:</b> 15 minutes</p><p><b>Equipment Needed:</b><br>• Camp stove/grill with skillet<br>• Large skillet<br>• Spatula</p><p><b>Ingredients:</b><br>• 1 lb ground beef<br>• 1 packet (1.25 oz) taco seasoning<br>• 1/2 cup water<br>• 6 taco shells or 6 flour tortillas<br>• 1 cup shredded lettuce<br>• 1 cup shredded cheddar cheese<br>• 1 tomato, diced<br>• 1/2 onion, diced<br>• 1 cup salsa<br>• 1/2 cup sour cream<br>• Jalapeños</p><p><b>Instructions:</b><br>1. Heat a large skillet over medium heat on your camp stove or grill.<br>2. Brown the ground beef, breaking it apart as it cooks. Drain excess grease if needed.<br>3. Stir in the taco seasoning and water. Simmer for about 5 minutes until the sauce thickens.<br>4. Warm taco shells or tortillas over the grill or in a skillet.<br>5. Fill each taco with seasoned beef and your favorite toppings.<br>6. Serve immediately and enjoy around the campfire.</p><p><b>Camping Tips:</b><br>✔ Prep toppings at home<br>✔ Cook meat ahead and reheat at camp<br>✔ Leftover meat is perfect for breakfast burritos</p>', ingredients: [{item:'1 lb ground beef',category:'Meat'},{item:'1 packet taco seasoning',category:'Pantry'},{item:'1/2 cup water',category:'Pantry'},{item:'6 taco shells or tortillas',category:'Pantry'},{item:'1 cup lettuce',category:'Produce'},{item:'1 cup cheddar cheese',category:'Refrigerated'},{item:'1 tomato',category:'Produce'},{item:'1/2 onion',category:'Produce'},{item:'1 cup salsa',category:'Pantry'},{item:'1/2 cup sour cream',category:'Refrigerated'},{item:'Jalapeños',category:'Produce'}] },
-      foil: { title: '🔥 Campfire Foil Packets', content: '<p><b>Cook:</b> Campfire</p><p><b>Prep:</b> 10 minutes | <b>Cook:</b> 20–25 minutes</p><p><b>Equipment Needed:</b><br>• Cutting board<br>• Knife<br>• Aluminum foil<br>• Tongs or cooking fork</p><p><b>Ingredients:</b><br>• 3 smoked sausages, sliced<br>• 3 potatoes, diced<br>• 2 cups corn kernels<br>• 3 bell peppers, chopped<br>• 2 onions, diced<br>• 4 tablespoons butter<br>• 2 teaspoons garlic powder<br>• 1 tablespoon Cajun seasoning<br>• 1 tablespoon Italian seasoning</p><p><b>Instructions:</b><br>1. Slice sausage and vegetables.<br>2. Divide evenly onto foil sheets (6 packets).<br>3. Add butter and season to taste.<br>4. Seal packets tightly.<br>5. Cook over campfire coals or grill for 20–25 minutes, flipping halfway.</p><p><b>Camping Tips:</b><br>✔ Prep vegetables at home to save time<br>✔ Make packets double-layered foil for durability<br>✔ Perfect for vegetarian swaps—skip the sausage and add tofu</p>', ingredients: [{item:'3 smoked sausages',category:'Meat'},{item:'3 potatoes',category:'Produce'},{item:'2 cups corn',category:'Produce'},{item:'3 bell peppers',category:'Produce'},{item:'2 onions',category:'Produce'},{item:'4 tablespoons butter',category:'Refrigerated'},{item:'2 teaspoons garlic powder',category:'Pantry'},{item:'1 tablespoon Cajun seasoning',category:'Pantry'},{item:'1 tablespoon Italian seasoning',category:'Pantry'},{item:'Aluminum foil',category:'Pantry'}] },
-      chili: { title: '🍲 Dutch Oven Chili', content: '<p><b>Cook:</b> Dutch Oven</p><p><b>Prep:</b> 15 minutes | <b>Cook:</b> 45 minutes</p><p><b>Equipment Needed:</b><br>• Dutch oven<br>• Campfire or grill<br>• Large spoon for stirring<br>• Tongs</p><p><b>Ingredients:</b><br>• 2 lbs ground beef<br>• 3 cans (15 oz each) beans (kidney, black, pinto mix)<br>• 2 cans (28 oz each) crushed tomatoes<br>• 1 large onion, diced<br>• 6 cloves garlic, minced<br>• 3 tablespoons chili powder<br>• Salt and pepper to taste</p><p><b>Instructions:</b><br>1. Brown beef in Dutch oven over campfire.<br>2. Add onion and garlic.<br>3. Add beans, tomatoes, and spices.<br>4. Simmer 45 minutes, stirring occasionally.</p><p><b>Camping Tips:</b><br>✔ Brown meat ahead at home to save prep time<br>✔ Use canned beans to minimize cleanup<br>✔ Serves 8–10 people—perfect for group camping</p>', ingredients: [{item:'2 lbs ground beef',category:'Meat'},{item:'3 cans beans',category:'Pantry'},{item:'2 cans crushed tomatoes',category:'Pantry'},{item:'1 large onion',category:'Produce'},{item:'6 cloves garlic',category:'Produce'},{item:'3 tablespoons chili powder',category:'Pantry'},{item:'Salt',category:'Pantry'},{item:'Black pepper',category:'Pantry'}] },
-      kabobs: { title: '🥩 Grilled Kabobs', content: '<p><b>Cook:</b> Grill or Campfire</p><p><b>Prep:</b> 15 minutes | <b>Cook:</b> 10–12 minutes</p><p><b>Equipment Needed:</b><br>• 8–10 wooden or metal skewers<br>• Cutting board<br>• Knife<br>• Tongs<br>• Grill grate or campfire grill</p><p><b>Ingredients:</b><br>• 3 lbs steak or chicken, cubed<br>• 4 bell peppers, chunked<br>• 2 onions, chunked<br>• 2 zucchinis, sliced<br>• 2 cups mushrooms<br>• 1 cup marinade (oil, vinegar, garlic, herbs)</p><p><b>Instructions:</b><br>1. Thread on skewers alternating meat and vegetables.<br>2. Grill 10–12 minutes, turning occasionally until meat is cooked through.</p><p><b>Camping Tips:</b><br>✔ Soak wooden skewers for 30 minutes before using<br>✔ Marinate meat the night before for maximum flavor<br>✔ Keep a spray bottle handy to control flare-ups</p>', ingredients: [{item:'3 lbs steak or chicken',category:'Meat'},{item:'4 bell peppers',category:'Produce'},{item:'2 onions',category:'Produce'},{item:'2 zucchinis',category:'Produce'},{item:'2 cups mushrooms',category:'Produce'},{item:'1 cup marinade',category:'Pantry'},{item:'8–10 skewers',category:'Pantry'}] },
-      burritos: { title: '🌯 Breakfast Burritos', content: '<p><b>Cook:</b> Propane Stove</p><p><b>Prep:</b> 10 minutes | <b>Cook:</b> 15 minutes</p><p><b>Equipment Needed:</b><br>• Propane stove<br>• 2 large skillets or griddle<br>• Spatula<br>• Knife and cutting board</p><p><b>Ingredients:</b><br>• 8 eggs<br>• 1 lb breakfast sausage<br>• 2 cups shredded cheese<br>• 2 cups hash browns (frozen or fresh)<br>• 8 large flour tortillas<br>• 1 cup salsa<br>• Aluminum foil</p><p><b>Instructions:</b><br>1. Cook sausage and hash browns.<br>2. Scramble eggs.<br>3. Fill tortillas with eggs, sausage, potatoes, and cheese.<br>4. Wrap in foil and warm over the fire for a few minutes.</p><p><b>Camping Tips:</b><br>✔ Prep and wrap at home for grab-and-go breakfast<br>✔ Keep wrapped burritos in a cooler until ready to eat<br>✔ Makes great leftovers—reheat over campfire in foil</p>', ingredients: [{item:'8 eggs',category:'Refrigerated'},{item:'1 lb breakfast sausage',category:'Meat'},{item:'2 cups cheese',category:'Refrigerated'},{item:'2 cups hash browns',category:'Frozen'},{item:'8 flour tortillas',category:'Pantry'},{item:'1 cup salsa',category:'Pantry'},{item:'Aluminum foil',category:'Pantry'}] },
-      hotdogs: { title: '🌭 Hot Dogs & Campfire Beans', content: '<p><b>Cook:</b> Campfire or Grill</p><p><b>Prep:</b> 5 minutes | <b>Cook:</b> 10–15 minutes</p><p><b>Equipment Needed:</b><br>• Skewers or hot dog roasting forks<br>• Large pot or Dutch oven<br>• Serving tongs<br>• Campfire grate or grill</p><p><b>Ingredients:</b><br>• 6 hot dogs<br>• 6 hot dog buns<br>• 1 can (15 oz) baked beans<br>• 1 cup potato chips<br>• Mustard<br>• Ketchup<br>• Relish</p><p><b>Instructions:</b><br>1. Roast hot dogs over the campfire or grill using skewers.<br>2. Heat baked beans in a pot over the fire.<br>3. Serve with chips and your favorite toppings.</p><p><b>Camping Tips:</b><br>✔ Hot dogs cook quickly—perfect for impatient campers<br>✔ Bring pre-made condiment packets to save space<br>✔ Kids love roasting their own—fun campfire activity</p>', ingredients: [{item:'6 hot dogs',category:'Meat'},{item:'6 hot dog buns',category:'Pantry'},{item:'1 can baked beans',category:'Pantry'},{item:'1 cup potato chips',category:'Snacks'},{item:'Mustard',category:'Pantry'},{item:'Ketchup',category:'Pantry'},{item:'Relish',category:'Pantry'}] },
-      quesadillas: { title: '🧀 Campfire Quesadillas', content: '<p><b>Cook:</b> Campfire or Grill</p><p><b>Prep:</b> 10 minutes | <b>Cook:</b> 10–12 minutes</p><p><b>Equipment Needed:</b><br>• Campfire grill grate or cast iron skillet<br>• Spatula<br>• Tongs<br>• Plate or tray</p><p><b>Ingredients:</b><br>• 8 large flour tortillas<br>• 3 cups shredded cheddar or Mexican cheese blend<br>• 1 lb cooked chicken or ground beef<br>• 2 bell peppers, diced<br>• 1 onion, diced<br>• 2 cups corn kernels<br>• 1 can black beans, drained<br>• Salsa<br>• Sour cream<br>• Jalapeños (optional)</p><p><b>Instructions:</b><br>1. Preheat your cast iron skillet or grill grate over medium-high heat.<br>2. Place one tortilla on the hot surface.<br>3. Layer with cheese, cooked meat, peppers, onion, corn, and beans on half the tortilla.<br>4. Fold the tortilla in half and cook for 2–3 minutes until golden and crispy.<br>5. Flip carefully with a spatula and cook the other side for 2–3 minutes until cheese melts.<br>6. Remove to a plate and repeat with remaining tortillas.<br>7. Serve with salsa and sour cream.</p><p><b>Camping Tips:</b><br>✔ Cook meat ahead at home and pack in a sealed container<br>✔ Pre-chop vegetables at home to save prep time at camp<br>✔ Keep toppings organized in small containers for easy assembly<br>✔ Make vegetarian quesadillas by skipping the meat and adding extra beans and vegetables</p>', ingredients: [{item:'8 large flour tortillas',category:'Pantry'},{item:'3 cups shredded cheese',category:'Refrigerated'},{item:'1 lb cooked chicken or beef',category:'Meat'},{item:'2 bell peppers',category:'Produce'},{item:'1 onion',category:'Produce'},{item:'2 cups corn',category:'Produce'},{item:'1 can black beans',category:'Pantry'},{item:'Salsa',category:'Pantry'},{item:'Sour cream',category:'Refrigerated'},{item:'Jalapeños',category:'Produce'}] },
-      nachos: { title: '🍌 Campfire Nachos', content: '<p><b>Cook:</b> Campfire or Grill</p><p><b>Prep:</b> 10 minutes | <b>Cook:</b> 8–10 minutes</p><p><b>Equipment Needed:</b><br>• Cast iron skillet or aluminum foil pan<br>• Spatula<br>• Tongs<br>• Serving utensils</p><p><b>Ingredients:</b><br>• 1 large bag tortilla chips<br>• 3 cups shredded cheddar cheese<br>• 1 lb ground beef or seasoned cooked meat<br>• 1 can black beans, drained and warmed<br>• 1 cup diced tomatoes<br>• 1/2 cup diced onion<br>• 2 jalapeños, sliced<br>• Sour cream<br>• Salsa<br>• Guacamole or sliced avocado (optional)<br>• Fresh cilantro (optional)</p><p><b>Instructions:</b><br>1. Lay out a layer of tortilla chips in a cast iron skillet or aluminum foil pan.<br>2. Top with shredded cheese and cooked ground beef.<br>3. Add another layer of chips, cheese, and beef.<br>4. Place the skillet over medium-high heat for 5–7 minutes until cheese melts completely.<br>5. Top with warm beans, tomatoes, onion, and jalapeños.<br>6. Drizzle with sour cream and salsa.<br>7. Serve immediately with extra toppings on the side.</p><p><b>Camping Tips:</b><br>✔ Use a cast iron skillet for even heating and easy campfire cooking<br>✔ Brown the meat at home and reheat at camp for faster prep<br>✔ Layer chips and cheese strategically so everything melts evenly<br>✔ Keep toppings in separate containers and add after melting for best texture<br>✔ Make it vegetarian by using beans as the main protein instead of meat</p>', ingredients: [{item:'1 large bag tortilla chips',category:'Snacks'},{item:'3 cups shredded cheese',category:'Refrigerated'},{item:'1 lb ground beef',category:'Meat'},{item:'1 can black beans',category:'Pantry'},{item:'1 cup diced tomatoes',category:'Produce'},{item:'1/2 cup diced onion',category:'Produce'},{item:'2 jalapeños',category:'Produce'},{item:'Sour cream',category:'Refrigerated'},{item:'Salsa',category:'Pantry'},{item:'Avocado',category:'Produce'},{item:'Fresh cilantro',category:'Produce'}] }
+      burgers: { title: 'Campfire Burgers', content: '<p><b>Cook:</b> Camp Grill or Campfire</p><p><b>Prep:</b> 10 minutes | <b>Cook:</b> 10–15 minutes</p><p><b>Equipment Needed:</b><br>• Camp grill grate or portable grill<br>• Spatula<br>• Tongs<br>• Plate or tray</p><p><b>Ingredients:</b><br>• 1 lb ground beef<br>• 4 hamburger buns<br>• 4 slices cheddar cheese (optional)<br>• Lettuce<br>• 1 tomato, sliced<br>• 1/2 onion, sliced<br>• Pickles<br>• Ketchup<br>• Mustard<br>• Mayonnaise<br>• Salt and pepper to taste</p><p><b>Instructions:</b><br>1. Preheat your camp grill or place a grill grate over hot campfire coals.<br>2. Season the hamburger patties with salt and pepper.<br>3. Grill the burgers for 4–6 minutes per side, or until they reach your preferred level of doneness.<br>4. Add cheese during the last minute of cooking, if desired.<br>5. Lightly toast the buns on the grill for 1–2 minutes.<br>6. Assemble the burgers with your favorite toppings and condiments.<br>7. Serve with chips, baked beans, pasta salad, or grilled corn for an easy campsite meal.</p><p><b>Camping Tips:</b><br>• Form burger patties at home and store them in a sealed container or freezer bag<br>• Keep raw meat in the coldest part of your cooler until you\'re ready to cook<br>• Bring pre-sliced toppings to save prep time at the campsite</p>', ingredients: [{item:'1 lb ground beef',category:'Meat'},{item:'4 hamburger buns',category:'Pantry'},{item:'4 slices cheddar cheese',category:'Refrigerated'},{item:'Lettuce',category:'Produce'},{item:'1 tomato',category:'Produce'},{item:'1/2 onion',category:'Produce'},{item:'Pickles',category:'Pantry'},{item:'Ketchup',category:'Pantry'},{item:'Mustard',category:'Pantry'},{item:'Mayonnaise',category:'Pantry'},{item:'Salt',category:'Pantry'},{item:'Black pepper',category:'Pantry'}] },
+      walking: { title: 'Walking Tacos', content: '<p><b>Cook:</b> Camp Stove or Grill</p><p><b>Prep:</b> 10 minutes | <b>Cook:</b> 15 minutes</p><p><b>Equipment Needed:</b><br>• Camp stove or grill<br>• Large skillet<br>• Spatula<br>• Serving spoon</p><p><b>Ingredients:</b><br>• 1 lb ground beef<br>• 1 packet taco seasoning<br>• ⅔ cup water<br>• 8 individual bags of corn chips (such as Fritos® or Doritos®)<br>• 2 cups shredded cheddar cheese<br>• 2 cups shredded lettuce<br>• 2 tomatoes, diced<br>• ½ cup diced onion (optional)<br>• Salsa<br>• Sour cream<br>• Jalapeños (optional)</p><p><b>Instructions:</b><br>1. Heat a large skillet over medium heat on your camp stove or grill.<br>2. Brown the ground beef, breaking it into small pieces as it cooks. Drain excess grease if needed.<br>3. Stir in the taco seasoning and water. Simmer for about 5 minutes until the sauce thickens.<br>4. Slightly crush the individual bags of chips and open them from the top.<br>5. Spoon the seasoned taco meat directly into each bag.<br>6. Top with cheese, lettuce, tomatoes, onion, salsa, sour cream, and any other favorite toppings.<br>7. Mix with a fork and enjoy straight from the bag for an easy, no-mess campsite meal.</p><p><b>Camping Tips:</b><br>• Prep toppings at home and store them in airtight containers.<br>• Walking tacos are perfect for feeding a crowd with very little cleanup.<br>• Keep toppings chilled in your cooler until serving.<br>• Provide forks and let everyone customize their own taco bag.</p>', ingredients: [{item:'1 lb ground beef',category:'Meat'},{item:'1 packet taco seasoning',category:'Pantry'},{item:'8 bags corn chips',category:'Snacks'},{item:'2 cups shredded cheese',category:'Refrigerated'},{item:'2 cups shredded lettuce',category:'Produce'},{item:'2 tomatoes',category:'Produce'},{item:'½ cup diced onion',category:'Produce'},{item:'Salsa',category:'Pantry'},{item:'Sour cream',category:'Refrigerated'},{item:'Jalapeños',category:'Produce'}] },
+      pancakes: { title: 'Campground Pancakes', content: '<p><b>Cook:</b> Camp Stove or Griddle</p><p><b>Prep:</b> 5 minutes | <b>Cook:</b> 10–15 minutes</p><p><b>Equipment Needed:</b><br>• Camp stove or griddle<br>• Mixing bowl<br>• Whisk or spoon<br>• Measuring cup<br>• Spatula<br>• Skillet or griddle</p><p><b>Ingredients:</b><br>• 2 cups complete pancake mix<br>• Water (according to package directions)<br>• Butter or cooking spray<br>• Maple syrup<br>• Fresh berries or sliced bananas (optional)<br>• Powdered sugar (optional)</p><p><b>Instructions:</b><br>1. Preheat your skillet or griddle over medium heat.<br>2. Prepare the pancake batter according to the package directions.<br>3. Lightly grease the cooking surface with butter or cooking spray.<br>4. Pour about ¼ cup of batter onto the hot griddle for each pancake.<br>5. Cook until bubbles begin to form on the surface and the edges start to set.<br>6. Flip the pancakes and cook for another 1–2 minutes until golden brown.<br>7. Serve warm with butter, maple syrup, and your favorite toppings.</p><p><b>Camping Tips:</b><br>• Use a complete pancake mix that only requires water to reduce packing and cleanup.<br>• Pre-measure the dry mix into a resealable bag before your trip.<br>• Add chocolate chips or blueberries to the batter for an easy camping treat.<br>• Pair with bacon, sausage, or fresh fruit for a hearty campsite breakfast.</p>', ingredients: [{item:'2 cups pancake mix',category:'Pantry'},{item:'Butter or cooking spray',category:'Pantry'},{item:'Maple syrup',category:'Pantry'},{item:'Fresh berries or bananas',category:'Produce'},{item:'Powdered sugar',category:'Pantry'}] },
+      tacos: { title: 'Campground Beef Tacos', content: '<p><b>Cook:</b> Camp Stove or Grill</p><p><b>Prep:</b> 10 minutes | <b>Cook:</b> 15 minutes</p><p><b>Equipment Needed:</b><br>• Camp stove/grill with skillet<br>• Large skillet<br>• Spatula</p><p><b>Ingredients:</b><br>• 1 lb ground beef<br>• 1 packet (1.25 oz) taco seasoning<br>• 1/2 cup water<br>• 6 taco shells or 6 flour tortillas<br>• 1 cup shredded lettuce<br>• 1 cup shredded cheddar cheese<br>• 1 tomato, diced<br>• 1/2 onion, diced<br>• 1 cup salsa<br>• 1/2 cup sour cream<br>• Jalapeños</p><p><b>Instructions:</b><br>1. Heat a large skillet over medium heat on your camp stove or grill.<br>2. Brown the ground beef, breaking it apart as it cooks. Drain excess grease if needed.<br>3. Stir in the taco seasoning and water. Simmer for about 5 minutes until the sauce thickens.<br>4. Warm taco shells or tortillas over the grill or in a skillet.<br>5. Fill each taco with seasoned beef and your favorite toppings.<br>6. Serve immediately and enjoy around the campfire.</p><p><b>Camping Tips:</b><br>• Prep toppings at home<br>• Cook meat ahead and reheat at camp<br>• Leftover meat is perfect for breakfast burritos</p>', ingredients: [{item:'1 lb ground beef',category:'Meat'},{item:'1 packet taco seasoning',category:'Pantry'},{item:'1/2 cup water',category:'Pantry'},{item:'6 taco shells or tortillas',category:'Pantry'},{item:'1 cup lettuce',category:'Produce'},{item:'1 cup cheddar cheese',category:'Refrigerated'},{item:'1 tomato',category:'Produce'},{item:'1/2 onion',category:'Produce'},{item:'1 cup salsa',category:'Pantry'},{item:'1/2 cup sour cream',category:'Refrigerated'},{item:'Jalapeños',category:'Produce'}] },
+      foil: { title: 'Campfire Foil Packets', content: '<p><b>Cook:</b> Campfire</p><p><b>Prep:</b> 10 minutes | <b>Cook:</b> 20–25 minutes</p><p><b>Equipment Needed:</b><br>• Cutting board<br>• Knife<br>• Aluminum foil<br>• Tongs or cooking fork</p><p><b>Ingredients:</b><br>• 3 smoked sausages, sliced<br>• 3 potatoes, diced<br>• 2 cups corn kernels<br>• 3 bell peppers, chopped<br>• 2 onions, diced<br>• 4 tablespoons butter<br>• 2 teaspoons garlic powder<br>• 1 tablespoon Cajun seasoning<br>• 1 tablespoon Italian seasoning</p><p><b>Instructions:</b><br>1. Slice sausage and vegetables.<br>2. Divide evenly onto foil sheets (6 packets).<br>3. Add butter and season to taste.<br>4. Seal packets tightly.<br>5. Cook over campfire coals or grill for 20–25 minutes, flipping halfway.</p><p><b>Camping Tips:</b><br>• Prep vegetables at home to save time<br>• Make packets double-layered foil for durability<br>• Perfect for vegetarian swaps—skip the sausage and add tofu</p>', ingredients: [{item:'3 smoked sausages',category:'Meat'},{item:'3 potatoes',category:'Produce'},{item:'2 cups corn',category:'Produce'},{item:'3 bell peppers',category:'Produce'},{item:'2 onions',category:'Produce'},{item:'4 tablespoons butter',category:'Refrigerated'},{item:'2 teaspoons garlic powder',category:'Pantry'},{item:'1 tablespoon Cajun seasoning',category:'Pantry'},{item:'1 tablespoon Italian seasoning',category:'Pantry'},{item:'Aluminum foil',category:'Pantry'}] },
+      chili: { title: 'Dutch Oven Chili', content: '<p><b>Cook:</b> Dutch Oven</p><p><b>Prep:</b> 15 minutes | <b>Cook:</b> 45 minutes</p><p><b>Equipment Needed:</b><br>• Dutch oven<br>• Campfire or grill<br>• Large spoon for stirring<br>• Tongs</p><p><b>Ingredients:</b><br>• 2 lbs ground beef<br>• 3 cans (15 oz each) beans (kidney, black, pinto mix)<br>• 2 cans (28 oz each) crushed tomatoes<br>• 1 large onion, diced<br>• 6 cloves garlic, minced<br>• 3 tablespoons chili powder<br>• Salt and pepper to taste</p><p><b>Instructions:</b><br>1. Brown beef in Dutch oven over campfire.<br>2. Add onion and garlic.<br>3. Add beans, tomatoes, and spices.<br>4. Simmer 45 minutes, stirring occasionally.</p><p><b>Camping Tips:</b><br>• Brown meat ahead at home to save prep time<br>• Use canned beans to minimize cleanup<br>• Serves 8–10 people—perfect for group camping</p>', ingredients: [{item:'2 lbs ground beef',category:'Meat'},{item:'3 cans beans',category:'Pantry'},{item:'2 cans crushed tomatoes',category:'Pantry'},{item:'1 large onion',category:'Produce'},{item:'6 cloves garlic',category:'Produce'},{item:'3 tablespoons chili powder',category:'Pantry'},{item:'Salt',category:'Pantry'},{item:'Black pepper',category:'Pantry'}] },
+      kabobs: { title: 'Grilled Kabobs', content: '<p><b>Cook:</b> Grill or Campfire</p><p><b>Prep:</b> 15 minutes | <b>Cook:</b> 10–12 minutes</p><p><b>Equipment Needed:</b><br>• 8–10 wooden or metal skewers<br>• Cutting board<br>• Knife<br>• Tongs<br>• Grill grate or campfire grill</p><p><b>Ingredients:</b><br>• 3 lbs steak or chicken, cubed<br>• 4 bell peppers, chunked<br>• 2 onions, chunked<br>• 2 zucchinis, sliced<br>• 2 cups mushrooms<br>• 1 cup marinade (oil, vinegar, garlic, herbs)</p><p><b>Instructions:</b><br>1. Thread on skewers alternating meat and vegetables.<br>2. Grill 10–12 minutes, turning occasionally until meat is cooked through.</p><p><b>Camping Tips:</b><br>• Soak wooden skewers for 30 minutes before using<br>• Marinate meat the night before for maximum flavor<br>• Keep a spray bottle handy to control flare-ups</p>', ingredients: [{item:'3 lbs steak or chicken',category:'Meat'},{item:'4 bell peppers',category:'Produce'},{item:'2 onions',category:'Produce'},{item:'2 zucchinis',category:'Produce'},{item:'2 cups mushrooms',category:'Produce'},{item:'1 cup marinade',category:'Pantry'},{item:'8–10 skewers',category:'Pantry'}] },
+      burritos: { title: 'Breakfast Burritos', content: '<p><b>Cook:</b> Propane Stove</p><p><b>Prep:</b> 10 minutes | <b>Cook:</b> 15 minutes</p><p><b>Equipment Needed:</b><br>• Propane stove<br>• 2 large skillets or griddle<br>• Spatula<br>• Knife and cutting board</p><p><b>Ingredients:</b><br>• 8 eggs<br>• 1 lb breakfast sausage<br>• 2 cups shredded cheese<br>• 2 cups hash browns (frozen or fresh)<br>• 8 large flour tortillas<br>• 1 cup salsa<br>• Aluminum foil</p><p><b>Instructions:</b><br>1. Cook sausage and hash browns.<br>2. Scramble eggs.<br>3. Fill tortillas with eggs, sausage, potatoes, and cheese.<br>4. Wrap in foil and warm over the fire for a few minutes.</p><p><b>Camping Tips:</b><br>• Prep and wrap at home for grab-and-go breakfast<br>• Keep wrapped burritos in a cooler until ready to eat<br>• Makes great leftovers—reheat over campfire in foil</p>', ingredients: [{item:'8 eggs',category:'Refrigerated'},{item:'1 lb breakfast sausage',category:'Meat'},{item:'2 cups cheese',category:'Refrigerated'},{item:'2 cups hash browns',category:'Frozen'},{item:'8 flour tortillas',category:'Pantry'},{item:'1 cup salsa',category:'Pantry'},{item:'Aluminum foil',category:'Pantry'}] },
+      hotdogs: { title: 'Hot Dogs & Campfire Beans', content: '<p><b>Cook:</b> Campfire or Grill</p><p><b>Prep:</b> 5 minutes | <b>Cook:</b> 10–15 minutes</p><p><b>Equipment Needed:</b><br>• Skewers or hot dog roasting forks<br>• Large pot or Dutch oven<br>• Serving tongs<br>• Campfire grate or grill</p><p><b>Ingredients:</b><br>• 6 hot dogs<br>• 6 hot dog buns<br>• 1 can (15 oz) baked beans<br>• 1 cup potato chips<br>• Mustard<br>• Ketchup<br>• Relish</p><p><b>Instructions:</b><br>1. Roast hot dogs over the campfire or grill using skewers.<br>2. Heat baked beans in a pot over the fire.<br>3. Serve with chips and your favorite toppings.</p><p><b>Camping Tips:</b><br>• Hot dogs cook quickly—perfect for impatient campers<br>• Bring pre-made condiment packets to save space<br>• Kids love roasting their own—fun campfire activity</p>', ingredients: [{item:'6 hot dogs',category:'Meat'},{item:'6 hot dog buns',category:'Pantry'},{item:'1 can baked beans',category:'Pantry'},{item:'1 cup potato chips',category:'Snacks'},{item:'Mustard',category:'Pantry'},{item:'Ketchup',category:'Pantry'},{item:'Relish',category:'Pantry'}] },
+      quesadillas: { title: 'Campfire Quesadillas', content: '<p><b>Cook:</b> Campfire or Grill</p><p><b>Prep:</b> 10 minutes | <b>Cook:</b> 10–12 minutes</p><p><b>Equipment Needed:</b><br>• Campfire grill grate or cast iron skillet<br>• Spatula<br>• Tongs<br>• Plate or tray</p><p><b>Ingredients:</b><br>• 8 large flour tortillas<br>• 3 cups shredded cheddar or Mexican cheese blend<br>• 1 lb cooked chicken or ground beef<br>• 2 bell peppers, diced<br>• 1 onion, diced<br>• 2 cups corn kernels<br>• 1 can black beans, drained<br>• Salsa<br>• Sour cream<br>• Jalapeños (optional)</p><p><b>Instructions:</b><br>1. Preheat your cast iron skillet or grill grate over medium-high heat.<br>2. Place one tortilla on the hot surface.<br>3. Layer with cheese, cooked meat, peppers, onion, corn, and beans on half the tortilla.<br>4. Fold the tortilla in half and cook for 2–3 minutes until golden and crispy.<br>5. Flip carefully with a spatula and cook the other side for 2–3 minutes until cheese melts.<br>6. Remove to a plate and repeat with remaining tortillas.<br>7. Serve with salsa and sour cream.</p><p><b>Camping Tips:</b><br>• Cook meat ahead at home and pack in a sealed container<br>• Pre-chop vegetables at home to save prep time at camp<br>• Keep toppings organized in small containers for easy assembly<br>• Make vegetarian quesadillas by skipping the meat and adding extra beans and vegetables</p>', ingredients: [{item:'8 large flour tortillas',category:'Pantry'},{item:'3 cups shredded cheese',category:'Refrigerated'},{item:'1 lb cooked chicken or beef',category:'Meat'},{item:'2 bell peppers',category:'Produce'},{item:'1 onion',category:'Produce'},{item:'2 cups corn',category:'Produce'},{item:'1 can black beans',category:'Pantry'},{item:'Salsa',category:'Pantry'},{item:'Sour cream',category:'Refrigerated'},{item:'Jalapeños',category:'Produce'}] },
+      nachos: { title: 'Campfire Nachos', content: '<p><b>Cook:</b> Campfire or Grill</p><p><b>Prep:</b> 10 minutes | <b>Cook:</b> 8–10 minutes</p><p><b>Equipment Needed:</b><br>• Cast iron skillet or aluminum foil pan<br>• Spatula<br>• Tongs<br>• Serving utensils</p><p><b>Ingredients:</b><br>• 1 large bag tortilla chips<br>• 3 cups shredded cheddar cheese<br>• 1 lb ground beef or seasoned cooked meat<br>• 1 can black beans, drained and warmed<br>• 1 cup diced tomatoes<br>• 1/2 cup diced onion<br>• 2 jalapeños, sliced<br>• Sour cream<br>• Salsa<br>• Guacamole or sliced avocado (optional)<br>• Fresh cilantro (optional)</p><p><b>Instructions:</b><br>1. Lay out a layer of tortilla chips in a cast iron skillet or aluminum foil pan.<br>2. Top with shredded cheese and cooked ground beef.<br>3. Add another layer of chips, cheese, and beef.<br>4. Place the skillet over medium-high heat for 5–7 minutes until cheese melts completely.<br>5. Top with warm beans, tomatoes, onion, and jalapeños.<br>6. Drizzle with sour cream and salsa.<br>7. Serve immediately with extra toppings on the side.</p><p><b>Camping Tips:</b><br>• Use a cast iron skillet for even heating and easy campfire cooking<br>• Brown the meat at home and reheat at camp for faster prep<br>• Layer chips and cheese strategically so everything melts evenly<br>• Keep toppings in separate containers and add after melting for best texture<br>• Make it vegetarian by using beans as the main protein instead of meat</p>', ingredients: [{item:'1 large bag tortilla chips',category:'Snacks'},{item:'3 cups shredded cheese',category:'Refrigerated'},{item:'1 lb ground beef',category:'Meat'},{item:'1 can black beans',category:'Pantry'},{item:'1 cup diced tomatoes',category:'Produce'},{item:'1/2 cup diced onion',category:'Produce'},{item:'2 jalapeños',category:'Produce'},{item:'Sour cream',category:'Refrigerated'},{item:'Salsa',category:'Pantry'},{item:'Avocado',category:'Produce'},{item:'Fresh cilantro',category:'Produce'}] }
     };
 
     var currentRecipeKey = '';
@@ -876,7 +805,7 @@
         var isDefault = defaultItems.has(name);
         var quantity = record ? (record.quantity ? ' (' + record.quantity + ')' : '') : '';
         var category = record ? (record.category ? record.category : '') : '';
-        return '<div class="checkbox-item ' + (checked ? 'checked' : '') + ' flex items-center gap-2 p-3 rounded-lg border cursor-pointer" data-kitchen-name="' + name + '"><span class="w-5 h-5 rounded border-2 flex items-center justify-center text-xs ' + (checked ? 'bg-white text-emerald-700 border-white' : 'border-gray-300') + '">' + (checked ? '✓' : '') + '</span><div class="text-sm flex-1"><div>' + name + quantity + '</div>' + (category ? '<div class="text-xs text-gray-500">' + category + '</div>' : '') + '</div>' + (record && !isDefault ? '<button type="button" class="text-red-400 hover:text-red-600 text-sm ml-auto" data-delete-kitchen="' + record.__backendId + '">✕</button>' : '') + '</div>';
+        return '<div class="checkbox-item ' + (checked ? 'checked' : '') + ' flex items-center gap-2 p-3 rounded-[18px] cursor-pointer" data-kitchen-name="' + name + '"><span class="w-5 h-5 rounded-full border-2 flex items-center justify-center text-xs ' + (checked ? 'bg-white text-[#2D5A27] border-white' : 'border-[#E9E3D8]') + '">' + (checked ? '✓' : '') + '</span><div class="text-sm flex-1"><div>' + name + quantity + '</div>' + (category ? '<div class="text-xs text-gray-500">' + category + '</div>' : '') + '</div>' + (record && !isDefault ? '<button type="button" class="text-[#2D5A27] text-sm ml-auto" data-delete-kitchen="' + record.__backendId + '"><i data-lucide="trash-2" class="w-4 h-4"></i></button>' : '') + '</div>';
       }).join('');
       container.querySelectorAll('[data-kitchen-name]').forEach(function(el) {
         el.addEventListener('click', async function(e) {
@@ -906,19 +835,19 @@
 
     // Activities
     var activityLibrary = [
-      { name: '🥾 Hiking', items: ['Water bottles','Snacks','First aid kit','Flashlight','Map'] },
-      { name: '🎣 Fishing', items: ['Fishing rod','Bait','Net','Cooler','Ice'] },
-      { name: '⭐ Stargazing', items: ['Blanket','Flashlight','Star chart','Bug spray','Warm clothes'] },
-      { name: '🃏 Card Games', items: ['Playing cards','Table','Lantern','Snacks','Comfortable chairs'] },
-      { name: '🔥 S\'mores', items: ['Graham crackers','Chocolate','Marshmallows','Skewers','Fire starter'] },
-      { name: '🚴 Biking', items: ['Bikes','Helmets','Repair kit','Water','Sunscreen'] },
-      { name: '📷 Photography', items: ['Camera','Extra batteries','Memory cards','Tripod','Cleaning supplies'] }
+      { name: 'Hiking', items: ['Water bottles','Snacks','First aid kit','Flashlight','Map'] },
+      { name: 'Fishing', items: ['Fishing rod','Bait','Net','Cooler','Ice'] },
+      { name: 'Stargazing', items: ['Blanket','Flashlight','Star chart','Bug spray','Warm clothes'] },
+      { name: 'Card Games', items: ['Playing cards','Table','Lantern','Snacks','Comfortable chairs'] },
+      { name: 'S\'mores', items: ['Graham crackers','Chocolate','Marshmallows','Skewers','Fire starter'] },
+      { name: 'Biking', items: ['Bikes','Helmets','Repair kit','Water','Sunscreen'] },
+      { name: 'Photography', items: ['Camera','Extra batteries','Memory cards','Tripod','Cleaning supplies'] }
     ];
 
     (function renderActivityLibrary() {
       var container = document.getElementById('activity-library');
       container.innerHTML = activityLibrary.map(function(a) {
-        return '<button type="button" class="activity-lib-btn rounded-xl p-4 text-center bg-pink-50 border border-pink-200 hover:scale-105 transition-transform" data-activity-name="' + a.name + '"><div class="text-2xl mb-1">' + a.name.split(' ')[0] + '</div><div class="text-xs font-medium">' + a.name.substring(2) + '</div></button>';
+        return '<button type="button" class="activity-lib-btn rounded-[22px] p-4 text-left bg-[#F8F7F3]" data-activity-name="' + a.name + '"><div class="text-sm font-semibold">' + a.name + '</div></button>';
       }).join('');
       container.querySelectorAll('.activity-lib-btn').forEach(function(btn) {
         btn.addEventListener('click', async function() {
@@ -957,7 +886,7 @@
       container.innerHTML = items.map(function(i) {
         var activity = activityLibrary.find(function(a) { return a.name === i.item_name; });
         var itemList = activity ? activity.items.join(', ') : '';
-        return '<div class="bg-white rounded-lg border p-4 space-y-2"><div class="flex items-center justify-between"><span class="text-sm font-medium">' + i.item_name + '</span><button type="button" class="text-red-400 hover:text-red-600 text-sm" data-delete-activity="' + i.__backendId + '">✕</button></div>' + (itemList ? '<div class="text-xs text-gray-600 bg-pink-50 rounded p-2"><b>Items needed:</b> ' + itemList + '</div>' : '') + '</div>';
+        return '<div class="rounded-[22px] bg-[#F8F7F3] p-4 space-y-2 shadow-[0_12px_28px_rgba(43,43,43,0.04)]"><div class="flex items-center justify-between"><span class="text-sm font-medium">' + i.item_name + '</span><button type="button" class="text-[#2D5A27] text-sm" data-delete-activity="' + i.__backendId + '"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div>' + (itemList ? '<div class="text-xs text-gray-600 rounded-[16px] bg-[#F8F7F3] p-2"><b>Items needed:</b> ' + itemList + '</div>' : '') + '</div>';
       }).join('');
       container.querySelectorAll('[data-delete-activity]').forEach(function(btn) {
         btn.addEventListener('click', async function() {
@@ -1035,7 +964,7 @@
         return;
       }
       container.innerHTML = photos.map(function(p) {
-        return '<div class="bg-white rounded-lg border overflow-hidden shadow-sm hover:shadow-md transition-shadow"><img src="' + (p.notes || 'https://via.placeholder.com/300') + '" class="w-full h-48 object-cover"><div class="p-3"><p class="font-medium text-sm mb-1">' + p.meal_name + '</p>' + (p.day ? '<p class="text-xs text-gray-500 mb-2">' + p.day + '</p>' : '') + '<button type="button" class="text-red-400 hover:text-red-600 text-xs font-medium" data-delete-photo="' + p.__backendId + '">Delete</button></div></div>';
+        return '<div class="overflow-hidden rounded-[24px] bg-[#F8F7F3] shadow-[0_12px_28px_rgba(43,43,43,0.04)]"><img src="' + (p.notes || 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80') + '" class="w-full h-48 object-cover"><div class="p-3"><p class="font-medium text-sm mb-1">' + p.meal_name + '</p>' + (p.day ? '<p class="text-xs text-gray-500 mb-2">' + p.day + '</p>' : '') + '<button type="button" class="text-[#2D5A27] text-xs font-medium" data-delete-photo="' + p.__backendId + '">Delete</button></div></div>';
       }).join('');
       container.querySelectorAll('[data-delete-photo]').forEach(function(btn) {
         btn.addEventListener('click', async function() {
