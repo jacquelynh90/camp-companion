@@ -2110,7 +2110,7 @@
       container.innerHTML = items.map(function(i) {
         var activity = activityLibrary.find(function(a) { return a.name === i.item_name; });
         var itemList = activity ? activity.items.join(', ') : '';
-        return '<div class="rounded-[22px] bg-[#F8F7F3] p-4 space-y-2 shadow-[0_12px_28px_rgba(43,43,43,0.04)]"><div class="flex items-center justify-between"><span class="text-sm font-medium">' + i.item_name + '</span><button type="button" class="text-[#2D5A27] text-sm" data-delete-activity="' + i.__backendId + '"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div>' + (itemList ? '<div class="text-xs text-gray-600 rounded-[16px] bg-[#F8F7F3] p-2"><b>Items needed:</b> ' + itemList + '</div>' : '') + '</div>';
+        return '<div class="rounded-[22px] bg-[#F8F7F3] p-4 space-y-2 shadow-[0_12px_28px_rgba(43,43,43,0.04)]"><div class="flex items-center justify-between"><span class="text-sm font-medium">' + i.item_name + '</span><button type="button" class="rounded-full border border-[#f0b8b8] bg-white/90 text-[#B3261E] text-base font-bold leading-none px-2.5 py-1" data-delete-activity="' + i.__backendId + '" aria-label="Delete planned activity">-</button></div>' + (itemList ? '<div class="text-xs text-gray-600 rounded-[16px] bg-[#F8F7F3] p-2"><b>Items needed:</b> ' + itemList + '</div>' : '') + '</div>';
       }).join('');
       container.querySelectorAll('[data-delete-activity]').forEach(function(btn) {
         btn.addEventListener('click', async function() {
